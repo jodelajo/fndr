@@ -1,6 +1,10 @@
 ## How to use the json.server?
 
-script: $ npm run dev
+script:
+
+```
+npm run dev
+```
 
 This will start the json server and "npm start" simultaniously.
-The react app will run on localhost:3000 and the json server will run on locathost:8000.
+The react app will run on localhost:3000 and the json server will run on localhost:8000.
