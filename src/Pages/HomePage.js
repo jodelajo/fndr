@@ -6,7 +6,6 @@ import "../Pages/HomePage.css";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
-  console.log("Show Agency", agencies);
 
   const fetchData = () => {
     const response = db;
