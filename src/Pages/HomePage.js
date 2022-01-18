@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import db from "../db (1).json";
-import axios from "axios";
+import { MdLocationCity, MdWebAsset, MdLocationOn } from "react-icons/md";
+import "../Pages/HomePage.css";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
@@ -18,14 +19,48 @@ export default function HomePage() {
 
   return (
     <div>
-      <h1>FNDR</h1>;
+      <div className="logo">
+        <h1>FNDR</h1>
+      </div>
       {agencies.map((agency) => {
         return (
-          <div key={agency.id}>
-            <h2>Company Name: {agency.name}</h2>
-            <h5>Company Size: {agency.companySize}</h5>
-            <h5>{agency.city}</h5>
-            <h5>{agency.website}</h5>
+          <div className="block">
+            <div className="agency-card-container">
+              <div className="company-logo">
+                <img src={agency.eguideImageSrc} />
+              </div>
+              <div className="agency-card-info" key={agency.id}>
+                <div className="company-name">
+                  <h2>{agency.name}</h2>
+                </div>
+                <div className="company-info">
+                  <div>
+                    <h5>
+                      <span>
+                        <MdLocationCity />
+                      </span>
+                      {agency.companySize} Employees
+                    </h5>
+                  </div>
+                  <div>
+                    <h5>
+                      <span>
+                        <MdLocationOn />
+                      </span>
+                      {agency.city}
+                    </h5>
+                  </div>
+                  <div>
+                    <h5>
+                      <span>
+                        <MdWebAsset />
+                      </span>
+                      <a href={agency.website}>web site</a>
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
       })}
