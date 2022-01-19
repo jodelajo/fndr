@@ -1,3 +1,12 @@
+.main-agencies {
+  display: grid;
+  width: 100%;
+  justify-content: center;
+  margin-left: 30px;
+  /* grid-template-columns: repeat(1, 400px); */
+  /* border: solid 1px red; */
+}
+
 .agency-card-container {
   display: grid;
   justify-content: center;
@@ -5,13 +14,14 @@
   grid-template-columns: repeat(2, 100px);
   height: 150px;
   grid-column-gap: 20px;
-
+  border: 1px solid grey;
   padding: 20px;
+  width: 300px;
 }
 
 .company-logo {
   display: grid;
-  justify-content: left;
+  /* justify-content: left; */
   max-width: 30px;
 }
 .agency-card-info {
