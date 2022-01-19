@@ -26,7 +26,10 @@ export default function HomePage() {
           <div className="block">
             <div className="agency-card-container">
               <div className="company-logo">
-                <img src={agency.eguideImageSrc} />
+                <img
+                  src={agency.eguideImageSrc}
+                  alt={`${agency.name} company logo`}
+                />
               </div>
               <div className="agency-card-info" key={agency.id}>
                 <div className="company-name">
