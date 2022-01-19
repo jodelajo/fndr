@@ -1,14 +1,11 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import db from "../db (1).json";
+
 import { MdLocationCity, MdWebAsset, MdLocationOn } from "react-icons/md";
-import "../Pages/HomePage.css";
+import "./Agencies.css";
 
-export default function Agencies() {
-  const [agency, SetAgency] = useState([]);
-
+export default function Agencies({ agency }) {
   return (
-    <div className="block">
+    <div className="main-card">
       <div className="agency-card-container">
         <div className="company-logo">
           <img

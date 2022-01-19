@@ -12,50 +12,5 @@
 .block {
   margin: 10px;
 }
-.agency-card-container {
-  display: grid;
-  justify-content: center;
-  margin-top: 40px;
-  grid-template-columns: repeat(2, 100px);
-
-  grid-column-gap: 20px;
-  border-bottom: 1px solid rgb(119, 118, 118);
-}
-
-.company-logo {
-  display: grid;
-  justify-content: left;
-  max-width: 30px;
-}
-.agency-card-info {
-  display: grid;
-  grid-template-columns: repeat(1, 190px);
-}
-.company-name {
-  width: 40px;
-  margin-right: 25px;
-  font-size: 14px;
-}
-.company-info {
-  display: grid;
-  justify-content: left;
-  margin-top: 15px;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-.company-info h5 {
-  margin-bottom: 5px;
-}
-.icon-gap {
-  margin-right: 10px;
-  color: rgb(8, 8, 133);
-}
-.www-link a {
-  text-decoration: none;
-  color: black;
-}
-.www-link a:hover {
-  color: rgb(33, 14, 204);
-}
 
 /* DESKTOP STYLES */
