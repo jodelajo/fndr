@@ -46,12 +46,16 @@
 .company-info h5 {
   margin-bottom: 5px;
 }
-span {
+.icon-gap {
   margin-right: 10px;
   color: rgb(8, 8, 133);
 }
-a {
+.www-link a {
   text-decoration: none;
   color: black;
 }
+.www-link a:hover {
+  color: rgb(33, 14, 204);
+}
+
 /* DESKTOP STYLES */

@@ -38,7 +38,7 @@ export default function HomePage() {
                 <div className="company-info">
                   <div>
                     <h5>
-                      <span>
+                      <span className="icon-gap">
                         <MdLocationCity />
                       </span>
                       {agency.companySize} Employees
@@ -46,18 +46,20 @@ export default function HomePage() {
                   </div>
                   <div>
                     <h5>
-                      <span>
+                      <span className="icon-gap">
                         <MdLocationOn />
                       </span>
                       {agency.city}
                     </h5>
                   </div>
-                  <div>
+                  <div className="www-link">
                     <h5>
-                      <span>
+                      <span className="icon-gap">
                         <MdWebAsset />
                       </span>
-                      <a href={agency.website}>web site</a>
+                      <a href={agency.website} target="_blank" rel="noreferrer">
+                        web site
+                      </a>
                     </h5>
                   </div>
                 </div>
