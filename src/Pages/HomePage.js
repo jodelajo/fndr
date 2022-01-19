@@ -21,13 +21,15 @@ export default function HomePage() {
       <div className="logo">
         <h1>FNDR</h1>
       </div>
-      {agencies.map((agency) => {
-        return (
-          <div className="block">
-            <Agencies agency={agency} />
-          </div>
-        );
-      })}
+      <div className="main-card">
+        {agencies.map((agency) => {
+          return (
+            <div className="block">
+              <Agencies agency={agency} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

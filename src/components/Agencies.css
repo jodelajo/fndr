@@ -3,9 +3,10 @@
   justify-content: center;
   margin-top: 40px;
   grid-template-columns: repeat(2, 100px);
-
+  height: 150px;
   grid-column-gap: 20px;
-  border-bottom: 1px solid rgb(119, 118, 118);
+
+  padding: 20px;
 }
 
 .company-logo {
@@ -45,7 +46,8 @@
 }
 
 /* DESKTOP */
-.main-card {
-  display: grid;
-  grid-template-columns: repeat(2, 100px);
+@media (min-width: 767px) {
+  .agency-card-container {
+    border: 1px solid grey;
+  }
 }

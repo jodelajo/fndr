@@ -14,3 +14,9 @@
 }
 
 /* DESKTOP STYLES */
+@media (min-width: 767px) {
+  .main-card {
+    display: grid;
+    grid-template-columns: repeat(3, 350px);
+  }
+}

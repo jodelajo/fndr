@@ -5,7 +5,7 @@ import "./Agencies.css";
 
 export default function Agencies({ agency }) {
   return (
-    <div className="main-card">
+    <div>
       <div className="agency-card-container">
         <div className="company-logo">
           <img
