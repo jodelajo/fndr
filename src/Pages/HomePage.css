@@ -4,6 +4,9 @@
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 /* MOBILE STYLES */
+.general h1 {
+  text-align: center;
+}
 .main-card {
   display: grid;
   grid-template-columns: repeat(1, 400px);

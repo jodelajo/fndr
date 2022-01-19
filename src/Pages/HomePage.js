@@ -17,7 +17,7 @@ export default function HomePage() {
   }, []);
 
   return (
-    <div>
+    <div className="general">
       <div className="logo">
         <h1>FNDR</h1>
       </div>

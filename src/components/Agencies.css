@@ -2,7 +2,7 @@
   display: grid;
   width: 100%;
   justify-content: center;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   /* grid-template-columns: repeat(1, 400px); */
   /* border: solid 1px red; */
 }
