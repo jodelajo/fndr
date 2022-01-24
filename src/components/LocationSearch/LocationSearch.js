@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./LocationSearch.css";
 
 export default function LocationSearch({ setSearchInput }) {
   const [locations, setLocations] = useState([]);
@@ -34,11 +35,14 @@ export default function LocationSearch({ setSearchInput }) {
     });
   console.log(locationsArray);
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
+
   return (
     <div>
       {error && <div>{error}</div>}
-      <form>
-        <label htmlFor="city">locatie</label>
+      <form className="searchbar">
         <input
           id="city"
           name="city"
@@ -48,6 +52,7 @@ export default function LocationSearch({ setSearchInput }) {
           list="places"
           pattern={locationsArray}
           autoComplete="off"
+          className="inputField"
         />
         {locations && (
           <datalist id="places">
@@ -63,6 +68,9 @@ export default function LocationSearch({ setSearchInput }) {
               })}
           </datalist>
         )}
+        <button onClick={refreshPage} className="resetButton">
+          Clear
+        </button>
       </form>
     </div>
   );

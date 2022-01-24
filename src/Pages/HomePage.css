@@ -4,14 +4,23 @@
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 /* MOBILE STYLES */
-.general h1 {
-  text-align: center;
-}
-.main-card {
-  display: grid;
-  grid-template-columns: repeat(1, 400px);
+.general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  min-width: 100vw;
+  width: 100vw;
+  position: absolute;
+}
+/* .general h1 {
+  text-align: center;
+} */
+
+.main-card {
+  /* display: grid; */
+  /* grid-template-columns: repeat(1, 90vw); */
+  justify-content: center;
+  /* min-width: 100vw; */
   /* border: solid 1px pink; */
 }
 .logo {
@@ -25,9 +34,15 @@
 
 /* DESKTOP STYLES */
 @media (min-width: 767px) {
+  .general {
+    width: 100%;
+    /* max-width: 1400px; */
+    display: flex;
+    flex-direction: column;
+  }
   .main-card {
     display: grid;
-    grid-template-columns: repeat(3, 350px);
+    grid-template-columns: repeat(3, 400px);
     justify-content: center;
   }
 }

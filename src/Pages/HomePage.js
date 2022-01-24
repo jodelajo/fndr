@@ -23,7 +23,9 @@ export default function HomePage() {
       <div className="logo">
         <h1>FNDR</h1>
       </div>
+
       <LocationSearch setSearchInput={setSearchInput} />
+
       <div className="main-card">
         {agencies
           .filter((loc) => {

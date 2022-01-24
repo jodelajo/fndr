@@ -1,0 +1,22 @@
+.searchbar {
+  height: 35px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.inputField {
+  width: 240px;
+  padding-left: 6px;
+}
+.resetButton {
+  padding: 0 10px;
+  color: white;
+  background-color: rgb(8, 8, 133);
+  border: none;
+  margin-left: 8px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
