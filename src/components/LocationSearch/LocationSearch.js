@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-export default function LocationSearch() {
+export default function LocationSearch({ setSearchInput }) {
   const [locations, setLocations] = useState([]);
   const [error, setError] = useState(null);
-  const [isPending, setIsPending] = useState(true);
-  const [searchInput, setSearchInput] = useState("");
 
   const searchLocation = (searchInput) => {
     setSearchInput(searchInput);
@@ -20,27 +18,52 @@ export default function LocationSearch() {
       })
       .then((data) => {
         setLocations(data);
-        setIsPending(false);
         setError(null);
       })
       .catch((err) => {
-        setIsPending(false);
         setError(err.message);
       });
   }, []);
 
-  console.log(locations);
-  console.log(searchInput);
+  const locationsArray =
+    locations &&
+    Object.keys(locations).map((name) => {
+      const obj = {};
+      obj[name] = locations[name];
+      return obj;
+    });
+  console.log(locationsArray);
+
   return (
     <div>
       {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
-      Zoek op locatie
-      <input
-        placeholder="Zoek op locatie"
-        onChange={(e) => searchLocation(e.target.value)}
-      />
-      <button>ga</button>
+      <form>
+        <label htmlFor="city">locatie</label>
+        <input
+          id="city"
+          name="city"
+          type="text"
+          placeholder="Zoek op locatie..."
+          onChange={(e) => searchLocation(e.target.value)}
+          list="places"
+          pattern={locationsArray}
+          autoComplete="off"
+        />
+        {locations && (
+          <datalist id="places">
+            {locationsArray &&
+              locationsArray.map((loc) => {
+                const cityName = Object.keys(loc)[0];
+                const agencyCount = Object.values(loc)[0];
+                return (
+                  <option key={cityName} value={cityName}>
+                    {cityName} - {agencyCount}
+                  </option>
+                );
+              })}
+          </datalist>
+        )}
+      </form>
     </div>
   );
 }

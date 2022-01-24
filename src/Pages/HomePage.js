@@ -7,12 +7,13 @@ import LocationSearch from "../components/LocationSearch/LocationSearch";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   const fetchData = () => {
     const response = db;
     setAgencies(response.agencies);
   };
-
+  console.log("searchInput Homepage", searchInput);
   useEffect(() => {
     fetchData();
   }, []);
@@ -22,15 +23,26 @@ export default function HomePage() {
       <div className="logo">
         <h1>FNDR</h1>
       </div>
-      <LocationSearch />
+      <LocationSearch setSearchInput={setSearchInput} />
       <div className="main-card">
-        {agencies.map((agency) => {
-          return (
-            <div className="block" key={agency.id}>
-              <Agencies agency={agency} />
-            </div>
-          );
-        })}
+        {agencies
+          .filter((loc) => {
+            if (searchInput === "") {
+              return loc;
+            } else if (
+              loc.city.toLowerCase().includes(searchInput.toLocaleLowerCase())
+            ) {
+              return loc;
+            }
+            return false;
+          })
+          .map((agency) => {
+            return (
+              <div className="block" key={agency.id}>
+                <Agencies agency={agency} />
+              </div>
+            );
+          })}
       </div>
     </div>
   );
