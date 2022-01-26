@@ -40,7 +40,7 @@ export default function Agencies({ agency }) {
                   <MdWebAsset />
                 </span>
                 <a href={agency.website} target="_blank" rel="noreferrer">
-                  web site
+                  web site >>
                 </a>
               </h5>
             </div>

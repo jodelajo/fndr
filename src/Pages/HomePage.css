@@ -4,6 +4,10 @@
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
 }
 /* MOBILE STYLES */
+.loading {
+  /* bottom: 20px;
+  transform: rotate(0.2turn); */
+}
 .general h1 {
   text-align: center;
 }
@@ -12,7 +16,6 @@
   grid-template-columns: repeat(1, 400px);
   justify-content: center;
   min-width: 100vw;
-  /* border: solid 1px pink; */
 }
 .logo {
   color: rgb(8, 8, 133);

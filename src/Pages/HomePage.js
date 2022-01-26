@@ -1,19 +1,38 @@
 import React from "react";
-import { useState, useEffect } from "react";
-import db from "../db (1).json";
+import { useState, useEffect, useRef } from "react";
+import { Oval } from "react-loader-spinner";
+import axios from "axios";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
+  const page = useRef(1);
 
-  const fetchData = () => {
-    const response = db;
-    setAgencies(response.agencies);
+  console.log("AGENCIES", agencies);
+  const fetchData = async () => {
+    const response = await axios.get(
+      `http://localhost:8000/agencies?_limit=15&_page=${page.current}`
+    );
+    console.log("GETMY", response);
+
+    const dataOfAgencies = response.data;
+    setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
+    page.current = page.current + 1;
+  };
+
+  const handleScroll = (e) => {
+    if (
+      window.innerHeight + e.target.documentElement.scrollTop + 1 >=
+      e.target.documentElement.scrollHeight
+    ) {
+      fetchData();
+    }
   };
 
   useEffect(() => {
     fetchData();
+    window.addEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -24,11 +43,14 @@ export default function HomePage() {
       <div className="main-card">
         {agencies.map((agency) => {
           return (
-            <div className="block">
+            <div className="block" key={agency.id}>
               <Agencies agency={agency} />
             </div>
           );
         })}
+        <div className="loading">
+          <Oval color="#00BFFF" height={100} width={100} ariaLabel="loading" />
+        </div>
       </div>
     </div>
   );
