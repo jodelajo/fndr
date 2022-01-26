@@ -1,13 +1,15 @@
 .searchbar {
   height: 35px;
-  width: 300px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  margin-top: 20px;
 }
+
 .inputField {
-  width: 240px;
+  width: 292px;
   padding-left: 6px;
 }
+
 .resetButton {
   padding: 0 10px;
   color: white;
@@ -15,8 +17,4 @@
   border: none;
   margin-left: 8px;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
 }

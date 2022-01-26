@@ -46,10 +46,12 @@
 }
 .www-link a {
   text-decoration: none;
-  color: rgb(134, 10, 10);
+  color: rgb(33, 14, 204);
+  text-decoration: underline;
 }
 .www-link a:hover {
-  color: rgb(33, 14, 204);
+  color: rgb(166, 14, 204);
+  text-decoration: underline;
 }
 
 /* DESKTOP */

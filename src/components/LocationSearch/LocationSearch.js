@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 
-export default function LocationSearch({ setSearchInput }) {
-  const [locations, setLocations] = useState([]);
+export default function LocationSearch({ setSearchInput, searchInput }) {
+  const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
 
   const searchLocation = (searchInput) => {
@@ -26,52 +27,45 @@ export default function LocationSearch({ setSearchInput }) {
       });
   }, []);
 
-  const locationsArray =
-    locations &&
-    Object.keys(locations).map((name) => {
-      const obj = {};
-      obj[name] = locations[name];
-      return obj;
-    });
-  console.log(locationsArray);
-
-  function refreshPage() {
-    window.location.reload(false);
-  }
+  const locationsArray = convertLocationObjectToArray(locations);
 
   return (
-    <div>
+    <form className="searchbar">
+      <input
+        id="city"
+        name="city"
+        type="text"
+        placeholder="Zoek op locatie..."
+        onChange={(e) => searchLocation(e.target.value)}
+        list="places"
+        autoComplete="off"
+        className="inputField"
+        value={searchInput}
+      />
+      {locations && (
+        <datalist id="places">
+          {locationsArray &&
+            locationsArray.map((loc) => {
+              const cityName = Object.keys(loc)[0];
+              const agencyCount = Object.values(loc)[0];
+              return (
+                <option key={cityName} value={cityName}>
+                  {cityName} - {agencyCount}
+                </option>
+              );
+            })}
+        </datalist>
+      )}
+      <button
+        onClick={(e) => {
+          searchLocation("");
+          e.preventDefault();
+        }}
+        className="resetButton"
+      >
+        Clear
+      </button>
       {error && <div>{error}</div>}
-      <form className="searchbar">
-        <input
-          id="city"
-          name="city"
-          type="text"
-          placeholder="Zoek op locatie..."
-          onChange={(e) => searchLocation(e.target.value)}
-          list="places"
-          pattern={locationsArray}
-          autoComplete="off"
-          className="inputField"
-        />
-        {locations && (
-          <datalist id="places">
-            {locationsArray &&
-              locationsArray.map((loc) => {
-                const cityName = Object.keys(loc)[0];
-                const agencyCount = Object.values(loc)[0];
-                return (
-                  <option key={cityName} value={cityName}>
-                    {cityName} - {agencyCount}
-                  </option>
-                );
-              })}
-          </datalist>
-        )}
-        <button onClick={refreshPage} className="resetButton">
-          Clear
-        </button>
-      </form>
-    </div>
+    </form>
   );
 }

@@ -13,31 +13,31 @@ export default function HomePage() {
     const response = db;
     setAgencies(response.agencies);
   };
-  console.log("searchInput Homepage", searchInput);
+
   useEffect(() => {
     fetchData();
   }, []);
 
+  const searchInputEmpty = searchInput === "";
+  const agencyMatchesSearchQuery = (searchInput, agency) =>
+    agency.city.toLowerCase().includes(searchInput.toLocaleLowerCase());
+
   return (
     <div className="general">
       <div className="logo">
-        <h1>FNDR</h1>
+        <h1 className="logo-title">FNDR</h1>
+        <LocationSearch
+          setSearchInput={setSearchInput}
+          searchInput={searchInput}
+        />
       </div>
-
-      <LocationSearch setSearchInput={setSearchInput} />
 
       <div className="main-card">
         {agencies
-          .filter((loc) => {
-            if (searchInput === "") {
-              return loc;
-            } else if (
-              loc.city.toLowerCase().includes(searchInput.toLocaleLowerCase())
-            ) {
-              return loc;
-            }
-            return false;
-          })
+          .filter(
+            (agency) =>
+              searchInputEmpty || agencyMatchesSearchQuery(searchInput, agency)
+          )
           .map((agency) => {
             return (
               <div className="block" key={agency.id}>
