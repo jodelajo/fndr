@@ -1,5 +1,4 @@
 import React from "react";
-
 import { MdLocationCity, MdWebAsset, MdLocationOn } from "react-icons/md";
 import "./Agencies.css";
 
@@ -15,7 +14,7 @@ export default function Agencies({ agency }) {
         </div>
         <div className="agency-card-info" key={agency.id}>
           <div className="company-name">
-            <h2>{agency.name}</h2>
+            <h2>{agency.name.replaceAll("&amp;", "&")}</h2>
           </div>
           <div className="company-info">
             <div>
@@ -40,7 +39,7 @@ export default function Agencies({ agency }) {
                   <MdWebAsset />
                 </span>
                 <a href={agency.website} target="_blank" rel="noreferrer">
-                  web site >>
+                  website
                 </a>
               </h5>
             </div>

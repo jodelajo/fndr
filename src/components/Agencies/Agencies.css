@@ -2,34 +2,30 @@
   display: grid;
   width: 100%;
   justify-content: center;
-  /* margin-left: 30px; */
-  /* grid-template-columns: repeat(1, 400px); */
-  /* border: solid 1px red; */
 }
 
 .agency-card-container {
   display: grid;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 20px;
   grid-template-columns: repeat(2, 100px);
   height: 150px;
   grid-column-gap: 20px;
   border: 1px solid grey;
   padding: 20px;
-  width: 300px;
+  width: 320px;
 }
 
 .company-logo {
   display: grid;
-  /* justify-content: left; */
   max-width: 30px;
 }
 .agency-card-info {
   display: grid;
   grid-template-columns: repeat(1, 190px);
+  overflow-wrap: break-word;
 }
 .company-name {
-  width: 40px;
   margin-right: 25px;
   font-size: 14px;
 }
@@ -42,6 +38,7 @@
 }
 .company-info h5 {
   margin-bottom: 5px;
+  overflow-wrap: break-word;
 }
 .icon-gap {
   margin-right: 10px;
@@ -49,10 +46,12 @@
 }
 .www-link a {
   text-decoration: none;
-  color: black;
+  color: rgb(33, 14, 204);
+  text-decoration: underline;
 }
 .www-link a:hover {
-  color: rgb(33, 14, 204);
+  color: rgb(166, 14, 204);
+  text-decoration: underline;
 }
 
 /* DESKTOP */
