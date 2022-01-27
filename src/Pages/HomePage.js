@@ -12,15 +12,18 @@ export default function HomePage() {
   const [searchInput, setSearchInput] = useState("");
 
   console.log("AGENCIES", agencies);
-  const fetchData = async () => {
-    const response = await axios.get(
-      `http://localhost:8000/agencies?_limit=15&_page=${page.current}`
-    );
-    console.log("GETMY", response);
+  console.log("searchInput in component", searchInput);
 
-    const dataOfAgencies = response.data;
-    setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
-    page.current = page.current + 1;
+  const fetchData = async () => {
+    console.log("searchInput", searchInput);
+    // const response = await axios.get(
+    //   `http://localhost:8000/agencies?_limit=15&_page=${page.current}&city_like=${searchInput}`
+    // );
+    // console.log("GETMY", response);
+
+    // const dataOfAgencies = response.data;
+    // setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
+    // page.current = page.current + 1;
   };
 
   const handleScroll = (e) => {
@@ -35,11 +38,7 @@ export default function HomePage() {
   useEffect(() => {
     fetchData();
     window.addEventListener("scroll", handleScroll);
-  }, []);
-
-  const searchInputEmpty = searchInput === "";
-  const agencyMatchesSearchQuery = (searchInput, agency) =>
-    agency.city.toLowerCase().includes(searchInput.toLocaleLowerCase());
+  }, [searchInput]);
 
   return (
     <div className="general">
@@ -52,18 +51,13 @@ export default function HomePage() {
       </div>
 
       <div className="main-card">
-        {agencies
-          .filter(
-            (agency) =>
-              searchInputEmpty || agencyMatchesSearchQuery(searchInput, agency)
-          )
-          .map((agency) => {
-            return (
-              <div className="block" key={agency.id}>
-                <Agencies agency={agency} />
-              </div>
-            );
-          })}
+        {agencies.map((agency) => {
+          return (
+            <div className="block" key={agency.id}>
+              <Agencies agency={agency} />
+            </div>
+          );
+        })}
         <div className="loading">
           <Oval color="#00BFFF" height={100} width={100} ariaLabel="loading" />
         </div>
