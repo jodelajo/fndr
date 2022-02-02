@@ -5,3 +5,10 @@ export const convertLocationObjectToArray = (locations) => {
     return obj;
   });
 };
+
+export function isEndOfPage(e) {
+  return (
+    window.innerHeight + e.target.documentElement.scrollTop + 1 >=
+    e.target.documentElement.scrollHeight
+  );
+}
