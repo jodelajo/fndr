@@ -12,16 +12,23 @@ export default function HomePage() {
   const page = useRef(1);
   const [searchInput, setSearchInput] = useState("");
 
+  const rightUrl =
+    process.env.NODE_ENV === "development"
+      ? process.env.REACT_APP_DEV_MODE
+      : process.env.REACT_APP_PRO_MODE;
+
+  console.log(rightUrl);
+
   const fetchData = useCallback(async () => {
     const pageToFetch = page.current;
     page.current = page.current + 1;
     const response = await axios.get(
-      `http://localhost:8000/agencies?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
+      `${rightUrl}?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
     );
 
     const dataOfAgencies = response.data;
     setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
-  }, [searchInput]);
+  }, [searchInput, rightUrl]);
 
   const handleScroll = useCallback(
     (e) => {
