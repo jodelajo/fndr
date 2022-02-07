@@ -17,8 +17,6 @@ export default function HomePage() {
       ? process.env.REACT_APP_DEV_MODE
       : process.env.REACT_APP_PRO_MODE;
 
-  console.log(rightUrl);
-
   const fetchData = useCallback(async () => {
     const pageToFetch = page.current;
     page.current = page.current + 1;
