@@ -9,6 +9,7 @@ import { isEndOfPage } from "../utils/dataTransformations";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const page = useRef(1);
   const [searchInput, setSearchInput] = useState("");
 
@@ -20,12 +21,14 @@ export default function HomePage() {
   const fetchData = useCallback(async () => {
     const pageToFetch = page.current;
     page.current = page.current + 1;
+    setIsLoading(true);
     const response = await axios.get(
-      `${rightUrl}?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
+      `${rightUrl}agencies?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
     );
 
     const dataOfAgencies = response.data;
     setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
+    setIsLoading(false);
   }, [searchInput, rightUrl]);
 
   const handleScroll = useCallback(
@@ -63,10 +66,12 @@ export default function HomePage() {
             </div>
           );
         })}
-        <div className="loading">
-          <Oval color="#00BFFF" height={100} width={100} ariaLabel="loading" />
-        </div>
       </div>
+      {isLoading && (
+        <div className="loading">
+          <Oval color="#00BFFF" height={80} width={80} ariaLabel="loading" />
+        </div>
+      )}
     </div>
   );
 }
