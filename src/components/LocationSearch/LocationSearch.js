@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
+import { APIUrl } from "../../config/config";
 
 export default function LocationSearch({ setSearchInput, searchInput }) {
   const [locations, setLocations] = useState({});
@@ -11,7 +12,7 @@ export default function LocationSearch({ setSearchInput, searchInput }) {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/cities")
+    fetch(`${APIUrl}/cities`)
       .then((res) => {
         if (!res.ok) {
           throw Error("Data ophalen is mislukt");
