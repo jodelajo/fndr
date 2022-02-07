@@ -6,6 +6,7 @@ import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
 import { isEndOfPage } from "../utils/dataTransformations";
+import { APIUrl } from "../config/config";
 
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
@@ -13,23 +14,18 @@ export default function HomePage() {
   const page = useRef(1);
   const [searchInput, setSearchInput] = useState("");
 
-  const rightUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_DEV_MODE
-      : process.env.REACT_APP_PRO_MODE;
-
   const fetchData = useCallback(async () => {
     const pageToFetch = page.current;
     page.current = page.current + 1;
     setIsLoading(true);
     const response = await axios.get(
-      `${rightUrl}agencies?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
+      `${APIUrl}/agencies?_limit=15&_page=${pageToFetch}&city_like=${searchInput}`
     );
 
     const dataOfAgencies = response.data;
     setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
     setIsLoading(false);
-  }, [searchInput, rightUrl]);
+  }, [searchInput]);
 
   const handleScroll = useCallback(
     (e) => {

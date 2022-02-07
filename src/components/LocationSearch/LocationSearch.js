@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
+import { APIUrl } from "../../config/config";
 
 export default function LocationSearch({ setSearchInput, searchInput }) {
   const [locations, setLocations] = useState({});
@@ -9,13 +10,9 @@ export default function LocationSearch({ setSearchInput, searchInput }) {
   const searchLocation = (searchInput) => {
     setSearchInput(searchInput);
   };
-  const rightUrl =
-    process.env.NODE_ENV === "development"
-      ? process.env.REACT_APP_DEV_MODE
-      : process.env.REACT_APP_PRO_MODE;
 
   useEffect(() => {
-    fetch(`${rightUrl}cities`)
+    fetch(`${APIUrl}/cities`)
       .then((res) => {
         if (!res.ok) {
           throw Error("Data ophalen is mislukt");
@@ -29,7 +26,7 @@ export default function LocationSearch({ setSearchInput, searchInput }) {
       .catch((err) => {
         setError(err.message);
       });
-  }, [rightUrl]);
+  }, []);
 
   const locationsArray = convertLocationObjectToArray(locations);
 
