@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Pages/HomePage.css";
@@ -12,11 +12,15 @@ import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
 const LIMIT = 15;
 
 export default function HomePage() {
-  const [agencies, setAgencies] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(1);
-  const [searchInput, setSearchInput] = useState("");
-  const [companySize, setCompanySize] = useState("");
+  const [state, setState] = useState({
+    agencies: [],
+    isLoading: true,
+    page: 1,
+    searchInput: "",
+    companySize: "",
+  });
+
+  const { agencies, isLoading, page, searchInput, companySize } = state;
 
   const fetchData = useCallback(async () => {
     let params = {
@@ -30,9 +34,13 @@ export default function HomePage() {
       params: params,
     });
 
-    const dataOfAgencies = response.data;
-    setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
-    setIsLoading(false);
+    setState((previousState) => {
+      return {
+        ...previousState,
+        agencies: [...previousState.agencies, ...response.data],
+        isLoading: false,
+      };
+    });
   }, [searchInput, companySize, page]);
 
   const handleScroll = useCallback(
@@ -42,8 +50,13 @@ export default function HomePage() {
         isLoading === false &&
         agencies.length === page * LIMIT
       ) {
-        setPage((currentPage) => currentPage + 1);
-        setIsLoading(true);
+        setState((previousState) => {
+          return {
+            ...previousState,
+            page: previousState.page + 1,
+            isLoading: true,
+          };
+        });
       }
     },
     [isLoading, agencies, page]
@@ -59,17 +72,23 @@ export default function HomePage() {
   }, [handleScroll]);
 
   function setNewLocation(locationQuery) {
-    setSearchInput(locationQuery);
-    setPage(1);
-    setAgencies([]);
-    setIsLoading(true);
+    setState({
+      ...state,
+      searchInput: locationQuery,
+      page: 1,
+      agencies: [],
+      isLoading: true,
+    });
   }
 
   function setNewCompanySize(size) {
-    setCompanySize(size);
-    setPage(1);
-    setAgencies([]);
-    setIsLoading(true);
+    setState({
+      ...state,
+      companySize: size,
+      page: 1,
+      agencies: [],
+      isLoading: true,
+    });
   }
 
   console.log(`
@@ -84,8 +103,6 @@ export default function HomePage() {
 
   return (
     <div className="general">
-      {/* {bla}
-      <button onClick={updateState}>CLICK ME</button> */}
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
