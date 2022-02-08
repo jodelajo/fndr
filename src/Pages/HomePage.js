@@ -5,7 +5,7 @@ import axios from "axios";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
-import { isEndOfPage } from "../utils/dataTransformations";
+import { isEndOfPage, hasNextPage } from "../utils/dataTransformations";
 import { APIUrl } from "../config/config";
 import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
 
@@ -47,8 +47,8 @@ export default function HomePage() {
     (e) => {
       if (
         isEndOfPage(e) &&
-        isLoading === false &&
-        agencies.length === page * LIMIT
+        !isLoading &&
+        hasNextPage(agencies.length, page, LIMIT)
       ) {
         setState((previousState) => {
           return {
@@ -80,16 +80,6 @@ export default function HomePage() {
       isLoading: true,
     });
   }
-
-  console.log(`
-    STATE:
-
-    page: ${page},
-    agencies length: ${agencies.length},
-    loading: ${isLoading},
-    city: ${city},
-    location: ${companySize} 
-  `);
 
   return (
     <div className="general">

@@ -12,3 +12,7 @@ export function isEndOfPage(e) {
     e.target.documentElement.scrollHeight
   );
 }
+
+export function hasNextPage(results, page, LIMIT) {
+  return results === page * LIMIT;
+}
