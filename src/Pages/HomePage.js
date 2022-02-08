@@ -9,20 +9,19 @@ import { isEndOfPage } from "../utils/dataTransformations";
 import { APIUrl } from "../config/config";
 import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
 
+const LIMIT = 15;
+
 export default function HomePage() {
   const [agencies, setAgencies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const page = useRef(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [page, setPage] = useState(1);
   const [searchInput, setSearchInput] = useState("");
   const [companySize, setCompanySize] = useState("");
 
   const fetchData = useCallback(async () => {
-    const pageToFetch = page.current;
-    page.current = page.current + 1;
-    setIsLoading(true);
     let params = {
-      _limit: 15,
-      _page: pageToFetch,
+      _limit: LIMIT,
+      _page: page,
       city_like: searchInput || null,
       companySize: companySize || null,
     };
@@ -34,43 +33,72 @@ export default function HomePage() {
     const dataOfAgencies = response.data;
     setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
     setIsLoading(false);
-  }, [searchInput, companySize]);
+  }, [searchInput, companySize, page]);
 
   const handleScroll = useCallback(
     (e) => {
-      if (isEndOfPage(e)) {
-        fetchData();
+      if (
+        isEndOfPage(e) &&
+        isLoading === false &&
+        agencies.length === page * LIMIT
+      ) {
+        setPage((currentPage) => currentPage + 1);
+        setIsLoading(true);
       }
     },
-    [fetchData]
+    [isLoading, agencies, page]
   );
 
   useEffect(() => {
-    page.current = 1;
-    setAgencies([]);
     fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [fetchData, handleScroll]);
+  }, [handleScroll]);
 
-  // console.log(page);
+  function setNewLocation(locationQuery) {
+    setSearchInput(locationQuery);
+    setPage(1);
+    setAgencies([]);
+    setIsLoading(true);
+  }
+
+  function setNewCompanySize(size) {
+    setCompanySize(size);
+    setPage(1);
+    setAgencies([]);
+    setIsLoading(true);
+  }
+
+  console.log(`
+    STATE:
+
+    page: ${page},
+    agencies length: ${agencies.length},
+    loading: ${isLoading},
+    searchInput: ${searchInput},
+    location: ${companySize} 
+  `);
 
   return (
     <div className="general">
+      {/* {bla}
+      <button onClick={updateState}>CLICK ME</button> */}
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
           <LocationSearch
-            setSearchInput={setSearchInput}
+            setSearchInput={setNewLocation}
             searchInput={searchInput}
           />
           <SizeFilter
             companySize={companySize}
-            setCompanySize={setCompanySize}
+            setCompanySize={setNewCompanySize}
           />
         </div>
       </div>
-
       <div className="main-card">
         {agencies.map((agency) => {
           return (
