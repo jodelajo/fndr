@@ -16,17 +16,17 @@ export default function HomePage() {
     agencies: [],
     isLoading: true,
     page: 1,
-    searchInput: "",
+    city: "",
     companySize: "",
   });
 
-  const { agencies, isLoading, page, searchInput, companySize } = state;
+  const { agencies, isLoading, page, city, companySize } = state;
 
   const fetchData = useCallback(async () => {
     let params = {
       _limit: LIMIT,
       _page: page,
-      city_like: searchInput || null,
+      city_like: city || null,
       companySize: companySize || null,
     };
 
@@ -41,7 +41,7 @@ export default function HomePage() {
         isLoading: false,
       };
     });
-  }, [searchInput, companySize, page]);
+  }, [city, companySize, page]);
 
   const handleScroll = useCallback(
     (e) => {
@@ -71,20 +71,10 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  function setNewLocation(locationQuery) {
+  function updateQuery(key, value) {
     setState({
       ...state,
-      searchInput: locationQuery,
-      page: 1,
-      agencies: [],
-      isLoading: true,
-    });
-  }
-
-  function setNewCompanySize(size) {
-    setState({
-      ...state,
-      companySize: size,
+      [key]: value,
       page: 1,
       agencies: [],
       isLoading: true,
@@ -97,7 +87,7 @@ export default function HomePage() {
     page: ${page},
     agencies length: ${agencies.length},
     loading: ${isLoading},
-    searchInput: ${searchInput},
+    city: ${city},
     location: ${companySize} 
   `);
 
@@ -106,14 +96,8 @@ export default function HomePage() {
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch
-            setSearchInput={setNewLocation}
-            searchInput={searchInput}
-          />
-          <SizeFilter
-            companySize={companySize}
-            setCompanySize={setNewCompanySize}
-          />
+          <LocationSearch updateQuery={updateQuery} city={city} />
+          <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>
       <div className="main-card">
