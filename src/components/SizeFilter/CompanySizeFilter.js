@@ -1,13 +1,19 @@
-export default function SizeFilter({ companySizes, setCompanySizes }) {
+import "./CompanySizeFilter.css";
+
+export default function SizeFilter({ companySize, setCompanySize }) {
   const handleChange = (e) => {
-    setCompanySizes(e.target.value);
+    setCompanySize(e.target.value);
   };
 
-  //   console.log("companysizes", companySizes);
   return (
     <div>
-      <label>
-        <select value={companySizes} defaultValue="" onChange={handleChange}>
+      <label htmlFor="size">
+        <select
+          id="size"
+          value={companySize}
+          onChange={handleChange}
+          className="compSize"
+        >
           <option value="">Selecteer company size</option>
           <option value="1-10">1-10</option>
           <option value="11-50">11-50</option>

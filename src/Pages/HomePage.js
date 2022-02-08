@@ -14,30 +14,27 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(false);
   const page = useRef(1);
   const [searchInput, setSearchInput] = useState("");
-  const [companySizes, setCompanySizes] = useState();
-
-  const sizeOfCompany = () => {
-    if (!companySizes) {
-      return "";
-    } else {
-      return `companySize=${companySizes}`;
-    }
-  };
-  const theSizes = sizeOfCompany();
-  // console.log("sizeOfCompany", theSizes);
+  const [companySize, setCompanySize] = useState("");
 
   const fetchData = useCallback(async () => {
     const pageToFetch = page.current;
     page.current = page.current + 1;
     setIsLoading(true);
-    const response = await axios.get(
-      `${APIUrl}/agencies?_limit=15&_page=${pageToFetch}&city_like=${searchInput}&${theSizes}`
-    );
+    let params = {
+      _limit: 15,
+      _page: pageToFetch,
+      city_like: searchInput || null,
+      companySize: companySize || null,
+    };
+
+    const response = await axios.get(`${APIUrl}/agencies`, {
+      params: params,
+    });
 
     const dataOfAgencies = response.data;
     setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
     setIsLoading(false);
-  }, [searchInput, theSizes]);
+  }, [searchInput, companySize]);
 
   const handleScroll = useCallback(
     (e) => {
@@ -56,18 +53,22 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchData, handleScroll]);
 
+  // console.log(page);
+
   return (
     <div className="general">
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
-        <LocationSearch
-          setSearchInput={setSearchInput}
-          searchInput={searchInput}
-        />
-        <SizeFilter
-          companySizes={companySizes}
-          setCompanySizes={setCompanySizes}
-        />
+        <div className="options">
+          <LocationSearch
+            setSearchInput={setSearchInput}
+            searchInput={searchInput}
+          />
+          <SizeFilter
+            companySize={companySize}
+            setCompanySize={setCompanySize}
+          />
+        </div>
       </div>
 
       <div className="main-card">

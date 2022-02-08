@@ -1,13 +1,14 @@
 .searchbar {
-  height: 35px;
+  /* height: 35px; */
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
 }
 
 .inputField {
   width: 292px;
   padding-left: 6px;
+  height: 35px;
 }
 
 .resetButton {
