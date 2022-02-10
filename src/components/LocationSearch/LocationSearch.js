@@ -3,13 +3,9 @@ import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 
-export default function LocationSearch({ setSearchInput, searchInput }) {
+export default function LocationSearch({ updateQuery, city }) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
-
-  const searchLocation = (searchInput) => {
-    setSearchInput(searchInput);
-  };
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -37,11 +33,11 @@ export default function LocationSearch({ setSearchInput, searchInput }) {
         name="city"
         type="text"
         placeholder="Zoek op locatie..."
-        onChange={(e) => searchLocation(e.target.value)}
+        onChange={(e) => updateQuery(e.target.name, e.target.value)}
         list="places"
         autoComplete="off"
         className="inputField"
-        value={searchInput}
+        value={city}
       />
       {locations && (
         <datalist id="places">
@@ -59,7 +55,8 @@ export default function LocationSearch({ setSearchInput, searchInput }) {
       )}
       <button
         onClick={(e) => {
-          searchLocation("");
+          const EMPTY_STRING = "";
+          updateQuery("city", EMPTY_STRING);
           e.preventDefault();
         }}
         className="resetButton"

@@ -1,29 +1,32 @@
 import React from "react";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
-import { isEndOfPage } from "../utils/dataTransformations";
+import { isEndOfPage, hasNextPage } from "../utils/dataTransformations";
 import { APIUrl } from "../config/config";
 import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
 
+const LIMIT = 15;
+
 export default function HomePage() {
-  const [agencies, setAgencies] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const page = useRef(1);
-  const [searchInput, setSearchInput] = useState("");
-  const [companySize, setCompanySize] = useState("");
+  const [state, setState] = useState({
+    page: 1,
+    agencies: [],
+    isLoading: false,
+    city: "",
+    companySize: "",
+  });
+
+  const { page, agencies, isLoading, city, companySize } = state;
 
   const fetchData = useCallback(async () => {
-    const pageToFetch = page.current;
-    page.current = page.current + 1;
-    setIsLoading(true);
     let params = {
-      _limit: 15,
-      _page: pageToFetch,
-      city_like: searchInput || null,
+      _limit: LIMIT,
+      _page: page,
+      city_like: city || null,
       companySize: companySize || null,
     };
 
@@ -31,43 +34,60 @@ export default function HomePage() {
       params: params,
     });
 
-    const dataOfAgencies = response.data;
-    setAgencies((oldData) => [...oldData, ...dataOfAgencies]);
-    setIsLoading(false);
-  }, [searchInput, companySize]);
+    setState((prevState) => {
+      return {
+        ...prevState,
+        agencies: [...prevState.agencies, ...response.data],
+        isLoading: false,
+      };
+    });
+  }, [page, city, companySize]);
 
   const handleScroll = useCallback(
     (e) => {
-      if (isEndOfPage(e)) {
-        fetchData();
+      if (
+        isEndOfPage(e) &&
+        !isLoading &&
+        hasNextPage(agencies.length, page, LIMIT)
+      ) {
+        setState((prevState) => {
+          return {
+            ...prevState,
+            page: prevState.page + 1,
+            isLoading: true,
+          };
+        });
       }
     },
-    [fetchData]
+    [agencies, isLoading, page]
   );
 
   useEffect(() => {
-    page.current = 1;
-    setAgencies([]);
     fetchData();
+  }, [fetchData]);
+
+  useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [fetchData, handleScroll]);
+  }, [handleScroll]);
 
-  // console.log(page);
+  function updateQuery(key, value) {
+    setState({
+      ...state,
+      [key]: value,
+      page: 1,
+      agencies: [],
+      isLoading: true,
+    });
+  }
 
   return (
     <div className="general">
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch
-            setSearchInput={setSearchInput}
-            searchInput={searchInput}
-          />
-          <SizeFilter
-            companySize={companySize}
-            setCompanySize={setCompanySize}
-          />
+          <LocationSearch updateQuery={updateQuery} city={city} />
+          <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>
 
