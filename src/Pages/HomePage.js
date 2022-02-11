@@ -15,7 +15,7 @@ export default function HomePage() {
   const [state, setState] = useState({
     page: 1,
     agencies: [],
-    isLoading: false,
+    isLoading: true,
     city: "",
     companySize: "",
   });
