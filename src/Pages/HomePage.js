@@ -1,7 +1,8 @@
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
+import debounce from "lodash.debounce";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
@@ -37,7 +38,7 @@ export default function HomePage() {
     setState((prevState) => {
       return {
         ...prevState,
-        agencies: [...response.data],
+        agencies: [...prevState.agencies, ...response.data],
         isLoading: false,
       };
     });
@@ -71,22 +72,33 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  function updateQuery(key, value) {
-    setState({
-      ...state,
-      [key]: value,
-      page: 1,
-      agencies: [],
-      isLoading: true,
-    });
-  }
+  const updateQuery = useCallback(
+    (key, value) => {
+      setState({
+        ...state,
+        [key]: value,
+        page: 1,
+        agencies: [],
+        isLoading: true,
+      });
+    },
+    [state]
+  );
+
+  const debouncedChangeHandler = useMemo(
+    () => debounce(updateQuery, 300),
+    [updateQuery]
+  );
 
   return (
     <div className="general">
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch updateQuery={updateQuery} city={city} />
+          <LocationSearch
+            updateQuery={updateQuery}
+            debouncedChangeHandler={debouncedChangeHandler}
+          />
           <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>

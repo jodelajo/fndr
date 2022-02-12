@@ -3,9 +3,13 @@ import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 
-export default function LocationSearch({ updateQuery, city }) {
+export default function LocationSearch({
+  updateQuery,
+  debouncedChangeHandler,
+}) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -26,6 +30,17 @@ export default function LocationSearch({ updateQuery, city }) {
 
   const locationsArray = convertLocationObjectToArray(locations);
 
+  const onChange = (e) => {
+    setInputValue(e.target.value);
+    debouncedChangeHandler(e.target.name, e.target.value);
+  };
+
+  const resetInputField = () => {
+    const EMPTY_STRING = "";
+    updateQuery("city", EMPTY_STRING);
+    setInputValue(EMPTY_STRING);
+  };
+
   return (
     <form className="searchbar">
       <input
@@ -33,11 +48,11 @@ export default function LocationSearch({ updateQuery, city }) {
         name="city"
         type="text"
         placeholder="Zoek op locatie..."
-        onChange={(e) => updateQuery(e.target.name, e.target.value)}
+        onChange={onChange}
         list="places"
         autoComplete="off"
         className="inputField"
-        value={city}
+        value={inputValue}
       />
       {locations && (
         <datalist id="places">
@@ -53,14 +68,7 @@ export default function LocationSearch({ updateQuery, city }) {
             })}
         </datalist>
       )}
-      <button
-        onClick={(e) => {
-          const EMPTY_STRING = "";
-          updateQuery("city", EMPTY_STRING);
-          e.preventDefault();
-        }}
-        className="resetButton"
-      >
+      <button onClick={resetInputField} className="resetButton">
         Clear
       </button>
       {error && <div>{error}</div>}
