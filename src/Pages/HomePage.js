@@ -37,7 +37,7 @@ export default function HomePage() {
     setState((prevState) => {
       return {
         ...prevState,
-        agencies: [...prevState.agencies, ...response.data],
+        agencies: [...response.data],
         isLoading: false,
       };
     });
