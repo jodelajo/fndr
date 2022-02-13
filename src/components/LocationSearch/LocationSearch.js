@@ -37,8 +37,8 @@ export default function LocationSearch({
 
   const resetInputField = () => {
     const EMPTY_STRING = "";
-    updateQuery("city", EMPTY_STRING);
     setInputValue(EMPTY_STRING);
+    updateQuery("city", EMPTY_STRING);
   };
 
   return (
