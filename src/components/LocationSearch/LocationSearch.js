@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useSearchParams } from "react-router-dom";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
@@ -8,6 +9,10 @@ export default function LocationSearch({ updateQuery }) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState("");
+  const [search, setSearch] = useSearchParams("");
+
+  console.log("search", search);
+  console.log("inputValue", inputValue);
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -36,6 +41,7 @@ export default function LocationSearch({ updateQuery }) {
   const onChange = (e) => {
     setInputValue(e.target.value);
     debouncedChangeHandler(e.target.name, e.target.value);
+    setSearch({ city: e.target.value });
   };
 
   const resetInputField = (event) => {
@@ -43,6 +49,7 @@ export default function LocationSearch({ updateQuery }) {
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
+    setSearch(search.delete("city"));
   };
 
   return (
