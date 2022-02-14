@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
@@ -12,6 +13,8 @@ import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
 const LIMIT = 15;
 
 export default function HomePage() {
+  const [search, setSearch] = useSearchParams({});
+
   const [state, setState] = useState({
     page: 1,
     agencies: [],
@@ -19,6 +22,8 @@ export default function HomePage() {
     city: "",
     companySize: "",
   });
+
+  console.log("search Homepage", Object.fromEntries([...search]));
 
   const { page, agencies, isLoading, city, companySize } = state;
 
@@ -89,8 +94,17 @@ export default function HomePage() {
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch updateQuery={updateQuery} />
-          <SizeFilter updateQuery={updateQuery} companySize={companySize} />
+          <LocationSearch
+            updateQuery={updateQuery}
+            search={search}
+            setSearch={setSearch}
+          />
+          <SizeFilter
+            updateQuery={updateQuery}
+            search={search}
+            setSearch={setSearch}
+            companySize={companySize}
+          />
         </div>
       </div>
 
