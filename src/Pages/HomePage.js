@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
-import debounce from "lodash.debounce";
 import "../Pages/HomePage.css";
 import Agencies from "../components/Agencies/Agencies";
 import LocationSearch from "../components/LocationSearch/LocationSearch";
@@ -85,20 +84,12 @@ export default function HomePage() {
     [state]
   );
 
-  const debouncedChangeHandler = useMemo(
-    () => debounce(updateQuery, 300),
-    [updateQuery]
-  );
-
   return (
     <div className="general">
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch
-            updateQuery={updateQuery}
-            debouncedChangeHandler={debouncedChangeHandler}
-          />
+          <LocationSearch updateQuery={updateQuery} />
           <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>

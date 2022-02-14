@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
+import debounce from "lodash.debounce";
 
-export default function LocationSearch({
-  updateQuery,
-  debouncedChangeHandler,
-}) {
+export default function LocationSearch({ updateQuery }) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState("");
@@ -30,12 +28,18 @@ export default function LocationSearch({
 
   const locationsArray = convertLocationObjectToArray(locations);
 
+  const debouncedChangeHandler = useMemo(
+    () => debounce(updateQuery, 400),
+    [updateQuery]
+  );
+
   const onChange = (e) => {
     setInputValue(e.target.value);
     debouncedChangeHandler(e.target.name, e.target.value);
   };
 
-  const resetInputField = () => {
+  const resetInputField = (event) => {
+    event.preventDefault();
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
