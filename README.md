@@ -1,6 +1,16 @@
+## This react app uses dependencies
+
+Script:
+
+```
+npm install
+```
+
+This will install all required dependencies for this app.
+
 ## How to use the json.server?
 
-script:
+Script:
 
 ```
 npm run dev

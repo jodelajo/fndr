@@ -71,22 +71,25 @@ export default function HomePage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  function updateQuery(key, value) {
-    setState({
-      ...state,
-      [key]: value,
-      page: 1,
-      agencies: [],
-      isLoading: true,
-    });
-  }
+  const updateQuery = useCallback(
+    (key, value) => {
+      setState({
+        ...state,
+        [key]: value,
+        page: 1,
+        agencies: [],
+        isLoading: true,
+      });
+    },
+    [state]
+  );
 
   return (
     <div className="general">
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch updateQuery={updateQuery} city={city} />
+          <LocationSearch updateQuery={updateQuery} />
           <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>
