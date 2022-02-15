@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
+
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Home/HomePage.css";
@@ -25,7 +26,7 @@ export default function HomePage() {
 
   const { page, agencies, isLoading } = state;
   const { city, companySize } = search;
-
+  console.log("homePage companySize", companySize);
   const fetchData = useCallback(async () => {
     let params = {
       _limit: LIMIT,
@@ -101,6 +102,7 @@ export default function HomePage() {
             search={search}
             setSearch={setSearch}
             city={city}
+            companySize={companySize}
           />
           <SizeFilter
             updateQuery={updateQuery}

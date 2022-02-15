@@ -10,10 +10,14 @@ export default function LocationSearch({
   search,
   setSearch,
   city,
+  companySize,
 }) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
-  const [inputValue, setInputValue] = useState(city ? `${city}` : "");
+  const [inputValue, setInputValue] = useState(
+    city ? `${city}` : "",
+    companySize ? `${companySize}` : ""
+  );
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -38,11 +42,14 @@ export default function LocationSearch({
     () => debounce(updateQuery, 400),
     [updateQuery]
   );
-
+  const debouncedSearchHandler = useMemo(
+    () => debounce(setSearch, 400),
+    [setSearch]
+  );
   const onChange = (e) => {
     setInputValue(e.target.value);
     debouncedChangeHandler(e.target.name, e.target.value);
-    setSearch({ ...search, city: e.target.value });
+    debouncedSearchHandler({ ...search, city: e.target.value });
   };
 
   const resetInputField = (event) => {
@@ -50,7 +57,7 @@ export default function LocationSearch({
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
-    setSearch({ city: EMPTY_STRING, companySize: EMPTY_STRING });
+    setSearch({});
   };
 
   return (

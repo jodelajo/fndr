@@ -11,6 +11,14 @@ export default function SizeFilter({
     setSearch({ ...search, companySize: e.target.value });
   };
 
+  const companySizeHandler = () => {
+    if (companySize === undefined) {
+      return (companySize = "");
+    }
+  };
+  companySizeHandler();
+
+  console.log("companySize", companySize);
   return (
     <div>
       <label htmlFor="size">
