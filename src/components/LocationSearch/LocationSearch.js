@@ -3,6 +3,7 @@ import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
+import ResetButton from "../ResetButton/ResetButton";
 
 export default function LocationSearch({
   updateQuery,
@@ -49,7 +50,7 @@ export default function LocationSearch({
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
-    setSearch(EMPTY_STRING);
+    setSearch({ city: EMPTY_STRING, companySize: EMPTY_STRING });
   };
 
   return (
@@ -79,9 +80,7 @@ export default function LocationSearch({
             })}
         </datalist>
       )}
-      <button onClick={resetInputField} className="resetButton" type="button">
-        Clear
-      </button>
+      <ResetButton resetInputField={resetInputField} />
       {error && <div>{error}</div>}
     </form>
   );
