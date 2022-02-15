@@ -36,7 +36,7 @@ export default function LocationSearch({ updateQuery, search, setSearch }) {
   const onChange = (e) => {
     setInputValue(e.target.value);
     debouncedChangeHandler(e.target.name, e.target.value);
-    setSearch({ ...Object.fromEntries(search), city: e.target.value });
+    setSearch({ ...search, city: e.target.value });
   };
 
   const resetInputField = (event) => {

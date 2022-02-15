@@ -2,18 +2,18 @@ import React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
-import { useSearchParams } from "react-router-dom";
-import "../Pages/HomePage.css";
-import Agencies from "../components/Agencies/Agencies";
-import LocationSearch from "../components/LocationSearch/LocationSearch";
-import { isEndOfPage, hasNextPage } from "../utils/dataTransformations";
-import { APIUrl } from "../config/config";
-import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
+import "../Home/HomePage.css";
+import Agencies from "../../components/Agencies/Agencies";
+import useCustomSearchParams from "../../hooks/useCustomSearchParams";
+import LocationSearch from "../../components/LocationSearch/LocationSearch";
+import { isEndOfPage, hasNextPage } from "../../utils/dataTransformations";
+import { APIUrl } from "../../config/config";
+import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
 
 const LIMIT = 15;
 
 export default function HomePage() {
-  const [search, setSearch] = useSearchParams({});
+  const [search, setSearch] = useCustomSearchParams({});
 
   const [state, setState] = useState({
     page: 1,
@@ -23,7 +23,7 @@ export default function HomePage() {
     companySize: "",
   });
 
-  console.log("search Homepage", Object.fromEntries([...search]));
+  console.log("search Homepage", search);
 
   const { page, agencies, isLoading, city, companySize } = state;
 
@@ -39,6 +39,7 @@ export default function HomePage() {
       params: params,
     });
 
+    console.log("params", params);
     setState((prevState) => {
       return {
         ...prevState,

@@ -9,7 +9,7 @@ export default function SizeFilter({
 }) {
   const onChangeHandler = (e) => {
     updateQuery(e.target.name, e.target.value);
-    setSearch({ ...Object.fromEntries(search), companySize: e.target.value });
+    setSearch({ ...search, companySize: e.target.value });
   };
 
   return (
