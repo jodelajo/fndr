@@ -19,13 +19,12 @@ export default function HomePage() {
     page: 1,
     agencies: [],
     isLoading: true,
-    city: "",
-    companySize: "",
   });
 
   console.log("search Homepage", search);
 
-  const { page, agencies, isLoading, city, companySize } = state;
+  const { page, agencies, isLoading } = state;
+  const { city, companySize } = search;
 
   const fetchData = useCallback(async () => {
     let params = {
@@ -39,7 +38,6 @@ export default function HomePage() {
       params: params,
     });
 
-    console.log("params", params);
     setState((prevState) => {
       return {
         ...prevState,
@@ -81,13 +79,16 @@ export default function HomePage() {
     (key, value) => {
       setState({
         ...state,
-        [key]: value,
         page: 1,
         agencies: [],
         isLoading: true,
       });
+      setSearch({
+        ...search,
+        [key]: value,
+      });
     },
-    [state]
+    [state, setSearch, search]
   );
 
   return (
@@ -99,6 +100,7 @@ export default function HomePage() {
             updateQuery={updateQuery}
             search={search}
             setSearch={setSearch}
+            city={city}
           />
           <SizeFilter
             updateQuery={updateQuery}

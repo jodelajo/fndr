@@ -4,10 +4,15 @@ import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 
-export default function LocationSearch({ updateQuery, search, setSearch }) {
+export default function LocationSearch({
+  updateQuery,
+  search,
+  setSearch,
+  city,
+}) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(city ? `${city}` : "");
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -44,7 +49,7 @@ export default function LocationSearch({ updateQuery, search, setSearch }) {
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
-    setSearch(search.delete("city"));
+    setSearch(EMPTY_STRING);
   };
 
   return (
@@ -74,7 +79,7 @@ export default function LocationSearch({ updateQuery, search, setSearch }) {
             })}
         </datalist>
       )}
-      <button onClick={resetInputField} className="resetButton">
+      <button onClick={resetInputField} className="resetButton" type="button">
         Clear
       </button>
       {error && <div>{error}</div>}

@@ -1,4 +1,3 @@
-// import { useSearchParams } from "react-router-dom";
 import "./CompanySizeFilter.css";
 
 export default function SizeFilter({
