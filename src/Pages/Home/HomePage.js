@@ -10,6 +10,7 @@ import LocationSearch from "../../components/LocationSearch/LocationSearch";
 import { isEndOfPage, hasNextPage } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
+import { Helmet } from "react-helmet-async";
 
 const LIMIT = 15;
 
@@ -94,6 +95,11 @@ export default function HomePage() {
 
   return (
     <div className="general">
+      <Helmet>
+        <title>hoi</title>
+        <meta name="description" content="Zoek hier je agency" />
+        <link rel="canonical" href="/" />
+      </Helmet>
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
