@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Home/HomePage.css";
@@ -10,12 +9,11 @@ import LocationSearch from "../../components/LocationSearch/LocationSearch";
 import { isEndOfPage, hasNextPage } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
-import { Helmet } from "react-helmet-async";
 
 const LIMIT = 15;
 
 export default function HomePage() {
-  const [search, setSearch] = useCustomSearchParams({});
+  const [search, setSearch] = useCustomSearchParams();
 
   const [state, setState] = useState({
     page: 1,
@@ -23,11 +21,8 @@ export default function HomePage() {
     isLoading: true,
   });
 
-  console.log("search Homepage", search);
-
   const { page, agencies, isLoading } = state;
   const { city, companySize } = search;
-  console.log("homePage companySize", companySize);
   const fetchData = useCallback(async () => {
     let params = {
       _limit: LIMIT,
@@ -95,11 +90,6 @@ export default function HomePage() {
 
   return (
     <div className="general">
-      <Helmet>
-        <title>hoi</title>
-        <meta name="description" content="Zoek hier je agency" />
-        <link rel="canonical" href="/" />
-      </Helmet>
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">

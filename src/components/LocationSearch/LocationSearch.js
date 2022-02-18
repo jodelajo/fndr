@@ -1,9 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
+import { useLocation } from "react-router-dom";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
+import HelmetSearch from "../Helmet/HelmetSearch";
 
 export default function LocationSearch({
   updateQuery,
@@ -12,6 +14,7 @@ export default function LocationSearch({
   city,
   companySize,
 }) {
+  const location = useLocation();
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState(
@@ -59,36 +62,81 @@ export default function LocationSearch({
     updateQuery("city", EMPTY_STRING);
     setSearch({});
   };
+  const HelmetHandler = ({ content }) => {
+    switch (content) {
+      case "city":
+        return (
+          <HelmetSearch
+            title="FNDR - Vind je digital agency in de FNDR-app"
+            titleContent={`locatie: ${inputValue}`}
+            descriptionContent={`Zoek je een agency in ${inputValue}?`}
+            URLContent={`https://fndr.netlify.app/${location.search}`}
+            imageContent="../../../public/fndr_image.png"
+          />
+        );
+      case "companySize":
+        return (
+          <HelmetSearch
+            title="FNDR - Vind je digital agency in de FNDR-app"
+            titleContent={`grootte: ${companySize}`}
+            descriptionContent={`Zoek je een agency met ${companySize} medewerkers?`}
+            URLContent={`https://fndr.netlify.app/${location.search}`}
+            imageContent="../../../public/fndr_image.png"
+          />
+        );
+      case "all":
+        return (
+          <HelmetSearch
+            title="FNDR - Vind je digital agency in de FNDR-app"
+            titleContent={`locatie: ${inputValue} en grootte: ${companySize}`}
+            descriptionContent={`Zoek je een agency in ${inputValue} met ${companySize} medewerkers?`}
+            URLContent={`https://fndr.netlify.app/${location.search}`}
+            imageContent="../../../public/fndr_image.png"
+          />
+        );
+      default:
+        return false;
+    }
+  };
 
   return (
-    <form className="searchbar">
-      <input
-        id="city"
-        name="city"
-        type="text"
-        placeholder="Zoek op locatie..."
-        onChange={onChange}
-        list="places"
-        autoComplete="off"
-        className="inputField"
-        value={inputValue}
-      />
-      {locations && (
-        <datalist id="places">
-          {locationsArray &&
-            locationsArray.map((loc) => {
-              const cityName = Object.keys(loc)[0];
-              const agencyCount = Object.values(loc)[0];
-              return (
-                <option key={cityName} value={cityName}>
-                  {cityName} - {agencyCount}
-                </option>
-              );
-            })}
-        </datalist>
+    <div>
+      {search.city && search.companySize && <HelmetHandler content="all" />}
+      {search.city && !search.companySize && <HelmetHandler content="city" />}
+      {search.companySize && !search.city && (
+        <HelmetHandler content="companySize" />
       )}
-      <ResetButton resetInputField={resetInputField} />
-      {error && <div>{error}</div>}
-    </form>
+      {!search.city && !search.companySize && <HelmetHandler content="" />}
+
+      <form className="searchbar">
+        <input
+          id="city"
+          name="city"
+          type="text"
+          placeholder="Zoek op locatie..."
+          onChange={onChange}
+          list="places"
+          autoComplete="off"
+          className="inputField"
+          value={inputValue}
+        />
+        {locations && (
+          <datalist id="places">
+            {locationsArray &&
+              locationsArray.map((loc) => {
+                const cityName = Object.keys(loc)[0];
+                const agencyCount = Object.values(loc)[0];
+                return (
+                  <option key={cityName} value={cityName}>
+                    {cityName} - {agencyCount}
+                  </option>
+                );
+              })}
+          </datalist>
+        )}
+        <ResetButton resetInputField={resetInputField} />
+        {error && <div>{error}</div>}
+      </form>
+    </div>
   );
 }

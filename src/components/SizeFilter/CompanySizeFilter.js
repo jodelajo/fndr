@@ -18,7 +18,6 @@ export default function SizeFilter({
   };
   companySizeHandler();
 
-  console.log("companySize", companySize);
   return (
     <div>
       <label htmlFor="size">
