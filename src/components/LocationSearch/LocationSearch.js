@@ -5,7 +5,7 @@ import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
-import HelmetSearch from "../Helmet/HelmetSearch";
+import HelmetSwitch from "../HelmetSwitch/HelmetSwitch";
 
 export default function LocationSearch({
   updateQuery,
@@ -62,51 +62,15 @@ export default function LocationSearch({
     updateQuery("city", EMPTY_STRING);
     setSearch({});
   };
-  const HelmetHandler = ({ content }) => {
-    switch (content) {
-      case "city":
-        return (
-          <HelmetSearch
-            title="FNDR - Vind je digital agency in de FNDR-app"
-            titleContent={`locatie: ${inputValue}`}
-            descriptionContent={`Zoek je een agency in ${inputValue}?`}
-            URLContent={`https://fndr.netlify.app/${location.search}`}
-            imageContent="../../../public/fndr_image.png"
-          />
-        );
-      case "companySize":
-        return (
-          <HelmetSearch
-            title="FNDR - Vind je digital agency in de FNDR-app"
-            titleContent={`grootte: ${companySize}`}
-            descriptionContent={`Zoek je een agency met ${companySize} medewerkers?`}
-            URLContent={`https://fndr.netlify.app/${location.search}`}
-            imageContent="../../../public/fndr_image.png"
-          />
-        );
-      case "all":
-        return (
-          <HelmetSearch
-            title="FNDR - Vind je digital agency in de FNDR-app"
-            titleContent={`locatie: ${inputValue} en grootte: ${companySize}`}
-            descriptionContent={`Zoek je een agency in ${inputValue} met ${companySize} medewerkers?`}
-            URLContent={`https://fndr.netlify.app/${location.search}`}
-            imageContent="../../../public/fndr_image.png"
-          />
-        );
-      default:
-        return false;
-    }
-  };
 
   return (
     <div>
-      {search.city && search.companySize && <HelmetHandler content="all" />}
-      {search.city && !search.companySize && <HelmetHandler content="city" />}
-      {search.companySize && !search.city && (
-        <HelmetHandler content="companySize" />
-      )}
-      {!search.city && !search.companySize && <HelmetHandler content="" />}
+      <HelmetSwitch
+        inputValue={inputValue}
+        location={location.search}
+        companySize={companySize}
+        search={search}
+      />
 
       <form className="searchbar">
         <input
