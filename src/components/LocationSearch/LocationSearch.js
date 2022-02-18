@@ -65,12 +65,7 @@ export default function LocationSearch({
 
   return (
     <div>
-      <HelmetSwitch
-        inputValue={inputValue}
-        location={location.search}
-        companySize={companySize}
-        search={search}
-      />
+      <HelmetSwitch location={location.search} search={search} />
 
       <form className="searchbar">
         <input

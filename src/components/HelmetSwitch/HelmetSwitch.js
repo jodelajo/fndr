@@ -1,42 +1,35 @@
 import HelmetSearch from "../Helmet/HelmetSearch";
 
-export default function HelmetSwitch({
-  content,
-  inputValue,
-  location,
-  companySize,
-  search,
-}) {
+export default function HelmetSwitch({ content, location, search }) {
   function renderSwitch(content) {
     switch (content) {
       case "city":
         return (
           <HelmetSearch
-            titleContent={`locatie: ${inputValue}`}
-            descriptionContent={`Zoek je een agency in ${inputValue}?`}
+            titleContent={`locatie: ${search.city}`}
+            descriptionContent={`Zoek je een agency in ${search.city}?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "companySize":
         return (
           <HelmetSearch
-            titleContent={`grootte: ${companySize}`}
-            descriptionContent={`Zoek je een agency met ${companySize} medewerkers?`}
+            titleContent={`grootte: ${search.companySize}`}
+            descriptionContent={`Zoek je een agency met ${search.companySize} medewerkers?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "all":
         return (
           <HelmetSearch
-            titleContent={`locatie: ${inputValue} en grootte: ${companySize}`}
-            descriptionContent={`Zoek je een agency in ${inputValue} met ${companySize} medewerkers?`}
+            titleContent={`locatie: ${search.city} en grootte: ${search.companySize}`}
+            descriptionContent={`Zoek je een agency in ${search.city} met ${search.companySize} medewerkers?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       default:
         return (
           <HelmetSearch
-            title="FNDR - Vind je digital agency in de FNDR-app"
             titleContent="Zoek op locatie en bedrijfsgrootte"
             descriptionContent="Zoek je een agency in de FNDR-app"
             URLContent="https://fndr.netlify.app/"
