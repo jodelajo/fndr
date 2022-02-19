@@ -67,7 +67,7 @@ export default function LocationSearch({
           id="city"
           name="city"
           type="text"
-          placeholder="Zoek op locatie..."
+          placeholder="Enter a location..."
           onChange={onChange}
           list="places"
           autoComplete="off"

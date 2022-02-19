@@ -6,32 +6,32 @@ export default function HelmetSwitch({ content, location, search }) {
       case "city":
         return (
           <HelmetSearch
-            titleContent={`Locatie: ${search.city}`}
-            descriptionContent={`Zoek je een agency in ${search.city}?`}
+            titleContent={`Location: ${search.city}`}
+            descriptionContent={`Find your agency in ${search.city}?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "companySize":
         return (
           <HelmetSearch
-            titleContent={`Grootte: ${search.companySize}`}
-            descriptionContent={`Zoek je een agency met ${search.companySize} medewerkers?`}
+            titleContent={`Company size: ${search.companySize}`}
+            descriptionContent={`Find your agency with ${search.companySize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "all":
         return (
           <HelmetSearch
-            titleContent={`Locatie: ${search.city} met ${search.companySize} medewerkers.`}
-            descriptionContent={`Zoek je een agency in ${search.city} met ${search.companySize} medewerkers?`}
+            titleContent={`Location: ${search.city} with ${search.companySize} employees.`}
+            descriptionContent={`Find your agency in ${search.city} with ${search.companySize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       default:
         return (
           <HelmetSearch
-            titleContent="Zoek op locatie en aantal medewerkers."
-            descriptionContent="Zoek je een agency in de FNDR-app"
+            titleContent="Filter on location and company size."
+            descriptionContent="Find your Dutch digital agency on FNDR"
             URLContent="https://fndr.netlify.app/"
           />
         );

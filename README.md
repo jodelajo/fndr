@@ -1,4 +1,12 @@
-## This react app uses dependencies
+# FNDR - Find your Dutch digital agency in the FNDR-app.
+
+<img src="./public/fndr_image.png" width="100%" height="100%"/>
+
+## Continuous deployment
+
+Check out [live](https://fndr.netlify.app/).
+
+## [React Application](https://github.com/facebook/create-react-app) app using the following dependencies
 
 - axios
 - json-server

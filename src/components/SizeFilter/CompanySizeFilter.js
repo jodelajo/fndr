@@ -28,7 +28,7 @@ export default function SizeFilter({
           onChange={onChangeHandler}
           className="compSize"
         >
-          <option value="">Selecteer company size</option>
+          <option value="">Select company size</option>
           <option value="1-10">1-10</option>
           <option value="11-50">11-50</option>
           <option value="51-100">51-100</option>
