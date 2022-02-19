@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
+import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Home/HomePage.css";
@@ -9,12 +10,13 @@ import LocationSearch from "../../components/LocationSearch/LocationSearch";
 import { isEndOfPage, hasNextPage } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
+import HelmetSwitch from "../../components/HelmetSwitch/HelmetSwitch";
 
 const LIMIT = 15;
 
 export default function HomePage() {
+  const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
-
   const [state, setState] = useState({
     page: 1,
     agencies: [],
@@ -90,6 +92,7 @@ export default function HomePage() {
 
   return (
     <div className="general">
+      <HelmetSwitch location={location.search} search={search} />
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">

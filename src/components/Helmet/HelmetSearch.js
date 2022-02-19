@@ -10,7 +10,7 @@ export default function HelmetSearch({
       <title>"FNDR - Vind je digital agency in de FNDR-app"</title>
       <meta
         name="description"
-        content="Vind een digital agency in FNDR, zoek op locatie en grootte"
+        content="Vind een digital agency in FNDR, zoek op locatie en aantal medewerkers."
       />
       <meta name="og:description" content={descriptionContent} />
       <meta property="og:title" content={titleContent} />

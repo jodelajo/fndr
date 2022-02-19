@@ -1,11 +1,9 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { useLocation } from "react-router-dom";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
-import HelmetSwitch from "../HelmetSwitch/HelmetSwitch";
 
 export default function LocationSearch({
   updateQuery,
@@ -14,7 +12,6 @@ export default function LocationSearch({
   city,
   companySize,
 }) {
-  const location = useLocation();
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState(
@@ -65,8 +62,6 @@ export default function LocationSearch({
 
   return (
     <div>
-      <HelmetSwitch location={location.search} search={search} />
-
       <form className="searchbar">
         <input
           id="city"
