@@ -4,18 +4,18 @@
 
 ## Continuous deployment
 
-Check out [live](https://fndr.netlify.app/).
+FNDR lives [here](https://fndr.netlify.app/).
 
-## [React Application](https://github.com/facebook/create-react-app) app using the following dependencies
+## [React Application](https://github.com/facebook/create-react-app) using the following dependencies
 
-- axios
-- json-server
-- concurrently
-- react-loader-spinner
-- react-icons
-- lodash.debounce
-- react-router-dom v6
-- react-helmet-async
+- [axios](https://www.npmjs.com/package/axios)
+- [json-server](https://www.npmjs.com/package/json-server)
+- [concurrently](https://www.npmjs.com/package/concurrently)
+- [react-loader-spinner](https://www.npmjs.com/package/react-loader-spinner)
+- [react-icons](https://www.npmjs.com/package/react-icons)
+- [lodash.debounce](https://www.npmjs.com/package/lodash.debounce)
+- [react-router-dom v6](https://www.npmjs.com/package/react-router-dom)
+- [react-helmet-async](https://www.npmjs.com/package/react-helmet-async)
 
 Script:
 
