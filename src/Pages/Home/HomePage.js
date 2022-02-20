@@ -10,7 +10,7 @@ import LocationSearch from "../../components/LocationSearch/LocationSearch";
 import {
   isEndOfPage,
   hasNextPage,
-  renameGT,
+  renameCompSize,
 } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
@@ -126,7 +126,7 @@ export default function HomePage() {
       {agencies.length === 0 && !isLoading && (
         <div className="noResult">
           Sorry, <span className="logoSpan">FNDR</span> couldn't find a digital
-          company {companySize && `with ${renameGT(companySize)} employees`} in{" "}
+          agency {companySize && `${renameCompSize(companySize)} employees`} in{" "}
           {city} 😞. Please try again!💪
         </div>
       )}

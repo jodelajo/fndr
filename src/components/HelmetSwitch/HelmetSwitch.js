@@ -1,8 +1,8 @@
 import HelmetSearch from "../Helmet/HelmetSearch";
-import { renameGT } from "../../utils/dataTransformations";
+import { renameCompSize } from "../../utils/dataTransformations";
 
 export default function HelmetSwitch({ content, location, search }) {
-  const renameSize = renameGT(search.companySize);
+  const renameSize = renameCompSize(search.companySize);
   const city = search.city;
   const companySize = search.companySize;
 
@@ -20,15 +20,15 @@ export default function HelmetSwitch({ content, location, search }) {
         return (
           <HelmetSearch
             titleContent={`Company size: ${renameSize}`}
-            descriptionContent={`Find your agency with ${renameSize} employees?`}
+            descriptionContent={`Find your agency ${renameSize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "all":
         return (
           <HelmetSearch
-            titleContent={`Location: ${city} with ${renameSize} employees.`}
-            descriptionContent={`Find your agency in ${city} with ${renameSize} employees?`}
+            titleContent={`Location: ${city} ${renameSize} employees.`}
+            descriptionContent={`Find your agency in ${city} ${renameSize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
