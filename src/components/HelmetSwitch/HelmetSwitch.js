@@ -1,29 +1,34 @@
 import HelmetSearch from "../Helmet/HelmetSearch";
+import { renameGT } from "../../utils/dataTransformations";
 
 export default function HelmetSwitch({ content, location, search }) {
+  const renameSize = renameGT(search.companySize);
+  const city = search.city;
+  const companySize = search.companySize;
+
   function renderSwitch(content) {
     switch (content) {
       case "city":
         return (
           <HelmetSearch
-            titleContent={`Location: ${search.city}`}
-            descriptionContent={`Find your agency in ${search.city}?`}
+            titleContent={`Location: ${city}`}
+            descriptionContent={`Find your agency in ${city}?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "companySize":
         return (
           <HelmetSearch
-            titleContent={`Company size: ${search.companySize}`}
-            descriptionContent={`Find your agency with ${search.companySize} employees?`}
+            titleContent={`Company size: ${renameSize}`}
+            descriptionContent={`Find your agency with ${renameSize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
       case "all":
         return (
           <HelmetSearch
-            titleContent={`Location: ${search.city} with ${search.companySize} employees.`}
-            descriptionContent={`Find your agency in ${search.city} with ${search.companySize} employees?`}
+            titleContent={`Location: ${city} with ${renameSize} employees.`}
+            descriptionContent={`Find your agency in ${city} with ${renameSize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
@@ -40,13 +45,9 @@ export default function HelmetSwitch({ content, location, search }) {
 
   return (
     <div>
-      {(search.city && search.companySize && renderSwitch((content = "all"))) ||
-        (search.city &&
-          !search.companySize &&
-          renderSwitch((content = "city"))) ||
-        (search.companySize &&
-          !search.city &&
-          renderSwitch((content = "companySize"))) ||
+      {(city && companySize && renderSwitch((content = "all"))) ||
+        (city && !companySize && renderSwitch((content = "city"))) ||
+        (companySize && !city && renderSwitch((content = "companySize"))) ||
         renderSwitch()}
     </div>
   );

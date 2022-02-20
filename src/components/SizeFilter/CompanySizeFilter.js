@@ -1,14 +1,8 @@
 import "./CompanySizeFilter.css";
 
-export default function SizeFilter({
-  companySize,
-  updateQuery,
-  setSearch,
-  search,
-}) {
+export default function SizeFilter({ companySize, updateQuery }) {
   const onChangeHandler = (e) => {
     updateQuery(e.target.name, e.target.value);
-    setSearch({ ...search, companySize: e.target.value });
   };
 
   const companySizeHandler = () => {
@@ -16,7 +10,6 @@ export default function SizeFilter({
       return (companySize = "");
     }
   };
-  companySizeHandler();
 
   return (
     <div>
@@ -24,7 +17,7 @@ export default function SizeFilter({
         <select
           id="size"
           name="companySize"
-          value={companySize}
+          value={companySizeHandler(companySize)}
           onChange={onChangeHandler}
           className="compSize"
         >

@@ -5,19 +5,10 @@ import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
 
-export default function LocationSearch({
-  updateQuery,
-  search,
-  setSearch,
-  city,
-  companySize,
-}) {
+export default function LocationSearch({ updateQuery, setSearch, city }) {
   const [locations, setLocations] = useState({});
   const [error, setError] = useState(null);
-  const [inputValue, setInputValue] = useState(
-    city ? `${city}` : "",
-    companySize ? `${companySize}` : ""
-  );
+  const [inputValue, setInputValue] = useState(city ? `${city}` : "");
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
@@ -38,18 +29,14 @@ export default function LocationSearch({
 
   const locationsArray = convertLocationObjectToArray(locations);
 
-  const debouncedChangeHandler = useMemo(
+  const debouncedHandler = useMemo(
     () => debounce(updateQuery, 400),
     [updateQuery]
   );
-  const debouncedSearchHandler = useMemo(
-    () => debounce(setSearch, 400),
-    [setSearch]
-  );
+
   const onChange = (e) => {
     setInputValue(e.target.value);
-    debouncedChangeHandler(e.target.name, e.target.value);
-    debouncedSearchHandler({ ...search, city: e.target.value });
+    debouncedHandler(e.target.name, e.target.value);
   };
 
   const resetInputField = (event) => {
@@ -57,9 +44,8 @@ export default function LocationSearch({
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
-    setSearch({});
+    setSearch();
   };
-
   return (
     <div>
       <form className="searchbar">

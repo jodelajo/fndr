@@ -16,3 +16,11 @@ export function isEndOfPage(e) {
 export function hasNextPage(results, page, LIMIT) {
   return results === page * LIMIT;
 }
+
+export function renameGT(companySize) {
+  if (companySize === "GT-100") {
+    return "more than 100";
+  } else {
+    return companySize;
+  }
+}

@@ -7,7 +7,11 @@ import "../Home/HomePage.css";
 import Agencies from "../../components/Agencies/Agencies";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 import LocationSearch from "../../components/LocationSearch/LocationSearch";
-import { isEndOfPage, hasNextPage } from "../../utils/dataTransformations";
+import {
+  isEndOfPage,
+  hasNextPage,
+  renameGT,
+} from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
 import HelmetSwitch from "../../components/HelmetSwitch/HelmetSwitch";
@@ -98,17 +102,10 @@ export default function HomePage() {
         <div className="options">
           <LocationSearch
             updateQuery={updateQuery}
-            search={search}
             setSearch={setSearch}
             city={city}
-            companySize={companySize}
           />
-          <SizeFilter
-            updateQuery={updateQuery}
-            search={search}
-            setSearch={setSearch}
-            companySize={companySize}
-          />
+          <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>
 
@@ -123,7 +120,14 @@ export default function HomePage() {
       </div>
       {isLoading && (
         <div className="loading">
-          <Oval color="#00BFFF" height={80} width={80} ariaLabel="loading" />
+          <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
+        </div>
+      )}
+      {agencies.length === 0 && !isLoading && (
+        <div className="noResult">
+          Sorry, <span className="logoSpan">FNDR</span> couldn't find a digital
+          company {companySize && `with ${renameGT(companySize)} employees`} in{" "}
+          {city} 😞. Please try again!💪
         </div>
       )}
     </div>
