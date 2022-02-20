@@ -19,7 +19,7 @@ export default function HelmetSwitch({ content, location, search }) {
       case "companySize":
         return (
           <HelmetSearch
-            titleContent={`Company size: ${renameSize}`}
+            titleContent={`Company size: ${companySize}`}
             descriptionContent={`Find your agency ${renameSize} employees?`}
             URLContent={`https://fndr.netlify.app/${location}`}
           />
