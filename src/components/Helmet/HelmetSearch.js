@@ -15,7 +15,7 @@ export default function HelmetSearch({
       <meta name="og:description" content={descriptionContent} />
       <meta property="og:title" content={titleContent} />
       <meta property="og:type" content="website" />
-      <meta property="og:image" content="../../../public/fndr_image.png" />
+      <meta property="og:image" content="./fndr_image.png" />
       <meta property="og:url" content={URLContent} />
       <link rel="canonical" href="https://fndr.netlify.app/" />
     </Helmet>
