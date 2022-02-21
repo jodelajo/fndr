@@ -29,14 +29,20 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
 
   const locationsArray = convertLocationObjectToArray(locations);
 
-  const debouncedHandler = useMemo(
-    () => debounce(updateQuery, 400),
+  const debouncedUpdateQuery = useMemo(
+    () => debounce(updateQuery, 1200),
     [updateQuery]
   );
 
-  const onChange = (e) => {
+  const onInput = (e) => {
     setInputValue(e.target.value);
-    debouncedHandler(e.target.name, e.target.value);
+
+    const typeAheadInput = e.nativeEvent.inputType !== undefined;
+    if (typeAheadInput) {
+      debouncedUpdateQuery(e.target.name, e.target.value);
+    } else {
+      updateQuery(e.target.name, e.target.value);
+    }
   };
 
   const resetInputField = (event) => {
@@ -54,7 +60,7 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
           name="city"
           type="text"
           placeholder="Enter a location..."
-          onChange={onChange}
+          onInput={onInput}
           list="places"
           autoComplete="off"
           className="inputField"

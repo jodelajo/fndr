@@ -5,11 +5,7 @@ export default function SizeFilter({ companySize, updateQuery }) {
     updateQuery(e.target.name, e.target.value);
   };
 
-  const companySizeHandler = () => {
-    if (companySize === undefined) {
-      return (companySize = "");
-    }
-  };
+  const companySizeHandler = () => (companySize ? companySize : "");
 
   return (
     <div>

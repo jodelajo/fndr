@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Home/HomePage.css";
@@ -102,8 +102,8 @@ export default function HomePage() {
         <div className="options">
           <LocationSearch
             updateQuery={updateQuery}
-            setSearch={setSearch}
             city={city}
+            setSearch={setSearch}
           />
           <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
@@ -128,6 +128,11 @@ export default function HomePage() {
           Sorry, <span className="logoSpan">FNDR</span> couldn't find a digital
           agency {companySize && `${renameCompSize(companySize)} employees`} in{" "}
           {city} 😞. Please try again!💪
+          <br />
+          <br />
+          <Link to={`/?city=${city}`}>
+            Click here to look for all agencies from {city}?
+          </Link>
         </div>
       )}
     </div>
