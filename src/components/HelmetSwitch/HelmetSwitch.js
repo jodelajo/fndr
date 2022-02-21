@@ -1,14 +1,14 @@
 import HelmetSearch from "../Helmet/HelmetSearch";
 import { renameCompSize } from "../../utils/dataTransformations";
 
-export default function HelmetSwitch({ content, location, search }) {
+export default function HelmetSwitch({ location, search }) {
   const renameSize = renameCompSize(search.companySize);
   const city = search.city;
   const companySize = search.companySize;
 
-  function renderSwitch(content) {
-    switch (content) {
-      case "city":
+  function renderSwitch(city, companySize) {
+    switch (true) {
+      case Boolean(city) && !companySize:
         return (
           <HelmetSearch
             titleContent={`Location: ${city}`}
@@ -16,7 +16,7 @@ export default function HelmetSwitch({ content, location, search }) {
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
-      case "companySize":
+      case Boolean(companySize) && !city:
         return (
           <HelmetSearch
             titleContent={`Company size: ${companySize}`}
@@ -24,7 +24,7 @@ export default function HelmetSwitch({ content, location, search }) {
             URLContent={`https://fndr.netlify.app/${location}`}
           />
         );
-      case "all":
+      case Boolean(city) && Boolean(companySize):
         return (
           <HelmetSearch
             titleContent={`Location: ${city} ${renameSize} employees.`}
@@ -43,12 +43,5 @@ export default function HelmetSwitch({ content, location, search }) {
     }
   }
 
-  return (
-    <div>
-      {(city && companySize && renderSwitch((content = "all"))) ||
-        (city && !companySize && renderSwitch((content = "city"))) ||
-        (companySize && !city && renderSwitch((content = "companySize"))) ||
-        renderSwitch()}
-    </div>
-  );
+  return renderSwitch(city, companySize);
 }
