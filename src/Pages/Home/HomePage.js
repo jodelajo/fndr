@@ -1,27 +1,34 @@
 import React from "react";
 import { useState, useEffect, useCallback } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
-import "../Pages/HomePage.css";
-import Agencies from "../components/Agencies/Agencies";
-import LocationSearch from "../components/LocationSearch/LocationSearch";
-import { isEndOfPage, hasNextPage } from "../utils/dataTransformations";
-import { APIUrl } from "../config/config";
-import SizeFilter from "../components/SizeFilter/CompanySizeFilter";
+import "../Home/HomePage.css";
+import Agencies from "../../components/Agencies/Agencies";
+import useCustomSearchParams from "../../hooks/useCustomSearchParams";
+import LocationSearch from "../../components/LocationSearch/LocationSearch";
+import {
+  isEndOfPage,
+  hasNextPage,
+  renameCompSize,
+} from "../../utils/dataTransformations";
+import { APIUrl } from "../../config/config";
+import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
+import HelmetSwitch from "../../components/HelmetSwitch/HelmetSwitch";
 
 const LIMIT = 15;
 
 export default function HomePage() {
+  const location = useLocation();
+  const [search, setSearch] = useCustomSearchParams();
   const [state, setState] = useState({
     page: 1,
     agencies: [],
     isLoading: true,
-    city: "",
-    companySize: "",
   });
 
-  const { page, agencies, isLoading, city, companySize } = state;
-
+  const { page, agencies, isLoading } = state;
+  const { city, companySize } = search;
   const fetchData = useCallback(async () => {
     let params = {
       _limit: LIMIT,
@@ -75,21 +82,29 @@ export default function HomePage() {
     (key, value) => {
       setState({
         ...state,
-        [key]: value,
         page: 1,
         agencies: [],
         isLoading: true,
       });
+      setSearch({
+        ...search,
+        [key]: value,
+      });
     },
-    [state]
+    [state, setSearch, search]
   );
 
   return (
     <div className="general">
+      <HelmetSwitch location={location.search} search={search} />
       <div className="logo">
         <h1 className="logo-title">FNDR</h1>
         <div className="options">
-          <LocationSearch updateQuery={updateQuery} />
+          <LocationSearch
+            updateQuery={updateQuery}
+            city={city}
+            setSearch={setSearch}
+          />
           <SizeFilter updateQuery={updateQuery} companySize={companySize} />
         </div>
       </div>
@@ -105,7 +120,19 @@ export default function HomePage() {
       </div>
       {isLoading && (
         <div className="loading">
-          <Oval color="#00BFFF" height={80} width={80} ariaLabel="loading" />
+          <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
+        </div>
+      )}
+      {agencies.length === 0 && !isLoading && (
+        <div className="noResult">
+          Sorry, <span className="logoSpan">FNDR</span> couldn't find a digital
+          agency {companySize && `${renameCompSize(companySize)} employees`} in{" "}
+          {city} 😞. Please try again!💪
+          <br />
+          <br />
+          <Link to={`/?city=${city}`}>
+            Click here to look for all agencies from {city}?
+          </Link>
         </div>
       )}
     </div>
