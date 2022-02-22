@@ -6,15 +6,13 @@ import axios from "axios";
 import "../Home/HomePage.css";
 import Agencies from "../../components/Agencies/Agencies";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
-import LocationSearch from "../../components/LocationSearch/LocationSearch";
 import {
   isEndOfPage,
   hasNextPage,
   renameCompSize,
 } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
-import SizeFilter from "../../components/SizeFilter/CompanySizeFilter";
-import HelmetSwitch from "../../components/HelmetSwitch/HelmetSwitch";
+import Header from "../../components/Header/Header";
 
 const LIMIT = 15;
 
@@ -96,19 +94,14 @@ export default function HomePage() {
 
   return (
     <div className="general">
-      <HelmetSwitch location={location.search} search={search} />
-      <div className="logo">
-        <h1 className="logo-title">FNDR</h1>
-        <div className="options">
-          <LocationSearch
-            updateQuery={updateQuery}
-            city={city}
-            setSearch={setSearch}
-          />
-          <SizeFilter updateQuery={updateQuery} companySize={companySize} />
-        </div>
-      </div>
-
+      <Header
+        updateQuery={updateQuery}
+        city={city}
+        setSearch={setSearch}
+        companySize={companySize}
+        location={location.search}
+        search={search}
+      />
       <div className="main-card">
         {agencies.map((agency) => {
           return (
