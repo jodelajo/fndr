@@ -45,18 +45,20 @@
   color: rgb(8, 8, 133);
 }
 .www-link a {
-  text-decoration: none;
   color: rgb(33, 14, 204);
-  text-decoration: underline;
 }
 .www-link a:hover {
   color: rgb(166, 14, 204);
-  text-decoration: underline;
 }
 
 /* DESKTOP */
 @media (min-width: 767px) {
   .agency-card-container {
     border: 1px solid grey;
+  }
+}
+@media (min-width: 1200px) {
+  .agency-card-container {
+    width: 340px;
   }
 }

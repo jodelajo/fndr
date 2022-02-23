@@ -1,0 +1,9 @@
+.links {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+.login {
+  margin-right: 20px;
+}

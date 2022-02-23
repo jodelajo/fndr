@@ -14,7 +14,7 @@ import {
 import { APIUrl } from "../../config/config";
 import Header from "../../components/Header/Header";
 
-const LIMIT = 15;
+const LIMIT = 18;
 
 export default function HomePage() {
   const location = useLocation();
@@ -38,7 +38,6 @@ export default function HomePage() {
     const response = await axios.get(`${APIUrl}/agencies`, {
       params: params,
     });
-
     setState((prevState) => {
       return {
         ...prevState,
@@ -94,40 +93,45 @@ export default function HomePage() {
 
   return (
     <div className="general">
-      <Header
-        updateQuery={updateQuery}
-        city={city}
-        setSearch={setSearch}
-        companySize={companySize}
-        location={location.search}
-        search={search}
-      />
-      <div className="main-card">
-        {agencies.map((agency) => {
-          return (
-            <div className="block" key={agency.id}>
-              <Agencies agency={agency} />
-            </div>
-          );
-        })}
+      <div className="header">
+        <Header
+          updateQuery={updateQuery}
+          city={city}
+          setSearch={setSearch}
+          companySize={companySize}
+          location={location.search}
+          search={search}
+        />
       </div>
-      {isLoading && (
-        <div className="loading">
-          <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
+      <div className="mainWrapper">
+        <div className="main-card">
+          {agencies.map((agency) => {
+            return (
+              <div key={agency.id}>
+                <Agencies agency={agency} />
+              </div>
+            );
+          })}
         </div>
-      )}
-      {agencies.length === 0 && !isLoading && (
-        <div className="noResult">
-          Sorry, <span className="logoSpan">FNDR</span> couldn't find a digital
-          agency {companySize && `${renameCompSize(companySize)} employees`} in{" "}
-          {city} 😞. Please try again!💪
-          <br />
-          <br />
-          <Link to={`/?city=${city}`}>
-            Click here to look for all agencies from {city}?
-          </Link>
-        </div>
-      )}
+        {isLoading && (
+          <div className="loading">
+            <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
+          </div>
+        )}
+        {agencies.length === 0 && !isLoading && (
+          <div className="noResult">
+            Sorry, <span className="logoSpan">FNDR</span> couldn't find a
+            digital agency{" "}
+            {companySize && `${renameCompSize(companySize)} employees`} in{" "}
+            {city} 😞. Please try again!💪
+            <br />
+            <br />
+            <Link to={`/?city=${city}`}>
+              Click here to look for all agencies from {city}?
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,0 +1,8 @@
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-self: center;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+}

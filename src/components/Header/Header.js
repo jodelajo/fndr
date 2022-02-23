@@ -1,6 +1,8 @@
+import Navbar from "../Navbar/Navbar";
 import Filter from "../Filter/Filter";
 import Logo from "../Logo/Logo";
 import HelmetSwitch from "../HelmetSwitch/HelmetSwitch";
+import "./Header.css";
 
 export default function Header({
   updateQuery,
@@ -11,12 +13,12 @@ export default function Header({
   search,
 }) {
   return (
-    <div>
+    <div className="headerWrap">
       <HelmetSwitch location={location} search={search} />
-
-      <div className="logo">
+      <Navbar />
+      <div>
         <Logo />
-        <div className="options">
+        <div>
           <Filter
             updateQuery={updateQuery}
             city={city}

@@ -1,6 +1,13 @@
 .logo-title {
   text-align: center;
-  color: rgb(8, 8, 133);
+  color: var(--colors-logo);
   font-size: 32px;
   font-weight: 700;
+}
+.logo-title a {
+  text-decoration: none;
+}
+
+.logo-title a:visited {
+  color: var(--colors-logo);
 }
