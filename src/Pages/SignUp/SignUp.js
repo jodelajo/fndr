@@ -1,5 +1,8 @@
 import Logo from "../../components/Logo/Logo";
 import Navbar from "../../components/Navbar/Navbar";
+import AdminForm from "../../components/AdminForm/AdminForm";
+import "../Login/Login.css";
+
 export default function SignUp() {
   return (
     <div className="generalLogin">
@@ -7,7 +10,9 @@ export default function SignUp() {
         <Navbar />
         <Logo />
       </div>
-      Sign up
+      <div className="mainLogin">
+        <AdminForm />
+      </div>
     </div>
   );
 }

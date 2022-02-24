@@ -6,6 +6,7 @@
 }
 .logo-title a {
   text-decoration: none;
+  color: var(--colors-logo);
 }
 
 .logo-title a:visited {

@@ -10,12 +10,9 @@
 .navLogin {
   align-self: center;
   padding-bottom: 20px;
-  border-bottom: 1px solid rgba(128, 128, 128, 0.205);
+  /* border-bottom: 1px solid rgba(128, 128, 128, 0.205); */
 }
 .mainLogin {
-  /* display: flex;
-  justify-content: center;
-  flex-direction: column; */
   margin-top: 40px;
 }
 
@@ -28,6 +25,12 @@
     margin-right: auto;
   }
   .navLogin {
+    width: 767px;
+  }
+}
+@media (min-width: 1200px) {
+  .navLogin {
+    width: 1200px;
     align-self: stretch;
   }
 }

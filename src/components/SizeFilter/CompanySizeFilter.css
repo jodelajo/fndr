@@ -1,4 +1,6 @@
 .compSize {
   height: 40px;
   margin-left: 20px;
+  background-color: var(--colors-bg-input);
+  border: none;
 }

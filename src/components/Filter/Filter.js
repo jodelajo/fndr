@@ -4,7 +4,7 @@ import "./Filter.css";
 
 export default function Filter({ updateQuery, city, companySize, setSearch }) {
   return (
-    <div className="options">
+    <div className="optionsFilter">
       <LocationSearch
         updateQuery={updateQuery}
         city={city}

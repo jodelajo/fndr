@@ -13,7 +13,7 @@ export default function Header({
   search,
 }) {
   return (
-    <div className="headerWrap">
+    <div>
       <HelmetSwitch location={location} search={search} />
       <Navbar />
       <div>
