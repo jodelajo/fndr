@@ -50,7 +50,7 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
     const EMPTY_STRING = "";
     setInputValue(EMPTY_STRING);
     updateQuery("city", EMPTY_STRING);
-    setSearch();
+    setSearch({});
   };
   return (
     <div>

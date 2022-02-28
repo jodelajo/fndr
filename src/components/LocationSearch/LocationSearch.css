@@ -8,6 +8,8 @@
   width: 292px;
   padding-left: 6px;
   height: 35px;
+  background-color: var(--colors-bg-input);
+  border: none;
 }
 
 .resetButton {
@@ -17,4 +19,10 @@
   border: none;
   margin-left: 8px;
   border-radius: 4px;
+}
+/* DESKTOP STYLES */
+@media (min-width: 767px) {
+  .searchbar {
+    margin-bottom: 0;
+  }
 }

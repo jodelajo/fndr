@@ -1,0 +1,14 @@
+.logo-title {
+  text-align: center;
+  color: var(--colors-logo);
+  font-size: 32px;
+  font-weight: 700;
+}
+.logo-title a {
+  text-decoration: none;
+  color: var(--colors-logo);
+}
+
+.logo-title a:visited {
+  color: var(--colors-logo);
+}

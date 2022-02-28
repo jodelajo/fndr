@@ -1,0 +1,35 @@
+.links {
+  display: flex;
+  justify-content: center;
+  margin-right: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.login {
+  text-decoration: none;
+  width: 100px;
+  text-align: center;
+  color: var(--colors-logo);
+}
+.login:visited {
+  color: var(--colors-logo);
+}
+.active {
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  width: 100px;
+  color: var(--colors-logo);
+}
+
+/* DESKTOP STYLES */
+@media (min-width: 767px) {
+  .links {
+    justify-content: flex-end;
+    margin-bottom: 0;
+  }
+  .active,
+  .login {
+    text-align: end;
+  }
+}
