@@ -1,6 +1,6 @@
 import Logo from "../../components/Logo/Logo";
 import Navbar from "../../components/Navbar/Navbar";
-import AdminForm from "../../components/AdminForm/AdminForm";
+import LoginForm from "../../components/LoginForm/LoginForm";
 import "./Login.css";
 
 export default function Login() {
@@ -11,7 +11,7 @@ export default function Login() {
         <Logo />
       </div>
       <div className="mainLogin">
-        <AdminForm />
+        <LoginForm />
       </div>
     </div>
   );
