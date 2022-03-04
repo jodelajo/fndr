@@ -26,26 +26,37 @@ export default function HomePage() {
   });
 
   const { page, agencies, isLoading } = state;
-  const { city, companySize } = search;
+  const { city, company_size } = search;
   const fetchData = useCallback(async () => {
     let params = {
-      _limit: LIMIT,
-      _page: page,
+      // _limit: LIMIT,
+      // _page: page,
       city_like: city || null,
-      companySize: companySize || null,
+      size: company_size || null,
     };
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
-    const response = await axios.get(`${APIUrl}/agencies`, {
+    const response = await axios.get(`${APIUrl}/companies`, {
+      headers: {
+        "Access-Control-Allow-Headers": "*",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "*",
+        Authorization: "Bearer" + token,
+      },
       params: params,
     });
+    // console.log("response", response);
+
     setState((prevState) => {
       return {
         ...prevState,
-        agencies: [...prevState.agencies, ...response.data],
+        agencies: [...prevState.agencies, ...response.data.items],
         isLoading: false,
       };
     });
-  }, [page, city, companySize]);
+  }, [page, city, company_size]);
+  // console.log(agencies && agencies[0]);
 
   const handleScroll = useCallback(
     (e) => {
@@ -96,9 +107,9 @@ export default function HomePage() {
       <div className="header">
         <Header
           updateQuery={updateQuery}
-          city={city}
+          city_name={city}
           setSearch={setSearch}
-          companySize={companySize}
+          company_size={company_size}
           location={location.search}
           search={search}
         />
@@ -107,7 +118,7 @@ export default function HomePage() {
         <div className="main-card">
           {agencies.map((agency) => {
             return (
-              <div key={agency.id}>
+              <div key={agency.company_id}>
                 <Agencies agency={agency} />
               </div>
             );
@@ -122,7 +133,7 @@ export default function HomePage() {
           <div className="noResult">
             Sorry, <span className="logoSpan">FNDR</span> couldn't find a
             digital agency{" "}
-            {companySize && `${renameCompSize(companySize)} employees`} in{" "}
+            {company_size && `${renameCompSize(company_size)} employees`} in{" "}
             {city} 😞. Please try again!💪
             <br />
             <br />

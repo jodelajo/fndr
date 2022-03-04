@@ -2,7 +2,7 @@ import LocationSearch from "../LocationSearch/LocationSearch";
 import SizeFilter from "../SizeFilter/CompanySizeFilter";
 import "./Filter.css";
 
-export default function Filter({ updateQuery, city, companySize, setSearch }) {
+export default function Filter({ updateQuery, city, company_size, setSearch }) {
   return (
     <div className="optionsFilter">
       <LocationSearch
@@ -10,7 +10,7 @@ export default function Filter({ updateQuery, city, companySize, setSearch }) {
         city={city}
         setSearch={setSearch}
       />
-      <SizeFilter updateQuery={updateQuery} companySize={companySize} />
+      <SizeFilter updateQuery={updateQuery} company_size={company_size} />
     </div>
   );
 }

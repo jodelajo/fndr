@@ -8,7 +8,7 @@ export default function Header({
   updateQuery,
   city,
   setSearch,
-  companySize,
+  company_size,
   location,
   search,
 }) {
@@ -23,7 +23,7 @@ export default function Header({
             updateQuery={updateQuery}
             city={city}
             setSearch={setSearch}
-            companySize={companySize}
+            company_size={company_size}
           />
         </div>
       </div>

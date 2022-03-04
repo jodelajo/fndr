@@ -8,13 +8,13 @@ export default function Agencies({ agency }) {
       <div className="agency-card-container">
         <div className="company-logo">
           <img
-            src={agency.eguideImageSrc}
-            alt={`${agency.name} company logo`}
+            src={agency.logo_image_src}
+            alt={`${agency.company_name} company logo`}
           />
         </div>
-        <div className="agency-card-info" key={agency.id}>
+        <div className="agency-card-info" key={agency.company_id}>
           <div className="company-name">
-            <h2>{agency.name.replaceAll("&amp;", "&")}</h2>
+            <h2>{agency.company_name.replace("&amp;", "&")}</h2>
           </div>
           <div className="company-info">
             <div>
@@ -22,7 +22,7 @@ export default function Agencies({ agency }) {
                 <span className="icon-gap">
                   <MdLocationCity />
                 </span>
-                {agency.companySize} Employees
+                {agency.company_size} Employees
               </h5>
             </div>
             <div>
@@ -30,7 +30,7 @@ export default function Agencies({ agency }) {
                 <span className="icon-gap">
                   <MdLocationOn />
                 </span>
-                {agency.city}
+                {agency.city_name}
               </h5>
             </div>
             <div className="www-link">

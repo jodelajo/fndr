@@ -16,6 +16,7 @@ FNDR lives [here](https://fndr.netlify.app/).
 - [lodash.debounce](https://www.npmjs.com/package/lodash.debounce)
 - [react-router-dom v6](https://www.npmjs.com/package/react-router-dom)
 - [react-helmet-async](https://www.npmjs.com/package/react-helmet-async)
+- [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 
 Script:
 
