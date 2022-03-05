@@ -1,37 +1,11 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { NavLink, Navigate } from "react-router-dom";
-import { APIUrl } from "../../config/config";
 import { AuthContext } from "../../context/AuthContext";
 import "./LoginForm.css";
 
 export default function LoginForm() {
-  // const [username, setUsername] = useState("");
-  // const [password, setPassword] = useState("");
-  const { username, setUsername, password, setPassword } =
+  const { username, setUsername, password, setPassword, redirect, login } =
     useContext(AuthContext);
-  const [redirect, setRedirect] = useState(false);
-
-  // username: "abczzz13",
-  // password: "v$*UfieAepz7zuYphJ^^",
-
-  const login = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`${APIUrl}/token`, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        // "Access-Control-Allow-Methods": true,
-      },
-      // credentials: "include",
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
-    const content = await response.json();
-    console.log("content", content);
-    setRedirect(true);
-  };
 
   if (redirect) {
     return <Navigate to="/" />;
@@ -44,11 +18,15 @@ export default function LoginForm() {
           type="text"
           placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
+          required={true}
+          value={username}
         />
         <input
           type="password"
           placeholder="password"
           onChange={(e) => setPassword(e.target.value)}
+          required={true}
+          value={password}
         />
         <button type="submit">Log in</button>
       </form>

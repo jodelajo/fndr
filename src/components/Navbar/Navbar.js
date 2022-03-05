@@ -4,20 +4,24 @@ import { AuthContext } from "../../context/AuthContext";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const { username } = useContext(AuthContext);
+  const { userToken, logout, username } = useContext(AuthContext);
+
   return (
     <div className="links">
-      <p>Welkom {username}</p>
+      {userToken && userToken.error !== "Unauthorized" && (
+        <p className="welcome">Welkom {username}</p>
+      )}
       <NavLink
         to="/"
         className={(navData) => (navData.isActive ? "active" : "login")}
       >
         FNDR
       </NavLink>
-      {username ? (
+      {userToken ? (
         <NavLink
           to="/logout"
           className={(navData) => (navData.isActive ? "active" : "login")}
+          onClick={logout}
         >
           Log out
         </NavLink>

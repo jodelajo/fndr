@@ -14,11 +14,10 @@ import {
 import { APIUrl } from "../../config/config";
 import Header from "../../components/Header/Header";
 
-const LIMIT = 18;
-
 export default function HomePage() {
   const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
+  const [limit, setLimit] = useState(18);
   const [state, setState] = useState({
     page: 1,
     agencies: [],
@@ -29,8 +28,8 @@ export default function HomePage() {
   const { city, company_size } = search;
   const fetchData = useCallback(async () => {
     let params = {
-      // _limit: LIMIT,
-      // _page: page,
+      per_page: limit,
+      page: page,
       city_like: city || null,
       size: company_size || null,
     };
@@ -46,7 +45,6 @@ export default function HomePage() {
       },
       params: params,
     });
-    // console.log("response", response);
 
     setState((prevState) => {
       return {
@@ -55,15 +53,18 @@ export default function HomePage() {
         isLoading: false,
       };
     });
-  }, [page, city, company_size]);
-  // console.log(agencies && agencies[0]);
+    setLimit(response.data._meta.per_page);
+    console.log("meta", response.data._meta);
+  }, [limit, page, city, company_size]);
+  console.log("limit", limit);
+  console.log("page", page);
 
   const handleScroll = useCallback(
     (e) => {
       if (
         isEndOfPage(e) &&
         !isLoading &&
-        hasNextPage(agencies.length, page, LIMIT)
+        hasNextPage(agencies.length, page, limit)
       ) {
         setState((prevState) => {
           return {
@@ -74,7 +75,7 @@ export default function HomePage() {
         });
       }
     },
-    [agencies, isLoading, page]
+    [agencies.length, isLoading, limit, page]
   );
 
   useEffect(() => {

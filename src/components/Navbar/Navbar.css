@@ -21,6 +21,10 @@
   width: 100px;
   color: var(--colors-logo);
 }
+.welcome {
+  font-weight: bold;
+  color: hotpink;
+}
 
 /* DESKTOP STYLES */
 @media (min-width: 767px) {
