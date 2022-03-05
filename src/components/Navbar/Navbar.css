@@ -4,12 +4,13 @@
   margin-right: 10px;
   margin-top: 20px;
   margin-bottom: 10px;
+  color: var(--colors-logo);
 }
+
 .login {
   text-decoration: none;
   width: 100px;
   text-align: center;
-  color: var(--colors-logo);
 }
 .login:visited {
   color: var(--colors-logo);

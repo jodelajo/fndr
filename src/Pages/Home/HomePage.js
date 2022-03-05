@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
 import "../Home/HomePage.css";
-import Agencies from "../../components/Agencies/Agencies";
+import AgencyCard from "../../components/AgencyCard/AgencyCard";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 import {
   isEndOfPage,
@@ -54,10 +54,10 @@ export default function HomePage() {
       };
     });
     setLimit(response.data._meta.per_page);
-    console.log("meta", response.data._meta);
+    // console.log("meta", response.data._meta);
   }, [limit, page, city, company_size]);
-  console.log("limit", limit);
-  console.log("page", page);
+  // console.log("limit", limit);
+  // console.log("page", page);
 
   const handleScroll = useCallback(
     (e) => {
@@ -120,7 +120,7 @@ export default function HomePage() {
           {agencies.map((agency) => {
             return (
               <div key={agency.company_id}>
-                <Agencies agency={agency} />
+                <AgencyCard agency={agency} />
               </div>
             );
           })}

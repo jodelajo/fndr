@@ -9,7 +9,9 @@ export default function Navbar() {
   return (
     <div className="links">
       {userToken && userToken.error !== "Unauthorized" && (
-        <p className="welcome">Welkom {username}</p>
+        <p>
+          Welkom <span className="welcome">{username}</span>
+        </p>
       )}
       <NavLink
         to="/"

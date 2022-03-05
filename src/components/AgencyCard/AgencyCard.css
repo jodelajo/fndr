@@ -8,32 +8,37 @@
   display: grid;
   margin-top: 20px;
   grid-template-columns: repeat(2, 100px);
-  height: 140px;
+  height: 150px;
   grid-column-gap: 20px;
   background-color: var(--colors-bg-blue);
+  border-radius: 4px;
   padding: 20px;
   width: 320px;
+  box-shadow: 15px 15px 10px -10px rgba(105, 105, 105, 0.08);
 }
-
 .company-logo {
   display: grid;
   align-items: center;
 }
 .agency-card-info {
   display: grid;
+  justify-content: space-between;
   overflow-wrap: break-word;
+  height: 100%;
 }
 .company-name {
   font-size: 14px;
   overflow: hidden;
+  /* display: flex;
+  align-items: center; */
 }
 .company-info {
   display: grid;
-  justify-content: left;
+  align-items: flex-end;
   margin-top: 15px;
   font-size: 16px;
-  margin-bottom: 10px;
-  grid-template-columns: repeat(1, 220px);
+  height: 70px;
+  grid-template-columns: repeat(1, 180px);
 }
 .company-info h5 {
   margin-bottom: 5px;
@@ -41,19 +46,35 @@
 }
 .icon-gap {
   margin-right: 10px;
-  color: rgb(8, 8, 133);
+  color: var(--colors-logo);
 }
 .www-link a {
-  color: rgb(33, 14, 204);
+  color: var(--colors-logo);
 }
 .www-link a:hover {
-  color: rgb(166, 14, 204);
+  color: hotpink;
 }
-
+.right-block {
+  display: flex;
+  align-items: flex-end;
+  width: 210px;
+  justify-content: space-between;
+}
+.edit {
+  width: 100%;
+  text-align: end;
+  color: #c4c4c4;
+}
+.edit:hover {
+  color: hotpink;
+}
 /* DESKTOP */
 
 @media (min-width: 1200px) {
   .agency-card-container {
     width: 340px;
+  }
+  .right-block {
+    width: 230px;
   }
 }

@@ -4,7 +4,6 @@ export default function SizeFilter({ company_size, updateQuery }) {
   const onChangeHandler = (e) => {
     updateQuery(e.target.name, e.target.value);
   };
-  console.log("comp_size", company_size);
   const companySizeHandler = () => (company_size ? company_size : "");
 
   return (
