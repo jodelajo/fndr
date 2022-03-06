@@ -16,6 +16,23 @@
   width: 320px;
   box-shadow: 15px 15px 10px -10px rgba(105, 105, 105, 0.08);
 }
+.agency-card-container:hover {
+  transform: scale(1.02);
+  cursor: pointer;
+}
+.agency-card-container-pop {
+  display: grid;
+  margin-top: 20px;
+  grid-template-columns: repeat(2, 100px);
+  height: 150px;
+  grid-column-gap: 20px;
+  background-color: var(--colors-bg-blue);
+  border-radius: 4px;
+  padding: 20px;
+  width: 320px;
+  box-shadow: 15px 15px 10px -10px rgba(105, 105, 105, 0.08);
+  /* pointer-events: none; */
+}
 .company-logo {
   display: grid;
   align-items: center;
@@ -74,6 +91,10 @@
   .agency-card-container {
     width: 340px;
   }
+  .agency-card-container-pop {
+    width: 340px;
+  }
+
   .right-block {
     width: 230px;
   }

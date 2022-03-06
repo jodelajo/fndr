@@ -11,8 +11,8 @@ export default function AuthContextProvider({ children }) {
   const [decoded, setDecoded] = useState({});
   const [redirect, setRedirect] = useState(false);
 
-  console.log("userToken", userToken);
-  console.log("decoded", decoded);
+  // console.log("userToken", userToken);
+  // console.log("decoded", decoded);
 
   const login = async (e) => {
     e.preventDefault();

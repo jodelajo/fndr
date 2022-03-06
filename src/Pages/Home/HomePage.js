@@ -33,16 +33,8 @@ export default function HomePage() {
       city_like: city || null,
       size: company_size || null,
     };
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
     const response = await axios.get(`${APIUrl}/companies`, {
-      headers: {
-        "Access-Control-Allow-Headers": "*",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "*",
-        Authorization: "Bearer" + token,
-      },
       params: params,
     });
 
@@ -54,10 +46,7 @@ export default function HomePage() {
       };
     });
     setLimit(response.data._meta.per_page);
-    // console.log("meta", response.data._meta);
   }, [limit, page, city, company_size]);
-  // console.log("limit", limit);
-  // console.log("page", page);
 
   const handleScroll = useCallback(
     (e) => {
