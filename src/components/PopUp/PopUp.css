@@ -106,11 +106,6 @@
   margin-bottom: 10px;
 }
 @media (min-width: 767px) {
-  .pop-details {
-    flex-wrap: nowrap;
-  }
-}
-@media (min-width: 1200px) {
   .modal {
     width: 50%;
     top: 20%;
@@ -120,6 +115,11 @@
   .modal_content {
     padding: 80px;
   }
+  .pop-details {
+    flex-wrap: nowrap;
+  }
+}
+@media (min-width: 1200px) {
   .pop-card {
     width: 340px;
   }

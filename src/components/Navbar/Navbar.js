@@ -30,7 +30,7 @@ export default function Navbar() {
           </NavLink>
           <NavLink
             to="/"
-            className={(navData) => (navData.isActive ? "active" : "login")}
+            className={(navData) => (navData.isActive ? "login" : "login")}
             onClick={logout}
           >
             Log out
