@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { AgencyContext } from "../../context/AgencyContext";
 import { AuthContext } from "../../context/AuthContext";
-import { MdOutlineModeEditOutline } from "react-icons/md";
+import { MdOutlineModeEditOutline, MdOutlineIosShare } from "react-icons/md";
 import "./PopUp.css";
 import AgencyCardInfo from "../AgencyCard/AgencyCardInfo";
 import AgencyLogo from "../AgencyCard/AgencyLogo";
@@ -17,9 +17,20 @@ export default function PopUp() {
 
   return (
     <div className="modal">
-      <span className="close-icon" onClick={() => setPop(false)}>
-        x
-      </span>
+      <div className="icons">
+        {userToken && userToken.error !== "Unauthorized" && (
+          <span className="pop-icon">
+            <MdOutlineModeEditOutline />
+          </span>
+        )}
+        <span className="close-icon" onClick={() => setPop(false)}>
+          x
+        </span>
+        <span className="share">
+          <MdOutlineIosShare />
+        </span>
+      </div>
+
       <div className="modal_content">
         <div className="pop-content">
           <div className="pop-card">
@@ -32,7 +43,7 @@ export default function PopUp() {
           </div>
           <div className="pop-region">
             <h3>Region</h3>
-            <p>Region: {selectedAgency.region}</p>
+            <p>{selectedAgency.region}</p>
           </div>
 
           <button onClick={handleDetails} className="details-button">
@@ -68,11 +79,6 @@ export default function PopUp() {
                 </ul>
               </div>
             </div>
-          )}
-          {userToken && userToken.error !== "Unauthorized" && (
-            <span className="pop-icon">
-              <MdOutlineModeEditOutline />
-            </span>
           )}
         </div>
       </div>

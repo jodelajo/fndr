@@ -11,9 +11,6 @@ export default function AuthContextProvider({ children }) {
   const [decoded, setDecoded] = useState({});
   const [redirect, setRedirect] = useState(false);
 
-  // console.log("userToken", userToken);
-  // console.log("decoded", decoded);
-
   const login = async (e) => {
     e.preventDefault();
     try {
@@ -21,7 +18,7 @@ export default function AuthContextProvider({ children }) {
         method: "POST",
         headers: {
           "Content-type": "application/json",
-          Authorization: "Bearer" + userToken.token,
+          Authorization: "Bearer" + userToken && userToken.token,
         },
         body: JSON.stringify({
           username,
@@ -32,6 +29,7 @@ export default function AuthContextProvider({ children }) {
       const content = await response?.json();
       setUserToken(content);
       setRedirect(true);
+      localStorage.setItem("token", content.token);
       const decoded = jwt_decode(content.token);
       setDecoded(decoded);
     } catch (e) {
@@ -40,7 +38,9 @@ export default function AuthContextProvider({ children }) {
   };
 
   const logout = () => {
-    window.location.reload(false);
+    localStorage.clear();
+    setUserToken("");
+    setRedirect(false);
   };
 
   const data = {

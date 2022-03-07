@@ -1,7 +1,7 @@
 .links {
   display: flex;
   justify-content: center;
-  margin-right: 10px;
+  padding-right: 20px;
   margin-top: 20px;
   margin-bottom: 10px;
   color: var(--colors-logo);
@@ -9,7 +9,7 @@
 
 .login {
   text-decoration: none;
-  width: 100px;
+  margin-left: 30px;
   text-align: center;
 }
 .login:visited {
@@ -19,7 +19,7 @@
   font-weight: 700;
   text-decoration: none;
   text-align: center;
-  width: 100px;
+  margin-left: 30px;
   color: var(--colors-logo);
 }
 .welcome {

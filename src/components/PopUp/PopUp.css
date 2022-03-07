@@ -4,23 +4,18 @@
   margin-top: 50px;
   width: 100%;
   min-height: 50%;
-  /* height: 100%; */
   display: flex;
   justify-content: center;
-  /* background-color: rgb(139, 139, 139); */
 }
 .modal_content {
   background-color: white;
   margin-top: 30px;
   position: fixed;
-  top: 200px;
+  top: 250px;
   width: 80%;
-  /* min-height: 60%; */
   max-height: 60%;
-  /* left: 5px; */
   padding: 20px;
   border-radius: 5px;
-  /* border: 2px solid black; */
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -34,22 +29,17 @@
 .close-icon {
   content: "x";
   cursor: pointer;
-  position: fixed;
-  top: 200px;
-
-  /* background-color: red; */
-  /* right: calc(15% - 30px); */
-  /* top: calc(100vh - 85vh - 33px); */
-  background: #292828;
+  background: var(--colors-logo);
   color: white;
-  width: 25px;
-  height: 25px;
-  /* border-radius: 50%; */
+  padding: 6px;
+  width: 28px;
   line-height: 20px;
   text-align: center;
-  /* border: 1px solid #999; */
-  font-size: 20px;
+  font-size: 34px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .pop-card {
   display: flex;
@@ -78,15 +68,33 @@
 }
 .pop-region {
   text-align: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 20px;
 }
 .pop-details h3 {
   margin-top: 20px;
 }
+.icons {
+  display: flex;
+  position: fixed;
+  column-gap: 3px;
+  top: 234px;
+  left: 50%;
+  height: 46px;
+  align-items: stretch;
+  justify-content: flex-end;
+  transform: translateX(-50%);
+}
 .pop-icon {
   font-size: 34px;
-  color: hotpink;
+  padding: 4px;
+  color: white;
+  background-color: var(--colors-logo);
+}
+.share {
+  font-size: 34px;
+  padding: 4px;
+  color: white;
+  background-color: var(--colors-logo);
 }
 .details-button {
   border: none;
@@ -94,25 +102,22 @@
   border-bottom: 1px solid var(--colors-logo);
   background-color: white;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 @media (min-width: 767px) {
-  .close-icon {
-    right: 60px;
-  }
   .pop-details {
     flex-wrap: nowrap;
   }
 }
 @media (min-width: 1200px) {
   .modal {
-    width: 40%;
-    height: 40%;
-    top: 40%;
+    width: 50%;
+    top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-  .modal-content {
+  .modal_content {
     padding: 80px;
   }
   .pop-card {

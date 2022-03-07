@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import "./LoginForm.css";
 
@@ -30,11 +30,6 @@ export default function LoginForm() {
         />
         <button type="submit">Log in</button>
       </form>
-
-      <div className="text">
-        <p>No account?</p>{" "}
-        <NavLink to="/signup">Click here to register.</NavLink>
-      </div>
     </div>
   );
 }

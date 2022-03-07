@@ -19,14 +19,23 @@ export default function Navbar() {
       >
         FNDR
       </NavLink>
+
       {userToken ? (
-        <NavLink
-          to="/logout"
-          className={(navData) => (navData.isActive ? "active" : "login")}
-          onClick={logout}
-        >
-          Log out
-        </NavLink>
+        <>
+          <NavLink
+            to="/signup"
+            className={(navData) => (navData.isActive ? "active" : "login")}
+          >
+            Create new Admin
+          </NavLink>
+          <NavLink
+            to="/"
+            className={(navData) => (navData.isActive ? "active" : "login")}
+            onClick={logout}
+          >
+            Log out
+          </NavLink>
+        </>
       ) : (
         <>
           <NavLink
@@ -34,12 +43,6 @@ export default function Navbar() {
             className={(navData) => (navData.isActive ? "active" : "login")}
           >
             Log in
-          </NavLink>
-          <NavLink
-            to="/signup"
-            className={(navData) => (navData.isActive ? "active" : "login")}
-          >
-            Sign up
           </NavLink>
         </>
       )}
