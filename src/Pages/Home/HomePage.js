@@ -15,7 +15,6 @@ const LIMIT = 18;
 export default function HomePage() {
   const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
-  // const [limit, setLimit] = useState(18);
   const [state, setState] = useState({
     page: 1,
     agencies: [],

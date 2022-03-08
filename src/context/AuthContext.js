@@ -40,7 +40,7 @@ export default function AuthContextProvider({ children }) {
         throw new Error(message);
       } else {
         throw new Error(
-          "Something went wrong, please visit https://github.com/jodelajo/fndr/issues, and let me know! "
+          "Something went wrong, please visit https://github.com/jodelajo/fndr/issues, and let me know!"
         );
       }
     }

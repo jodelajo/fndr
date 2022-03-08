@@ -27,7 +27,7 @@ export default function AgencyCard({ agency }) {
           <AgencyCardInfo agency={agency} />
         </div>
       )}
-      {pop && <PopUp />}
+      {pop && <PopUp setSelectedAgency={setSelectedAgency} />}
     </div>
   );
 }
