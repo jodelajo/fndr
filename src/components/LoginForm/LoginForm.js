@@ -1,18 +1,29 @@
-import { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "./LoginForm.css";
 
 export default function LoginForm() {
-  const { username, setUsername, password, setPassword, redirect, login } =
-    useContext(AuthContext);
+  const { login } = useContext(AuthContext);
+  const [username, setUsername] = useState(
+    process.env.REACT_APP_USERNAME || ""
+  );
+  const [password, setPassword] = useState(
+    process.env.REACT_APP_PASSWORD || ""
+  );
+  const [formError, setFormError] = useState(null);
 
-  if (redirect) {
-    return <Navigate to="/" />;
+  async function submit(e) {
+    e.preventDefault();
+    try {
+      await login(username, password);
+    } catch (error) {
+      setFormError(error.message);
+    }
   }
+
   return (
     <div className="formWrapper">
-      <form className="form" onSubmit={login}>
+      <form className="form" onSubmit={submit}>
         <h2>LOG IN</h2>
         <input
           type="text"
@@ -29,6 +40,7 @@ export default function LoginForm() {
           value={password}
         />
         <button type="submit">Log in</button>
+        <p>{formError}</p>
       </form>
     </div>
   );
