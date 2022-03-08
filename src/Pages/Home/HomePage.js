@@ -6,29 +6,28 @@ import axios from "axios";
 import "../Home/HomePage.css";
 import AgencyCard from "../../components/AgencyCard/AgencyCard";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
-import {
-  isEndOfPage,
-  hasNextPage,
-  renameCompSize,
-} from "../../utils/dataTransformations";
+import { isEndOfPage, renameCompSize } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import Header from "../../components/Header/Header";
+
+const LIMIT = 18;
 
 export default function HomePage() {
   const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
-  const [limit, setLimit] = useState(18);
+  // const [limit, setLimit] = useState(18);
   const [state, setState] = useState({
     page: 1,
     agencies: [],
     isLoading: true,
+    hasMore: true,
   });
 
   const { page, agencies, isLoading } = state;
   const { city, company_size } = search;
   const fetchData = useCallback(async () => {
     let params = {
-      per_page: limit,
+      per_page: LIMIT,
       page: page,
       city_like: city || null,
       size: company_size || null,
@@ -43,18 +42,14 @@ export default function HomePage() {
         ...prevState,
         agencies: [...prevState.agencies, ...response.data.items],
         isLoading: false,
+        hasMore: response.data._meta.page < response.data._meta.total_pages,
       };
     });
-    setLimit(response.data._meta.per_page);
-  }, [limit, page, city, company_size]);
+  }, [page, city, company_size]);
 
   const handleScroll = useCallback(
     (e) => {
-      if (
-        isEndOfPage(e) &&
-        !isLoading &&
-        hasNextPage(agencies.length, page, limit)
-      ) {
+      if (isEndOfPage(e) && !isLoading && state.hasMore) {
         setState((prevState) => {
           return {
             ...prevState,
@@ -64,7 +59,7 @@ export default function HomePage() {
         });
       }
     },
-    [agencies.length, isLoading, limit, page]
+    [isLoading, state.hasMore]
   );
 
   useEffect(() => {

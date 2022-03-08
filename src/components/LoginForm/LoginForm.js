@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { ThreeDots } from "react-loader-spinner";
 import "./LoginForm.css";
 
 export default function LoginForm() {
@@ -11,13 +12,16 @@ export default function LoginForm() {
     process.env.REACT_APP_PASSWORD || ""
   );
   const [formError, setFormError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function submit(e) {
     e.preventDefault();
+    setIsLoading(true);
     try {
       await login(username, password);
     } catch (error) {
       setFormError(error.message);
+      setIsLoading(false);
     }
   }
 
@@ -39,7 +43,15 @@ export default function LoginForm() {
           required={true}
           value={password}
         />
-        <button type="submit">Log in</button>
+
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? (
+            <ThreeDots width="40" height="40" color="grey" />
+          ) : (
+            "Log in"
+          )}
+        </button>
+
         <p>{formError}</p>
       </form>
     </div>

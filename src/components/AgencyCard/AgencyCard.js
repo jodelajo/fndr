@@ -6,14 +6,12 @@ import "./AgencyCard.css";
 import AgencyCardInfo from "./AgencyCardInfo";
 
 export default function AgencyCard({ agency }) {
-  const { setSelectedAgency, selectedAgency, pop, setPop } =
-    useContext(AgencyContext);
+  const { setSelectedAgency, pop, setPop } = useContext(AgencyContext);
 
   const agencyHandler = () => {
     setSelectedAgency(agency);
     setPop(!pop);
   };
-
   return (
     <div className="main-agencies">
       {agency && (
@@ -29,11 +27,7 @@ export default function AgencyCard({ agency }) {
           <AgencyCardInfo agency={agency} />
         </div>
       )}
-      {selectedAgency &&
-      selectedAgency.company_id === agency.company_id &&
-      pop ? (
-        <PopUp selectedAgency={selectedAgency} />
-      ) : null}
+      {pop && <PopUp />}
     </div>
   );
 }

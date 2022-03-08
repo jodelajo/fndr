@@ -53,7 +53,6 @@ export default function AuthContextProvider({ children }) {
 
   const data = {
     userToken,
-    setUserToken,
     login,
     logout,
   };
