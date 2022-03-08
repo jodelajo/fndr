@@ -1,13 +1,26 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { APIUrl } from "../config/config";
+import jwtDecode from "jwt-decode";
 
 export const AuthContext = createContext({});
 
 export default function AuthContextProvider({ children }) {
   const navigate = useNavigate();
-  const [userToken, setUserToken] = useState("");
+  const [userToken, setUserToken] = useState(localStorage.getItem("token"));
+
+  useEffect(() => {
+    if (!userToken) {
+      return;
+    }
+    const tokenPayload = jwtDecode(userToken);
+    const currentTimeUnixSeconds = Math.round(Date.now() / 1000);
+    const isTokenExpired = tokenPayload.exp < currentTimeUnixSeconds;
+    if (isTokenExpired) {
+      logout();
+    }
+  }, [userToken]);
 
   const login = async (username, password) => {
     try {
@@ -15,7 +28,6 @@ export default function AuthContextProvider({ children }) {
         username,
         password,
       });
-      console.log(response);
       const content = response.data;
 
       setUserToken(content.token);
