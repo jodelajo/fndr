@@ -5,8 +5,12 @@ import { APIUrl } from "../config/config";
 export const AuthContext = createContext({});
 
 export default function AuthContextProvider({ children }) {
-  const [username, setUsername] = useState("abczzz13");
-  const [password, setPassword] = useState("v$*UfieAepz7zuYphJ^^");
+  const [username, setUsername] = useState(
+    process.env.REACT_APP_USERNAME || ""
+  );
+  const [password, setPassword] = useState(
+    process.env.REACT_APP_PASSWORD || ""
+  );
   const [userToken, setUserToken] = useState("");
   const [decoded, setDecoded] = useState({});
   const [redirect, setRedirect] = useState(false);
