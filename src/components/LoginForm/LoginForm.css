@@ -32,6 +32,12 @@
   color: white;
   border: none;
   border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.form button:disabled {
+  background-color: var(--colors-bg-blue);
 }
 .text {
   text-align: center;

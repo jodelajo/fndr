@@ -1,19 +1,18 @@
 import "./CompanySizeFilter.css";
 
-export default function SizeFilter({ companySize, updateQuery }) {
+export default function SizeFilter({ company_size, updateQuery }) {
   const onChangeHandler = (e) => {
     updateQuery(e.target.name, e.target.value);
   };
-
-  const companySizeHandler = () => (companySize ? companySize : "");
+  const companySizeHandler = () => (company_size ? company_size : "");
 
   return (
     <div>
       <label htmlFor="size">
         <select
           id="size"
-          name="companySize"
-          value={companySizeHandler(companySize)}
+          name="company_size"
+          value={companySizeHandler(company_size)}
           onChange={onChangeHandler}
           className="compSize"
         >

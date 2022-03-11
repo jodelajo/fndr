@@ -8,12 +8,12 @@ export default function Header({
   updateQuery,
   city,
   setSearch,
-  companySize,
+  company_size,
   location,
   search,
 }) {
   return (
-    <div>
+    <div className="header">
       <HelmetSwitch location={location} search={search} />
       <Navbar />
       <div>
@@ -23,7 +23,7 @@ export default function Header({
             updateQuery={updateQuery}
             city={city}
             setSearch={setSearch}
-            companySize={companySize}
+            company_size={company_size}
           />
         </div>
       </div>

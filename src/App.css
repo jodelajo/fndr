@@ -1,6 +1,6 @@
 :root {
   --colors-logo: rgb(8, 8, 133);
-  --colors-bg-blue: rgba(126, 126, 126, 0.15);
+  --colors-bg-blue: rgba(98, 98, 98, 0.2);
   --colors-bg-input: rgba(126, 126, 126, 0.05);
 }
 body {

@@ -1,0 +1,126 @@
+.modal {
+  position: fixed;
+  z-index: 1;
+  margin-top: 50px;
+  width: 100%;
+  min-height: 50%;
+  display: flex;
+  justify-content: center;
+}
+.modal_content {
+  background-color: white;
+  margin-top: 30px;
+  position: fixed;
+  top: 250px;
+  width: 80%;
+  max-height: 60%;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  overflow-y: auto;
+}
+.pop-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.close-icon {
+  content: "x";
+  cursor: pointer;
+  background: var(--colors-logo);
+  color: white;
+  padding: 6px;
+  width: 28px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 34px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pop-card {
+  display: flex;
+  padding: 20px;
+  background-color: var(--colors-bg-blue);
+  width: 260px;
+  height: 150px;
+}
+.pop-logo {
+  margin: 20px 20px 20px 0;
+}
+.pop-img {
+  width: 50px;
+  height: auto;
+}
+.pop-info {
+  height: 140px;
+}
+.pop-details {
+  width: 340px;
+  padding: 0 20px 20px 20px;
+  text-align: center;
+}
+.pop-details li {
+  list-style-type: none;
+}
+.pop-region {
+  text-align: center;
+  margin-top: 20px;
+}
+.pop-details h3 {
+  margin-top: 20px;
+}
+.icons {
+  display: flex;
+  position: fixed;
+  column-gap: 3px;
+  top: 234px;
+  left: 50%;
+  height: 46px;
+  align-items: stretch;
+  justify-content: flex-end;
+  transform: translateX(-50%);
+}
+.pop-icon {
+  font-size: 34px;
+  padding: 4px;
+  color: white;
+  background-color: var(--colors-logo);
+}
+.share {
+  font-size: 34px;
+  padding: 4px;
+  color: white;
+  background-color: var(--colors-logo);
+}
+.details-button {
+  border: none;
+  color: var(--colors-logo);
+  border-bottom: 1px solid var(--colors-logo);
+  background-color: white;
+  cursor: pointer;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+@media (min-width: 767px) {
+  .modal {
+    width: 50%;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .modal_content {
+    padding: 80px;
+  }
+  .pop-details {
+    flex-wrap: nowrap;
+  }
+}
+@media (min-width: 1200px) {
+  .pop-card {
+    width: 340px;
+  }
+}

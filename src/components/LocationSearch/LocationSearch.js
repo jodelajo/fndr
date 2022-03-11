@@ -70,11 +70,11 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
           <datalist id="places">
             {locationsArray &&
               locationsArray.map((loc) => {
-                const cityName = Object.keys(loc)[0];
+                const cityName = Object.values(loc)[0];
                 const agencyCount = Object.values(loc)[0];
                 return (
-                  <option key={cityName} value={cityName}>
-                    {cityName} - {agencyCount}
+                  <option key={cityName[0]} value={cityName[0]}>
+                    {cityName[0]} - {agencyCount[1]}
                   </option>
                 );
               })}

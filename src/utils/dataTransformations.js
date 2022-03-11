@@ -13,10 +13,6 @@ export function isEndOfPage(e) {
   );
 }
 
-export function hasNextPage(results, page, LIMIT) {
-  return results === page * LIMIT;
-}
-
 export function renameCompSize(companySize) {
   if (companySize === "GT-100") {
     return "over 100";

@@ -5,12 +5,18 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { HelmetProvider } from "react-helmet-async";
+import AuthContextProvider from "./context/AuthContext";
+import AgencyContextProvider from "./context/AgencyContext";
 
 ReactDOM.render(
   <React.StrictMode>
     <HelmetProvider>
       <Router>
-        <App />
+        <AuthContextProvider>
+          <AgencyContextProvider>
+            <App />
+          </AgencyContextProvider>
+        </AuthContextProvider>
       </Router>
     </HelmetProvider>
   </React.StrictMode>,
