@@ -4,21 +4,15 @@ import { AuthContext } from "../../context/AuthContext";
 import "./Navbar.css";
 
 export default function Navbar() {
-  const { userToken, logout, username } = useContext(AuthContext);
+  const { userToken, logout, user } = useContext(AuthContext);
 
   return (
     <div className="links">
       {userToken && userToken.error !== "Unauthorized" && (
         <p>
-          Welkom <span className="welcome">{username}</span>
+          Welkom <span className="welcome">{user}</span>
         </p>
       )}
-      <NavLink
-        to="/"
-        className={(navData) => (navData.isActive ? "active" : "login")}
-      >
-        FNDR
-      </NavLink>
 
       {userToken ? (
         <>
@@ -27,6 +21,12 @@ export default function Navbar() {
             className={(navData) => (navData.isActive ? "active" : "login")}
           >
             Create new Admin
+          </NavLink>
+          <NavLink
+            to="/add-agency"
+            className={(navData) => (navData.isActive ? "active" : "login")}
+          >
+            Add new Agency
           </NavLink>
           <NavLink
             to="/"

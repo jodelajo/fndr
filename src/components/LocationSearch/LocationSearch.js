@@ -1,12 +1,14 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
+import CityList from "../CityList/CityList";
+import { AgencyContext } from "../../context/AgencyContext";
 
 export default function LocationSearch({ updateQuery, setSearch, city }) {
-  const [locations, setLocations] = useState({});
+  const { cityList, setCityList } = useContext(AgencyContext);
   const [error, setError] = useState(null);
   const [inputValue, setInputValue] = useState(city ? `${city}` : "");
 
@@ -19,15 +21,15 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
         return res.json();
       })
       .then((data) => {
-        setLocations(data);
+        setCityList(data);
         setError(null);
       })
       .catch((err) => {
         setError(err.message);
       });
-  }, []);
+  }, [setCityList]);
 
-  const locationsArray = convertLocationObjectToArray(locations);
+  const locationsArray = convertLocationObjectToArray(cityList);
 
   const debouncedUpdateQuery = useMemo(
     () => debounce(updateQuery, 1200),
@@ -66,20 +68,7 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
           className="inputField"
           value={inputValue}
         />
-        {locations && (
-          <datalist id="places">
-            {locationsArray &&
-              locationsArray.map((loc) => {
-                const cityName = Object.values(loc)[0];
-                const agencyCount = Object.values(loc)[0];
-                return (
-                  <option key={cityName[0]} value={cityName[0]}>
-                    {cityName[0]} - {agencyCount[1]}
-                  </option>
-                );
-              })}
-          </datalist>
-        )}
+        {cityList && <CityList locationsArray={locationsArray} id="places" />}
         <ResetButton resetInputField={resetInputField} />
         {error && <div>{error}</div>}
       </form>

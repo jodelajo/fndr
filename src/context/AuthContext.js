@@ -9,6 +9,7 @@ export const AuthContext = createContext({});
 export default function AuthContextProvider({ children }) {
   const navigate = useNavigate();
   const [userToken, setUserToken] = useState(localStorage.getItem("token"));
+  const [user, setUser] = useState(localStorage.getItem("user"));
 
   useEffect(() => {
     if (!userToken) {
@@ -31,8 +32,10 @@ export default function AuthContextProvider({ children }) {
       const content = response.data;
 
       setUserToken(content.token);
+      setUser(content.username);
       navigate("/");
       localStorage.setItem("token", content.token);
+      localStorage.setItem("user", content.username);
     } catch (e) {
       console.log(e);
       if (e.request.status === 401) {
@@ -49,9 +52,11 @@ export default function AuthContextProvider({ children }) {
   const logout = () => {
     localStorage.clear();
     setUserToken("");
+    setUser("");
   };
 
   const data = {
+    user,
     userToken,
     login,
     logout,

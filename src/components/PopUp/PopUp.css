@@ -13,7 +13,7 @@
   position: fixed;
   top: 250px;
   width: 80%;
-  max-height: 60%;
+  max-height: 70%;
   padding: 20px;
   border-radius: 5px;
   display: flex;
@@ -89,6 +89,7 @@
   padding: 4px;
   color: white;
   background-color: var(--colors-logo);
+  border: none;
 }
 .share {
   font-size: 34px;
@@ -96,6 +97,16 @@
   color: white;
   background-color: var(--colors-logo);
 }
+/* .show-details {
+  display: block;
+
+  background-color: aquamarine;
+}
+.show-details h2 {
+  text-align: center;
+  width: 100%;
+} */
+
 .details-button {
   border: none;
   color: var(--colors-logo);
@@ -104,7 +115,12 @@
   cursor: pointer;
   margin-top: 30px;
   margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
 }
+
 @media (min-width: 767px) {
   .modal {
     width: 50%;
