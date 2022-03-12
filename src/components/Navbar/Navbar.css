@@ -24,7 +24,7 @@
 }
 .welcome {
   font-weight: bold;
-  color: hotpink;
+  color: var(--colors-logo);
 }
 
 /* DESKTOP STYLES */

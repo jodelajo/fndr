@@ -1,0 +1,6 @@
+.submit-button {
+  background-color: var(--colors-logo);
+  color: white;
+  border: none;
+  border-radius: 4px;
+}

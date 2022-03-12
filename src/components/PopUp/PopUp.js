@@ -89,7 +89,7 @@ export default function PopUp() {
           </div>
         ) : (
           <div>
-            <EditForm selectedAgency={selectedAgency} />
+            <EditForm />
           </div>
         )}
       </div>

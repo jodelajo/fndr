@@ -1,8 +1,7 @@
 import Logo from "../../components/Logo/Logo";
 import Navbar from "../../components/Navbar/Navbar";
 import "../Login/Login.css";
-import SignupForm from "../../components/SignupForm/SignupForm";
-
+import AuthForm from "../../components/AuthForm/AuthForm";
 export default function SignUp() {
   return (
     <div className="generalLogin">
@@ -11,7 +10,7 @@ export default function SignUp() {
         <Logo />
       </div>
       <div className="mainLogin">
-        <SignupForm />
+        <AuthForm />
       </div>
     </div>
   );

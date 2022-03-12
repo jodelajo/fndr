@@ -1,4 +1,6 @@
 export default function SizeDropDown({ value, onChange, className }) {
+  console.log(value);
+
   return (
     <label htmlFor="size">
       <select
@@ -8,7 +10,9 @@ export default function SizeDropDown({ value, onChange, className }) {
         onChange={onChange}
         className={className}
       >
-        <option value="">Select company size</option>
+        {className === "compSize" && (
+          <option value="">Select company size</option>
+        )}
         <option value="1-10">1-10</option>
         <option value="11-50">11-50</option>
         <option value="51-100">51-100</option>

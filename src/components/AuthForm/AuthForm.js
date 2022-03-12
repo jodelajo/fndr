@@ -1,20 +1,22 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { ThreeDots } from "react-loader-spinner";
-import "./LoginForm.css";
+import SubmitButton from "../SubmitButton/SubmitButton";
+import "./AuthForm.css";
 
-export default function LoginForm() {
-  const { login } = useContext(AuthContext);
+export default function AuthForm() {
+  const { login, user } = useContext(AuthContext);
   const [username, setUsername] = useState(
     process.env.REACT_APP_USERNAME || ""
   );
   const [password, setPassword] = useState(
     process.env.REACT_APP_PASSWORD || ""
   );
+  const [email, setEmail] = useState("");
   const [formError, setFormError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function submit(e) {
+  console.log("user", user);
+  async function submitLogin(e) {
     e.preventDefault();
     setIsLoading(true);
     try {
@@ -27,8 +29,8 @@ export default function LoginForm() {
 
   return (
     <div className="formWrapper">
-      <form className="form" onSubmit={submit}>
-        <h2>LOG IN</h2>
+      <form className="form" onSubmit={submitLogin}>
+        {user ? <h2>CREATE NEW ADMIN</h2> : <h2>LOG IN</h2>}
         <input
           type="text"
           placeholder="Username"
@@ -36,6 +38,14 @@ export default function LoginForm() {
           required={true}
           value={username}
         />
+        {user && (
+          <input
+            type="email"
+            placeholder="Email address"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        )}
         <input
           type="password"
           placeholder="password"
@@ -44,13 +54,11 @@ export default function LoginForm() {
           value={password}
         />
 
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? (
-            <ThreeDots width="40" height="40" color="grey" />
-          ) : (
-            "Log in"
-          )}
-        </button>
+        {!user ? (
+          <SubmitButton isLoading={isLoading} text="Log in" />
+        ) : (
+          <SubmitButton isLoading={isLoading} text="Create new admin" />
+        )}
 
         <p>{formError}</p>
       </form>
