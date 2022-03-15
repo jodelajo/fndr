@@ -30,8 +30,8 @@ export default function AddForm() {
     resolver: yupResolver(schema),
   });
 
-  console.log(useForm().register);
-  console.log("hoi", localStorage.token);
+  // console.log(useForm().register);
+  // console.log("hoi", localStorage.token);
 
   const onSubmitHandler = async (data) => {
     try {
@@ -55,7 +55,7 @@ export default function AddForm() {
     // reset();
   };
 
-  console.log("newCompany", newComp);
+  // console.log("newCompany", newComp);
   return (
     <>
       <form className="add-form" onSubmit={handleSubmit(onSubmitHandler)}>

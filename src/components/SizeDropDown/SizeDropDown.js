@@ -1,11 +1,10 @@
 export default function SizeDropDown({ value, onChange, className }) {
-  console.log(value);
-
   return (
     <label htmlFor="size">
       <select
         id="size"
         name="company_size"
+        type="text"
         value={value}
         onChange={onChange}
         className={className}

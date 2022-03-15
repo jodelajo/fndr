@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const AgencyContext = createContext({});
 
 export default function AgencyContextProvider({ children }) {
-  const [selectedAgency, setSelectedAgency] = useState();
+  const [selectedAgency, setSelectedAgency] = useState({});
   const [pop, setPop] = useState(false);
   const [cityList, setCityList] = useState({});
 

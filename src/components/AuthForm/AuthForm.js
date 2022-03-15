@@ -43,6 +43,7 @@ export default function AuthForm() {
             type="email"
             placeholder="Email address"
             required
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
         )}
@@ -55,9 +56,13 @@ export default function AuthForm() {
         />
 
         {!user ? (
-          <SubmitButton isLoading={isLoading} text="Log in" />
+          <SubmitButton isLoading={isLoading} text="Log in" color="grey" />
         ) : (
-          <SubmitButton isLoading={isLoading} text="Create new admin" />
+          <SubmitButton
+            isLoading={isLoading}
+            text="Create new admin"
+            color="grey"
+          />
         )}
 
         <p>{formError}</p>

@@ -11,53 +11,68 @@ import "./EditForm.css";
 
 export default function EditForm() {
   const { cityList, selectedAgency } = useContext(AgencyContext);
-  const [formError, setFormError] = useState(null);
+  const [error, setError] = useState(null);
   const [state, setState] = useState({
-    name: selectedAgency.company_name,
-    city: selectedAgency.city_name,
-    size: selectedAgency.company_size,
-    url: selectedAgency.website,
+    company_name: selectedAgency.company_name,
+    city_name: selectedAgency.city_name,
+    company_size: selectedAgency.company_size,
+    website: selectedAgency.website,
   });
+  const [patchState, setPatchState] = useState({});
 
-  const { name, city, size, url } = state;
+  const { company_name, city_name, company_size, website } = state;
 
   const [isLoading, setIsLoading] = useState();
-  console.log("sel agency form", selectedAgency);
-  console.log(size);
-  console.log("state", state);
 
   const locationsArray = convertLocationObjectToArray(cityList);
 
-  const submit = async () => {
+  async function patch() {
     try {
       const response = await axios.patch(
         `${APIUrl}/companies/${selectedAgency.company_id}`,
-        {
-          company_name: name,
-          city_name: city,
-          company_size: size,
-          website: url,
-        },
+        patchState,
         {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
           },
         }
       );
-      const content = response.data;
-      console.log("content", content);
-    } catch (error) {
-      console.error(error);
+      setState((prevState) => {
+        return {
+          ...response.data,
+          ...prevState,
+          ...patchState,
+        };
+      });
+    } catch (e) {
+      if (e.request.status === 401) {
+        const message = JSON.parse(e.request.response).message;
+        setError(message);
+        throw new Error(message);
+      } else {
+        throw new Error(
+          "Something went wrong, please visit https://github.com/jodelajo/fndr/issues, and let me know!"
+        );
+      }
     }
-  };
+  }
 
-  async function submitLogin(e) {
+  function onChangeHandler(e) {
+    const value = e.target.value;
+    setPatchState((prevState) => ({
+      ...prevState,
+      [e.target.name]: value,
+    }));
+  }
+
+  async function submitUpdate(e) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await submit(state);
+      await patch(patchState);
     } catch (error) {
-      setFormError(error.message);
+      console.log("submit error", error);
     }
     setIsLoading(false);
     window.location.reload(false);
@@ -65,48 +80,48 @@ export default function EditForm() {
 
   return (
     <div className="edit-form-wrapper">
+      {error && <p>{error}</p>}
       <AgencyLogo agency={selectedAgency} />
-      <form className="edit-form" onSubmit={submitLogin}>
+      <form className="edit-form" onSubmit={submitUpdate}>
         <input
-          defaultValue={name}
-          //   value={name}
+          value={
+            patchState.company_name ? patchState.company_name : company_name
+          }
           type="text"
-          //   {...register("company_name")}
-          required
-          onChange={(e) => setState({ ...state, name: e.target.value })}
+          onChange={onChangeHandler}
+          name="company_name"
         />
         <input
-          defaultValue={city}
+          value={patchState.city_name ? patchState.city_name : city_name}
           type="text"
           id="places"
           list="places"
-          //   {...register("city_name")}
-          required
-          onChange={(e) => setState({ ...state, city: e.target.value })}
+          name="city_name"
+          onChange={onChangeHandler}
         />
 
         <CityList locationsArray={locationsArray} id="places" />
+
         <SizeDropDown
-          value={size}
-          onChange={(e) => setState({ ...state, size: e.target.value })}
+          value={
+            patchState.company_size ? patchState.company_size : company_size
+          }
+          onChange={onChangeHandler}
           className="dropDown"
         />
 
         <input
-          defaultValue={url}
+          value={patchState.website ? patchState.website : website}
+          name="website"
           type="url"
-          //   {...register("website")}
-          required
-          onChange={(e) => setState({ ...state, url: e.target.value })}
+          onChange={onChangeHandler}
         />
-        {/* <p>{errors?.message}</p> */}
         <SubmitButton
           isLoading={isLoading}
           text="Edit an Agency"
-          type="submit"
+          color="lightblue"
         />
       </form>
-      <p>{formError}</p>
     </div>
   );
 }
