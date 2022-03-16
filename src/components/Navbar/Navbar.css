@@ -31,7 +31,7 @@
 @media (min-width: 767px) {
   .links {
     justify-content: flex-end;
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
   .active,
   .login {

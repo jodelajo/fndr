@@ -1,4 +1,3 @@
-import "./CompanySizeFilter.css";
 import SizeDropDown from "../SizeDropDown/SizeDropDown";
 
 export default function SizeFilter({ company_size, updateQuery }) {

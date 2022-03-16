@@ -1,6 +1,12 @@
-export default function CityList({ locationsArray, id }) {
+import { useContext } from "react";
+import { AgencyContext } from "../../context/AgencyContext";
+import { convertLocationObjectToArray } from "../../utils/dataTransformations";
+
+export default function CityList() {
+  const { cityList } = useContext(AgencyContext);
+  const locationsArray = convertLocationObjectToArray(cityList);
   return (
-    <datalist id={id}>
+    <datalist id="places">
       {locationsArray &&
         locationsArray.map((loc) => {
           const cityName = Object.values(loc)[0];

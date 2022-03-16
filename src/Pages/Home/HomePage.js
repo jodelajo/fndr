@@ -8,7 +8,7 @@ import AgencyCard from "../../components/AgencyCard/AgencyCard";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 import { isEndOfPage, renameCompSize } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
-import Header from "../../components/Header/Header";
+import HeaderHome from "../../components/HeaderHome/HeaderHome";
 
 const LIMIT = 18;
 
@@ -89,7 +89,7 @@ export default function HomePage() {
   return (
     <div className="general">
       <div className="header">
-        <Header
+        <HeaderHome
           updateQuery={updateQuery}
           city_name={city}
           setSearch={setSearch}

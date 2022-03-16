@@ -15,7 +15,6 @@ export default function AuthForm() {
   const [formError, setFormError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  console.log("user", user);
   async function submitLogin(e) {
     e.preventDefault();
     setIsLoading(true);

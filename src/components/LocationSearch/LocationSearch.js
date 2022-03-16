@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo, useContext } from "react";
-import { convertLocationObjectToArray } from "../../utils/dataTransformations";
 import "./LocationSearch.css";
 import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
@@ -28,8 +27,6 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
         setError(err.message);
       });
   }, [setCityList]);
-
-  const locationsArray = convertLocationObjectToArray(cityList);
 
   const debouncedUpdateQuery = useMemo(
     () => debounce(updateQuery, 1200),
@@ -68,7 +65,7 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
           className="inputField"
           value={inputValue}
         />
-        {cityList && <CityList locationsArray={locationsArray} id="places" />}
+        {cityList && <CityList />}
         <ResetButton resetInputField={resetInputField} />
         {error && <div>{error}</div>}
       </form>

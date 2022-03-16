@@ -1,4 +1,11 @@
+// import { useForm } from "react-hook-form";
+import { useLocation } from "react-router-dom";
+import "./SizeDropDown.css";
+
 export default function SizeDropDown({ value, onChange, className }) {
+  const location = useLocation();
+  // const { register } = useForm();
+
   return (
     <label htmlFor="size">
       <select
@@ -8,8 +15,10 @@ export default function SizeDropDown({ value, onChange, className }) {
         value={value}
         onChange={onChange}
         className={className}
+        placeholder="Select company size"
+        // {...register("company_size")}
       >
-        {className === "compSize" && (
+        {className === "dropDown" || location === "/add-agency" || (
           <option value="">Select company size</option>
         )}
         <option value="1-10">1-10</option>

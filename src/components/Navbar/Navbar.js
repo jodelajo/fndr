@@ -17,7 +17,7 @@ export default function Navbar() {
       {userToken ? (
         <>
           <NavLink
-            to="/signup"
+            to="/new-admin"
             className={(navData) => (navData.isActive ? "active" : "login")}
           >
             Create new Admin
@@ -25,6 +25,7 @@ export default function Navbar() {
           <NavLink
             to="/add-agency"
             className={(navData) => (navData.isActive ? "active" : "login")}
+            // onClick={clearForm}
           >
             Add new Agency
           </NavLink>

@@ -13,9 +13,6 @@ export default function PopUp() {
   const [editForm, setEditForm] = useState(false);
   const { userToken } = useContext(AuthContext);
 
-  // console.log("showDetails", showDetails);
-  // console.log("edit form", editForm);
-
   return (
     <div className="modal">
       <div className="icons">

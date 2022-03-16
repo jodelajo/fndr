@@ -12,6 +12,7 @@ export default function AgencyCard({ agency }) {
     setSelectedAgency(agency);
     setPop(!pop);
   };
+
   return (
     <div className="main-agencies">
       {agency && (
