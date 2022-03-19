@@ -1,27 +1,29 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useCallback } from "react";
 import axios from "axios";
 import { AgencyContext } from "../../context/AgencyContext";
 import { AuthContext } from "../../context/AuthContext";
 import { APIUrl } from "../../config/config";
 import DataForm from "../DataForm/DataForm";
 import "./EditForm.css";
+import { set } from "react-hook-form";
 
 export default function EditForm() {
   const { selectedAgency } = useContext(AgencyContext);
   const { userToken, headers } = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const [state, setState] = useState({});
+  const [state, setState] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  console.log("state in editform", state);
+  console.log("selectedAgency in editform", selectedAgency);
 
-  async function submitData() {
+  const submitData = async (data) => {
     if (userToken) {
-      const patchUrl = axios.patch(
-        `${APIUrl}/companies/${selectedAgency?.company_id}`,
-        state,
-        headers
-      );
       try {
-        await patchUrl;
+        await axios.patch(
+          `${APIUrl}/companies/${selectedAgency?.company_id}`,
+          data,
+          headers
+        );
       } catch (e) {
         if (e.request.status === 401) {
           const message = JSON.parse(e.request.response).message;
@@ -36,38 +38,41 @@ export default function EditForm() {
     } else {
       return;
     }
-  }
+  };
 
-  async function submitUpdate(e) {
-    e.preventDefault();
-    setIsLoading(true);
-    try {
-      await submitData(state);
-    } catch (error) {
-      console.log("submit error", error);
-    }
-    setIsLoading(false);
-    window.location.reload(false);
-  }
+  // const submitUpdate = async () => {
+  //   // e.preventDefault();
+  //   setIsLoading(true);
+  //   try {
+  //     await submitData(state);
+  //   } catch (error) {
+  //     console.log("submit error", error);
+  //   }
+  //   setIsLoading(false);
+  //   window.location.reload(false);
+  // };
 
-  function onChangeHandler(e) {
-    const value = e.target.value;
-    setState((prevState) => ({
-      ...prevState,
-      [e.target.name]: value,
-    }));
-  }
+  // function onChangeHandler(e) {
+  //   const value = e.target.value;
+  //   setState((prevState) => ({
+  //     ...prevState,
+  //     [e.target.name]: value,
+  //   }));
+  // }
 
   return (
     <div>
       <DataForm
-        onSubmit={submitUpdate}
-        onChangeHandler={onChangeHandler}
+        // submitUpdate={submitUpdate}
+        // onChangeHandler={onChangeHandler}
         isLoading={isLoading}
-        required={false}
+        setIsLoading={setIsLoading}
+        // required={false}
         buttonText="Edit an Agency"
-        register=""
+        // register=""
         state={state}
+        setState={setState}
+        submitData={submitData}
       />
     </div>
   );
