@@ -11,8 +11,9 @@ export default function DataForm({
   isLoading,
   buttonText,
   onSubmit,
+  state,
 }) {
-  const { error, selectedAgency, state, pop } = useContext(AgencyContext);
+  const { error, selectedAgency, pop } = useContext(AgencyContext);
 
   return (
     <div>

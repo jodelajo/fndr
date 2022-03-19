@@ -11,6 +11,13 @@ export default function AuthContextProvider({ children }) {
   const [userToken, setUserToken] = useState(localStorage.getItem("token"));
   const [user, setUser] = useState(localStorage.getItem("user"));
 
+  const headers = {
+    headers: {
+      authorization: `Bearer ${userToken}`,
+      "Content-Type": "application/json",
+    },
+  };
+
   useEffect(() => {
     if (!userToken) {
       return;
@@ -58,6 +65,7 @@ export default function AuthContextProvider({ children }) {
   const data = {
     user,
     userToken,
+    headers,
     login,
     logout,
   };
