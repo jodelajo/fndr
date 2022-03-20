@@ -24,6 +24,7 @@ export default function HomePage() {
 
   const { page, agencies, isLoading } = state;
   const { city, company_size } = search;
+
   const fetchData = useCallback(async () => {
     let params = {
       per_page: LIMIT,

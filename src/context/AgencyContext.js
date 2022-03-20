@@ -7,8 +7,6 @@ export default function AgencyContextProvider({ children }) {
   const [pop, setPop] = useState(false);
   const [cityList, setCityList] = useState({});
 
-  console.log("agencyContext selectedAgency", selectedAgency);
-
   const data = {
     selectedAgency,
     setSelectedAgency,

@@ -1,5 +1,4 @@
-import { useContext, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
 import { AgencyContext } from "../../context/AgencyContext";
 import AgencyLogo from "../AgencyCard/AgencyLogo";
 // import CityList from "../CityList/CityList";
@@ -13,17 +12,14 @@ export default function DataForm({
   isLoading,
   setIsLoading,
   buttonText,
-  state,
   submitData,
-  setState,
 }) {
-  const { error, selectedAgency, pop } = useContext(AgencyContext);
-  const navigate = useNavigate();
+  const { selectedAgency, pop, setSelectedAgency } = useContext(AgencyContext);
 
   const schema = yup.object().shape({
     company_name: yup.string().min(2).max(64),
     //   .required("Companyname is required"),
-    // city_name: yup.string().min(2).max(64).required(),
+    // city_name: yup.string().min(2).max(64),
     // company_size: yup.string().min(2).max(64).required(),
     // website: yup.string().url().max(255).required(),
   });
@@ -31,86 +27,88 @@ export default function DataForm({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    getValues,
+    formState: { errors, isSubmitSuccessful },
     reset,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      company_name: selectedAgency.company_name,
+    },
   });
 
-  const onSubmitHandler = (data) => {
-    console.log(data);
-    setState(data);
-    submitUpdate(data);
+  const onSubmitHandler = async (data) => {
+    // console.log(data);
+    setIsLoading(true);
+    try {
+      await submitData(data);
+      setSelectedAgency({ ...selectedAgency, ...data });
+    } catch (error) {
+      console.log("submit error", error);
+    }
+    setIsLoading(false);
+    window.location.reload(false);
   };
 
-  const submitUpdate = useCallback(
-    async (data) => {
-      setIsLoading(true);
-      try {
-        await submitData(data);
-      } catch (error) {
-        console.log("submit error", error);
-      }
-      setIsLoading(false);
-      reset();
-      window.location.reload(false);
-    },
-    [reset, setIsLoading, submitData]
-  );
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset({ ...getValues() });
+    }
+  }, [getValues, isSubmitSuccessful, reset]);
 
-  console.log("navigate", navigate);
-  console.log("is loading", isLoading);
-  console.log("state in dataform", state);
+  // console.log("is submitted successful?", isSubmitSuccessful);
+  // console.log("sel agency in dataform", selectedAgency);
+
   return (
     <div>
       <div className="edit-form-wrapper">
-        {error && <p>{error}</p>}
         {pop && <AgencyLogo agency={selectedAgency} />}
         <form className="edit-form" onSubmit={handleSubmit(onSubmitHandler)}>
           <input
             type="text"
-            defaultValue={
-              state ? state.company_name : selectedAgency.company_name
-            }
             placeholder="Agency name"
             {...register("company_name")}
           />
+          <p>{errors.company_name?.message}</p>
           {/* <input
-            value={state.city_name ? state.city_name : selectedAgency.city_name}
+            // value={state.city_name ? state.city_name : selectedAgency.city_name}
+            defaultValue={
+              cityName ? cityName.city_name : selectedAgency.city_name
+            }
             type="text"
             id="places"
             list="places"
-            name="city_name"
-            onChange={onChangeHandler}
+            // name="city_name"
+            // onChange={onChangeHandler}
             placeholder="City name"
-            // {...register("city_name")}
-            required
+            {...register("city_name")}
+            // required
           />
 
-          <CityList />
+          <CityList id="places" /> */}
 
-          <SizeDropDown
-            value={
-              state.company_size
-                ? state.company_size
-                : selectedAgency.company_size
-            }
-            onChange={onChangeHandler}
-            className="dropDown"
-            placeholder="Agency size"
-            required
-          />
+          {/* <SizeDropDown
+          value={
+            state.company_size
+              ? state.company_size
+              : selectedAgency.company_size
+          }
+          onChange={onChangeHandler}
+          className="dropDown"
+          placeholder="Agency size"
+          required
+        />
 
-          <input
-            value={state.website ? state.website : selectedAgency.website}
-            name="website"
-            type="url"
-            onChange={onChangeHandler}
-            placeholder="website"
-            // {...register("website")}
-            required
-          /> */}
-          <p>{error?.message}</p>
+        <input
+          value={state.website ? state.website : selectedAgency.website}
+          name="website"
+          type="url"
+          onChange={onChangeHandler}
+          placeholder="website"
+          // {...register("website")}
+          required
+        /> */}
+
           <SubmitButton
             isLoading={isLoading}
             text={buttonText}
