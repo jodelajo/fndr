@@ -11,8 +11,8 @@ export default function EditForm() {
   const { userToken, headers } = useContext(AuthContext);
   const [error, setError] = useState(null);
 
-  const [isLoading, setIsLoading] = useState(false);
   const submitData = async (state) => {
+    console.log("state in editform", state);
     if (userToken) {
       try {
         await axios.patch(
@@ -21,7 +21,7 @@ export default function EditForm() {
           headers
         );
       } catch (e) {
-        if (e.request.status === 401) {
+        if (e.request.status === 400) {
           console.log(e.request.response);
           const message = JSON.parse(e.request.response).message;
           setError(message);
@@ -39,12 +39,8 @@ export default function EditForm() {
 
   return (
     <div>
-      <DataForm
-        isLoading={isLoading}
-        setIsLoading={setIsLoading}
-        buttonText="Edit an Agency"
-        submitData={submitData}
-      />
+      <DataForm buttonText="Edit an Agency" submitData={submitData} />
+      {error && <p>{error}</p>}
     </div>
   );
 }
