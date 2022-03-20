@@ -1,32 +1,13 @@
-import React, { useEffect, useState, useMemo, useContext } from "react";
+import React, { useState, useMemo, useContext } from "react";
 import "./LocationSearch.css";
-import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
 import CityList from "../CityList/CityList";
 import { AgencyContext } from "../../context/AgencyContext";
 
 export default function LocationSearch({ updateQuery, setSearch, city }) {
-  const { cityList, setCityList } = useContext(AgencyContext);
-  const [error, setError] = useState(null);
+  const { cityList, error } = useContext(AgencyContext);
   const [inputValue, setInputValue] = useState(city ? `${city}` : "");
-
-  useEffect(() => {
-    fetch(`${APIUrl}/cities`)
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("Data ophalen is mislukt");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setCityList(data);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  }, [setCityList]);
 
   const debouncedUpdateQuery = useMemo(
     () => debounce(updateQuery, 1200),

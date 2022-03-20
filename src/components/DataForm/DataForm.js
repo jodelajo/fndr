@@ -57,6 +57,11 @@ export default function DataForm({ buttonText, submitData }) {
     }
   }, [getValues, isSubmitSuccessful, reset]);
 
+  const sizeDropdownHandler = (e) => {
+    e.preventDefault();
+    setValue("company_size", e.target.value);
+  };
+
   console.log("sel agency in dataform", selectedAgency);
 
   return (
@@ -84,7 +89,7 @@ export default function DataForm({ buttonText, submitData }) {
           <SizeDropDown
             className="dropDown"
             placeholder="Agency size"
-            onChange={(e) => setValue("company_size", e.target.value)}
+            onChange={sizeDropdownHandler}
             // required
           />
 

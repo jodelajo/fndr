@@ -11,7 +11,7 @@ export default function EditForm() {
   const { userToken, headers } = useContext(AuthContext);
   const [error, setError] = useState(null);
 
-  const submitData = async (state) => {
+  const updateData = async (state) => {
     console.log("state in editform", state);
     if (userToken) {
       try {
@@ -39,7 +39,7 @@ export default function EditForm() {
 
   return (
     <div>
-      <DataForm buttonText="Edit an Agency" submitData={submitData} />
+      <DataForm buttonText="Edit an Agency" submitData={updateData} />
       {error && <p>{error}</p>}
     </div>
   );

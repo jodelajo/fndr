@@ -9,7 +9,7 @@ export default function AddForm() {
   const [error, setError] = useState(null);
   const { userToken, headers } = useContext(AuthContext);
 
-  const submitData = async (data) => {
+  const postData = async (data) => {
     if (!userToken) {
       return;
     }
@@ -35,7 +35,7 @@ export default function AddForm() {
 
   return (
     <>
-      <DataForm buttonText="Add an Agency" submitData={submitData} />
+      <DataForm buttonText="Add an Agency" submitData={postData} />
       {error && <p>{error}</p>}
     </>
   );
