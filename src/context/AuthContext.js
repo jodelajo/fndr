@@ -15,6 +15,7 @@ export default function AuthContextProvider({ children }) {
     headers: {
       authorization: `Bearer ${userToken}`,
       "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   };
 

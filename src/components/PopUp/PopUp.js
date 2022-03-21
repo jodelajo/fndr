@@ -1,6 +1,13 @@
 import { useState, useContext } from "react";
 import { AgencyContext } from "../../context/AgencyContext";
-import { MdOutlineModeEditOutline, MdOutlineIosShare } from "react-icons/md";
+import { AuthContext } from "../../context/AuthContext";
+import {
+  MdOutlineModeEditOutline,
+  MdOutlineIosShare,
+  MdDeleteOutline,
+  MdAdd,
+  MdClose,
+} from "react-icons/md";
 import "./PopUp.css";
 import EditForm from "../EditForm/EditForm";
 import PopUpContent from "./PopUpContent";
@@ -8,20 +15,28 @@ import PopUpContent from "./PopUpContent";
 export default function PopUp() {
   const { setPop } = useContext(AgencyContext);
   const [editForm, setEditForm] = useState(false);
+  const { userToken } = useContext(AuthContext);
 
   return (
     <div className="modal">
       <div className="icons">
-        <span className="pop-icon" onClick={() => setEditForm(!editForm)}>
-          <MdOutlineModeEditOutline />
-        </span>
+        {userToken && (
+          <span className="pop-icon" onClick={() => setEditForm(!editForm)}>
+            <MdOutlineModeEditOutline />
+          </span>
+        )}
 
-        <span className="close-icon" onClick={() => setPop(false)}>
-          x
+        <span className="pop-close" onClick={() => setPop(false)}>
+          <MdClose />
         </span>
-        <span className="share">
+        <span className="pop-share">
           <MdOutlineIosShare />
         </span>
+        {userToken && (
+          <span className="delete">
+            <MdDeleteOutline />
+          </span>
+        )}
       </div>
 
       <div className="modal_content">

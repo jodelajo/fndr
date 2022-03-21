@@ -12,18 +12,24 @@ export default function DataForm({ buttonText, submitData }) {
   const { selectedAgency, pop, setSelectedAgency } = useContext(AgencyContext);
   const [isLoading, setIsLoading] = useState(false);
   const schema = yup.object().shape({
-    company_name: yup.string().min(2).max(64),
-    // .required("Companyname is required"),
-    city_name: yup.string().min(2).max(64),
-    company_size: yup.mixed().oneOf(["1-10", "11-50", "51-100", "GT-100"]),
+    company_name: yup
+      .string()
+      .min(2)
+      .max(64)
+      .required("Company name is required"),
+    city_name: yup.string().min(2).max(64).required("City name is required"),
+    company_size: yup
+      .mixed()
+      .oneOf(["1-10", "11-50", "51-100", "GT-100"])
+      .required("Company size is required"),
 
-    website: yup.string().url().max(255),
+    website: yup.string().url().max(255).required("Website is required"),
+    logo_image_src: yup.string().url().max(255).required("Logo is required"),
   });
 
   const {
     register,
     handleSubmit,
-    setValue,
     getValues,
     formState: { errors, isSubmitSuccessful },
     reset,
@@ -35,6 +41,7 @@ export default function DataForm({ buttonText, submitData }) {
       city_name: selectedAgency.city_name,
       company_size: selectedAgency.company_size,
       website: selectedAgency.website,
+      logo_image_src: selectedAgency.logo_image_src,
     },
   });
 
@@ -57,11 +64,6 @@ export default function DataForm({ buttonText, submitData }) {
     }
   }, [getValues, isSubmitSuccessful, reset]);
 
-  const sizeDropdownHandler = (e) => {
-    e.preventDefault();
-    setValue("company_size", e.target.value);
-  };
-
   console.log("sel agency in dataform", selectedAgency);
 
   return (
@@ -69,36 +71,57 @@ export default function DataForm({ buttonText, submitData }) {
       <div className="edit-form-wrapper">
         {pop && <AgencyLogo agency={selectedAgency} />}
         <form className="edit-form" onSubmit={handleSubmit(onSubmitHandler)}>
+          <label htmlFor="name">Company name</label>
           <input
+            id="name"
             type="text"
             placeholder="Agency name"
             {...register("company_name")}
+            required
           />
           <p>{errors.company_name?.message}</p>
+          <label htmlFor="places">City name</label>
           <input
             type="text"
             id="places"
             list="places"
             placeholder="City name"
             {...register("city_name")}
-            // required
+            required
           />
-
+          <p>{errors.city_name?.message}</p>
           <CityList id="places" />
-
+          <label htmlFor="size">Company size</label>
           <SizeDropDown
             className="dropDown"
             placeholder="Agency size"
-            onChange={sizeDropdownHandler}
-            // required
+            // onChange={sizeDropdownHandler}
+            // {...register("company_size")}
+            required
+            register={register}
+            name="company_size"
+            id="size"
           />
+          <p>{errors.company_size?.message}</p>
 
+          <label htmlFor="website">Website</label>
           <input
             type="url"
+            id="website"
             placeholder="website"
             {...register("website")}
             required
           />
+          <p>{errors.website?.message}</p>
+
+          <label htmlFor="logo">Logo</label>
+          <input
+            type="url"
+            placeholder="Agency logo"
+            {...register("logo_image_src")}
+            required
+          />
+          <p>{errors.logo_image_url?.message}</p>
 
           <SubmitButton
             isLoading={isLoading}

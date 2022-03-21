@@ -13,6 +13,7 @@ export default function SizeFilter({ company_size, updateQuery }) {
         value={companySizeHandler(company_size)}
         onChange={onChangeHandler}
         className="compSize"
+        name="company_size"
       />
     </div>
   );

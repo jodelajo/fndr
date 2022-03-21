@@ -5,6 +5,7 @@ export default function AgencyLogo({ agency }) {
         <img
           src={agency.logo_image_src}
           alt={`${agency.company_name} company logo`}
+          className="logo-image"
         />
       )}
     </div>

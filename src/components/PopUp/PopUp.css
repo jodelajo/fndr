@@ -80,22 +80,42 @@
   top: 234px;
   left: 50%;
   height: 46px;
-  align-items: stretch;
+  align-items: flex-end;
   justify-content: flex-end;
   transform: translateX(-50%);
 }
-.pop-icon {
-  font-size: 34px;
-  padding: 4px;
+.pop-icon,
+.pop-share,
+.pop-close {
+  margin: 0;
+  padding: 6px 4px 2px 4px;
   color: white;
+  width: 32px;
+  height: 42px;
   background-color: var(--colors-logo);
-  border: none;
+  align-self: center;
+  justify-self: center;
+  /* border: none; */
 }
-.share {
+.pop-close {
+  font-size: 36px;
+  padding: 6px 4px 2px 0px;
+}
+.pop-icon {
+  font-size: 32px;
+  width: 32px;
+}
+.pop-share {
+  font-size: 32px;
+}
+
+.delete {
   font-size: 34px;
-  padding: 4px;
+  padding: 7px 4px 2px 2px;
+  width: 32px;
   color: white;
-  background-color: var(--colors-logo);
+  background-color: red;
+  align-self: center;
 }
 /* .show-details {
   display: block;

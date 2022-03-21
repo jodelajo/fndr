@@ -7,6 +7,13 @@ export default function AgencyContextProvider({ children }) {
   const [pop, setPop] = useState(false);
   const [cityList, setCityList] = useState({});
   const [error, setError] = useState(null);
+  const [state, setState] = useState({
+    page: 1,
+    agencies: [],
+    isLoading: true,
+    hasMore: true,
+    // selectedAgencyId:
+  });
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)

@@ -1,8 +1,9 @@
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthContext.js";
 import "../Home/HomePage.css";
 import AgencyCard from "../../components/AgencyCard/AgencyCard";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
@@ -13,6 +14,7 @@ import HeaderHome from "../../components/HeaderHome/HeaderHome";
 const LIMIT = 18;
 
 export default function HomePage() {
+  const { headers } = useContext(AuthContext);
   const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
   const [state, setState] = useState({

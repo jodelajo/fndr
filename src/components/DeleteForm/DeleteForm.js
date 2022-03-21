@@ -1,26 +1,23 @@
-import { useState, useContext } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
-import { AgencyContext } from "../../context/AgencyContext";
-import { AuthContext } from "../../context/AuthContext";
 import { APIUrl } from "../../config/config";
-import DataForm from "../DataForm/DataForm";
-import "./EditForm.css";
+import { AuthContext } from "../../context/AuthContext";
+import { AgencyContext } from "../../context/AgencyContext";
 
-export default function EditForm() {
-  const { selectedAgency } = useContext(AgencyContext);
+export default function DeleteForm() {
   const { userToken, headers } = useContext(AuthContext);
+  const { selectedAgency } = useContext(AgencyContext);
   const [error, setError] = useState(null);
 
-  const updateData = async (state) => {
+  const deleteData = async (state) => {
     console.log("state in editform", state);
     console.log("sel agency in update", selectedAgency);
     if (!userToken) {
       return;
     }
     try {
-      await axios.patch(
+      await axios.delete(
         `${APIUrl}/companies/${selectedAgency?.company_id}`,
-        state,
         headers
       );
     } catch (e) {
@@ -36,11 +33,5 @@ export default function EditForm() {
       }
     }
   };
-
-  return (
-    <div>
-      <DataForm buttonText="Edit an Agency" submitData={updateData} />
-      {error && <p>{error}</p>}
-    </div>
-  );
+  return <div></div>;
 }

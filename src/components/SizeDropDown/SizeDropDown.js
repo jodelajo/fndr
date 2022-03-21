@@ -1,14 +1,23 @@
 import "./SizeDropDown.css";
 
-export default function SizeDropDown({ onChange, className, value }) {
+export default function SizeDropDown({
+  className,
+  value,
+  name,
+  register,
+  onChange,
+}) {
+  let controls =
+    register === undefined
+      ? { onChange: onChange, value: value, name: name }
+      : { ...register(name) };
+
   return (
     <label htmlFor="size">
       <select
         id="size"
         type="text"
-        value={value}
-        name="company_size"
-        onChange={onChange}
+        {...controls}
         className={className}
         placeholder="Select company size"
       >

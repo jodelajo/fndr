@@ -22,9 +22,11 @@ export default function AgencyCard({ agency }) {
           }
           onClick={agencyHandler}
         >
-          <div className="company-logo">
-            <AgencyLogo agency={agency} />
-          </div>
+          {agency.logo_image_src && (
+            <div className="company-logo">
+              <AgencyLogo agency={agency} />
+            </div>
+          )}
           <AgencyCardInfo agency={agency} />
         </div>
       )}
