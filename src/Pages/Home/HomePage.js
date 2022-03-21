@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
-import { AuthContext } from "../../context/AuthContext.js";
+import { AgencyContext } from "../../context/AgencyContext";
 import "../Home/HomePage.css";
 import AgencyCard from "../../components/AgencyCard/AgencyCard";
 import useCustomSearchParams from "../../hooks/useCustomSearchParams";
@@ -14,16 +14,9 @@ import HeaderHome from "../../components/HeaderHome/HeaderHome";
 const LIMIT = 18;
 
 export default function HomePage() {
-  const { headers } = useContext(AuthContext);
+  const { state, setState } = useContext(AgencyContext);
   const location = useLocation();
   const [search, setSearch] = useCustomSearchParams();
-  const [state, setState] = useState({
-    page: 1,
-    agencies: [],
-    isLoading: true,
-    hasMore: true,
-  });
-
   const { page, agencies, isLoading } = state;
   const { city, company_size } = search;
 
@@ -47,7 +40,7 @@ export default function HomePage() {
         hasMore: response.data._meta.page < response.data._meta.total_pages,
       };
     });
-  }, [page, city, company_size]);
+  }, [page, city, company_size, setState]);
 
   const handleScroll = useCallback(
     (e) => {

@@ -6,9 +6,11 @@ import "./AgencyCard.css";
 import AgencyCardInfo from "./AgencyCardInfo";
 
 export default function AgencyCard({ agency }) {
-  const { setSelectedAgency, pop, setPop } = useContext(AgencyContext);
+  const { setSelectedAgency, pop, setPop, setState, state } =
+    useContext(AgencyContext);
 
   const agencyHandler = () => {
+    setState({ ...state, selectedAgencyId: agency.company_id });
     setSelectedAgency(agency);
     setPop(!pop);
   };

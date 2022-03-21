@@ -4,7 +4,6 @@ import { AgencyContext } from "../../context/AgencyContext";
 import { AuthContext } from "../../context/AuthContext";
 import { APIUrl } from "../../config/config";
 import DataForm from "../DataForm/DataForm";
-import "./EditForm.css";
 
 export default function EditForm() {
   const { selectedAgency } = useContext(AgencyContext);
@@ -14,6 +13,9 @@ export default function EditForm() {
   const updateData = async (state) => {
     console.log("state in editform", state);
     console.log("sel agency in update", selectedAgency);
+
+    let data = {};
+
     if (!userToken) {
       return;
     }

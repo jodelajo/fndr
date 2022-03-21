@@ -12,9 +12,10 @@ export default function AgencyContextProvider({ children }) {
     agencies: [],
     isLoading: true,
     hasMore: true,
-    // selectedAgencyId:
+    selectedAgencyId: "",
   });
 
+  console.log("state in agencycontext", state);
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
       .then((res) => {
@@ -40,6 +41,8 @@ export default function AgencyContextProvider({ children }) {
     cityList,
     setCityList,
     error,
+    state,
+    setState,
   };
   return (
     <AgencyContext.Provider value={data}>{children}</AgencyContext.Provider>

@@ -7,9 +7,11 @@ import SubmitButton from "../SubmitButton/SubmitButton";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import "./DataForm.css";
 
 export default function DataForm({ buttonText, submitData }) {
-  const { selectedAgency, pop, setSelectedAgency } = useContext(AgencyContext);
+  const { selectedAgency, pop, setSelectedAgency, state } =
+    useContext(AgencyContext);
   const [isLoading, setIsLoading] = useState(false);
   const schema = yup.object().shape({
     company_name: yup
@@ -65,6 +67,7 @@ export default function DataForm({ buttonText, submitData }) {
   }, [getValues, isSubmitSuccessful, reset]);
 
   console.log("sel agency in dataform", selectedAgency);
+  console.log("state in dataform", state);
 
   return (
     <div>
