@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect, useCallback, useContext } from "react";
+import { useEffect, useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
@@ -54,7 +54,7 @@ export default function HomePage() {
         });
       }
     },
-    [isLoading, state.hasMore]
+    [isLoading, setState, state.hasMore]
   );
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export default function HomePage() {
         [key]: value,
       });
     },
-    [state, setSearch, search]
+    [setState, state, setSearch, search]
   );
 
   return (

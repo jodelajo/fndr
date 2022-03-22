@@ -3,7 +3,6 @@ import { APIUrl } from "../config/config";
 export const AgencyContext = createContext({});
 
 export default function AgencyContextProvider({ children }) {
-  const [selectedAgency, setSelectedAgency] = useState({});
   const [pop, setPop] = useState(false);
   const [cityList, setCityList] = useState({});
   const [error, setError] = useState(null);
@@ -15,7 +14,14 @@ export default function AgencyContextProvider({ children }) {
     selectedAgencyId: "",
   });
 
+  const selectedAgency = state.agencies.find(
+    (agency) => agency.company_id === state?.selectedAgencyId
+  );
+
   console.log("state in agencycontext", state);
+  console.log("agencies", state.agencies);
+  console.log("selected state agency", selectedAgency);
+
   useEffect(() => {
     fetch(`${APIUrl}/cities`)
       .then((res) => {
@@ -35,7 +41,6 @@ export default function AgencyContextProvider({ children }) {
 
   const data = {
     selectedAgency,
-    setSelectedAgency,
     pop,
     setPop,
     cityList,

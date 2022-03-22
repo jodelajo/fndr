@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AgencyContext } from "../../context/AgencyContext";
 import AgencyLogo from "../AgencyCard/AgencyLogo";
 import CityList from "../CityList/CityList";
+import { APIUrl } from "../../config/config";
 import SizeDropDown from "../SizeDropDown/SizeDropDown";
 import SubmitButton from "../SubmitButton/SubmitButton";
 import { useForm } from "react-hook-form";
@@ -10,8 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import "./DataForm.css";
 
 export default function DataForm({ buttonText, submitData }) {
-  const { selectedAgency, pop, setSelectedAgency, state } =
-    useContext(AgencyContext);
+  const { selectedAgency, pop, state } = useContext(AgencyContext);
   const [isLoading, setIsLoading] = useState(false);
   const schema = yup.object().shape({
     company_name: yup
@@ -39,20 +39,19 @@ export default function DataForm({ buttonText, submitData }) {
     resolver: yupResolver(schema),
 
     defaultValues: {
-      company_name: selectedAgency.company_name,
-      city_name: selectedAgency.city_name,
-      company_size: selectedAgency.company_size,
-      website: selectedAgency.website,
-      logo_image_src: selectedAgency.logo_image_src,
+      company_name: selectedAgency?.company_name,
+      city_name: selectedAgency?.city_name,
+      company_size: selectedAgency?.company_size,
+      website: selectedAgency?.website,
+      logo_image_src: selectedAgency?.logo_image_src,
     },
   });
 
   const onSubmitHandler = async (data) => {
-    // console.log(data);
     setIsLoading(true);
     try {
       await submitData(data);
-      setSelectedAgency({ ...selectedAgency, ...data });
+      // setSelectedAgency({ ...selectedAgency, ...data });
     } catch (error) {
       console.log("submit error", error);
     }
@@ -65,6 +64,18 @@ export default function DataForm({ buttonText, submitData }) {
       reset({ ...getValues() });
     }
   }, [getValues, isSubmitSuccessful, reset]);
+
+  // const agencyHandler = () => {
+  //   fetch(`${APIUrl}/companies/${state.selectedAgencyId}`).then((res) => {
+  //     if (!res.ok) {
+  //       throw Error("Data ophalen is mislukt");
+  //     }
+  //     return res.json().then((data) => {
+  //       console.log("data?", data);
+  //     });
+  //   });
+  // };
+  // agencyHandler();
 
   console.log("sel agency in dataform", selectedAgency);
   console.log("state in dataform", state);
@@ -98,8 +109,6 @@ export default function DataForm({ buttonText, submitData }) {
           <SizeDropDown
             className="dropDown"
             placeholder="Agency size"
-            // onChange={sizeDropdownHandler}
-            // {...register("company_size")}
             required
             register={register}
             name="company_size"
