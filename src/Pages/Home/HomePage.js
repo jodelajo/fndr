@@ -11,14 +11,16 @@ import { isEndOfPage, renameCompSize } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import HeaderHome from "../../components/HeaderHome/HeaderHome";
 
-const LIMIT = 18;
+// const LIMIT = 18;
 
 export default function HomePage() {
-  const { state, setState } = useContext(AgencyContext);
+  const { state, setState, search, setSearch } = useContext(AgencyContext);
   const location = useLocation();
-  const [search, setSearch] = useCustomSearchParams();
-  const { page, agencies, isLoading } = state;
+  // const [search, setSearch] = useCustomSearchParams();
+  const { agencies, isLoading, page } = state;
   const { city, company_size } = search;
+
+  const LIMIT = 18;
 
   const fetchData = useCallback(async () => {
     let params = {
@@ -96,7 +98,7 @@ export default function HomePage() {
       </div>
       <div className="mainWrapper">
         <div className="main-card">
-          {agencies.map((agency) => {
+          {agencies?.map((agency) => {
             return (
               <div key={agency.company_id}>
                 <AgencyCard agency={agency} />
@@ -109,7 +111,7 @@ export default function HomePage() {
             <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
           </div>
         )}
-        {agencies.length === 0 && !isLoading && (
+        {agencies?.length === 0 && !isLoading && (
           <div className="noResult">
             Sorry, <span className="logoSpan">FNDR</span> couldn't find a
             digital agency{" "}

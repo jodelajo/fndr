@@ -3,9 +3,9 @@ import "./AgencyCardInfo";
 
 export default function AgencyCardInfo({ agency }) {
   return (
-    <div className="agency-card-info" key={agency.company_id}>
+    <div className="agency-card-info" key={agency?.company_id}>
       <div className="company-name">
-        <h2>{agency.company_name.replace("&amp;", "&")}</h2>
+        <h2>{agency?.company_name.replace("&amp;", "&")}</h2>
       </div>
       <div className="right-block">
         <div className="company-info">
@@ -14,7 +14,7 @@ export default function AgencyCardInfo({ agency }) {
               <span className="icon-gap">
                 <MdLocationCity />
               </span>
-              {agency.company_size} Employees
+              {agency?.company_size} Employees
             </h5>
           </div>
           <div>
@@ -22,7 +22,7 @@ export default function AgencyCardInfo({ agency }) {
               <span className="icon-gap">
                 <MdLocationOn />
               </span>
-              {agency.city_name}
+              {agency?.city_name}
             </h5>
           </div>
           <div className="www-link">
@@ -30,7 +30,7 @@ export default function AgencyCardInfo({ agency }) {
               <span className="icon-gap">
                 <MdWebAsset />
               </span>
-              <a href={agency.website} target="_blank" rel="noreferrer">
+              <a href={agency?.website} target="_blank" rel="noreferrer">
                 website
               </a>
             </h5>

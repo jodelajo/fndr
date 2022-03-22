@@ -10,8 +10,6 @@ export default function DeleteForm() {
   const [error, setError] = useState(null);
 
   const deleteData = async (state) => {
-    console.log("state in editform", state);
-    console.log("sel agency in update", selectedAgency);
     if (!userToken) {
       return;
     }

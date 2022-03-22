@@ -11,7 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import "./DataForm.css";
 
 export default function DataForm({ buttonText, submitData }) {
-  const { selectedAgency, pop, state } = useContext(AgencyContext);
+  const { selectedAgency, pop, setPop, state, setState, setSelectedAgency } =
+    useContext(AgencyContext);
   const [isLoading, setIsLoading] = useState(false);
   const schema = yup.object().shape({
     company_name: yup
@@ -49,36 +50,27 @@ export default function DataForm({ buttonText, submitData }) {
 
   const onSubmitHandler = async (data) => {
     setIsLoading(true);
+    console.log("data in dataform", data);
     try {
       await submitData(data);
-      // setSelectedAgency({ ...selectedAgency, ...data });
+      setSelectedAgency({ ...selectedAgency, ...data });
     } catch (error) {
       console.log("submit error", error);
     }
     setIsLoading(false);
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({ ...getValues() });
+      setState({ ...state, selectedAgencyId: "" });
+      setPop(false);
     }
-  }, [getValues, isSubmitSuccessful, reset]);
-
-  // const agencyHandler = () => {
-  //   fetch(`${APIUrl}/companies/${state.selectedAgencyId}`).then((res) => {
-  //     if (!res.ok) {
-  //       throw Error("Data ophalen is mislukt");
-  //     }
-  //     return res.json().then((data) => {
-  //       console.log("data?", data);
-  //     });
-  //   });
-  // };
-  // agencyHandler();
+  }, [getValues, isSubmitSuccessful, reset, setPop, setState, state]);
 
   console.log("sel agency in dataform", selectedAgency);
-  console.log("state in dataform", state);
+  // console.log("state in dataform", state);
 
   return (
     <div>

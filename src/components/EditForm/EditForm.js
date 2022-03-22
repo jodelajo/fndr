@@ -6,15 +6,24 @@ import { APIUrl } from "../../config/config";
 import DataForm from "../DataForm/DataForm";
 
 export default function EditForm() {
-  const { selectedAgency } = useContext(AgencyContext);
+  const { selectedAgency, setState, state, fetchData } =
+    useContext(AgencyContext);
   const { userToken, headers } = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [test, settest] = useState();
 
-  const updateData = async (state) => {
-    console.log("state in editform", state);
-    console.log("sel agency in update", selectedAgency);
+  const updateData = async (data) => {
+    // console.log("data in editform", data.company_id);
+    // console.log("sel agency in update", selectedAgency);
+    // console.log("state in editform", state.agencies[0].company_id);
 
-    let data = {};
+    // const agency = state.agencies.find((agency) => {
+    //   return agency.company_id === selectedAgency.company_id;
+    // });
+    // console.log("agency in editform", agency);
+    // console.log("test", test);
+
+    // let data = {};
 
     if (!userToken) {
       return;
@@ -22,13 +31,14 @@ export default function EditForm() {
     try {
       await axios.patch(
         `${APIUrl}/companies/${selectedAgency?.company_id}`,
-        state,
+        data,
         headers
       );
+      // setState(...state);
     } catch (e) {
       if (e.request.status === 400) {
         console.log(e.request.response);
-        const message = JSON.parse(e.request.response).message;
+        const message = JSON.parse(e.request.response).message._schema;
         setError(message);
         throw new Error(message);
       } else {
@@ -38,7 +48,7 @@ export default function EditForm() {
       }
     }
   };
-
+  // console.log("state!!", state);
   return (
     <div>
       <DataForm buttonText="Edit an Agency" submitData={updateData} />
