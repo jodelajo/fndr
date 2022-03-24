@@ -17,47 +17,60 @@ export default function AgencyContextProvider({ children }) {
     hasMore: true,
     selectedAgencyId: "",
   });
-  // const { page } = state;
   const [search, setSearch] = useCustomSearchParams();
-  // const { city, company_size } = search;
+  const { page, agencies, isLoading, hasMore, selectedAgencyId } = state;
 
   useEffect(() => {
-    if (state.selectedAgencyId !== "") {
+    if (selectedAgencyId !== "") {
       setSelectedAgency(
-        state?.agencies?.find(
-          (agency) => agency.company_id === state?.selectedAgencyId
-        )
+        agencies?.find((agency) => agency.company_id === selectedAgencyId)
       );
     }
-  }, [state?.agencies, state.selectedAgencyId]);
+  }, [agencies, selectedAgencyId]);
+  console.log(agencies);
 
   console.log("state in agency context", state);
 
   console.log("sel agency in agencycontext", selectedAgency);
 
-  // const LIMIT = 18;
+  // const newAngenciesArrarHandler = () => {
+  //   if (
+  //     agencies?.find(
+  //       (agency) => agency.company_id === selectedAgency?.company_id
+  //     )
+  //   ) {
+  //     return selectedAgency;
+  //   }
+  // };
 
-  // const fetchData = useCallback(async () => {
-  //   let params = {
-  //     per_page: LIMIT,
-  //     page: page,
-  //     city_like: city || null,
-  //     size: company_size || null,
-  //   };
+  // useEffect(() => {
+  //   // let newAgenciesArray = [...agencies, selectedAgency];
+  //   if (
+  //     agencies?.find((agency) => agency?.company_id === selectedAgencyId) &&
+  //     agencies?.find((agency) => agency !== selectedAgency)
+  //   ) {
+  //     // const vla = newAngenciesArrarHandler();
 
-  //   const response = await axios.get(`${APIUrl}/companies`, {
-  //     params: params,
-  //   });
-
-  //   setState((prevState) => {
-  //     return {
-  //       ...prevState,
-  //       agencies: [...prevState.agencies, ...response.data.items],
-  //       isLoading: false,
-  //       hasMore: response.data._meta.page < response.data._meta.total_pages,
-  //     };
-  //   });
-  // }, [page, city, company_size, setState]);
+  //     // let newAgenciesArray = [vla];
+  //     // console.log("newAGENCYarray", newAgenciesArray);
+  //     console.log("wel");
+  //     // setState((prevState) => {
+  //     //   return {
+  //     //     ...prevState,
+  //     //     agencies: [...agencies, selectedAgency && selectedAgency],
+  //     //     selectedAgencyId: "",
+  //     //   };
+  //     // });
+  //   } else {
+  //     console.log("niet");
+  //   }
+  // }, [
+  //   agencies,
+  //   selectedAgency,
+  //   selectedAgency.company_id,
+  //   selectedAgencyId,
+  //   state,
+  // ]);
 
   useEffect(() => {
     fetch(`${APIUrl}/cities`)

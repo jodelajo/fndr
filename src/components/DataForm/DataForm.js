@@ -53,18 +53,18 @@ export default function DataForm({ buttonText, submitData }) {
     console.log("data in dataform", data);
     try {
       await submitData(data);
-      setSelectedAgency({ ...selectedAgency, ...data });
+      // setSelectedAgency({ ...selectedAgency, ...data });
     } catch (error) {
       console.log("submit error", error);
     }
     setIsLoading(false);
-    // window.location.reload(false);
+    window.location.reload(false);
   };
 
   useEffect(() => {
     if (isSubmitSuccessful) {
       reset({ ...getValues() });
-      setState({ ...state, selectedAgencyId: "" });
+      // setState({ ...state });
       setPop(false);
     }
   }, [getValues, isSubmitSuccessful, reset, setPop, setState, state]);

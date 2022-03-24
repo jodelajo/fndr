@@ -6,21 +6,17 @@ import axios from "axios";
 import { AgencyContext } from "../../context/AgencyContext";
 import "../Home/HomePage.css";
 import AgencyCard from "../../components/AgencyCard/AgencyCard";
-import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 import { isEndOfPage, renameCompSize } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
 import HeaderHome from "../../components/HeaderHome/HeaderHome";
 
-// const LIMIT = 18;
+const LIMIT = 18;
 
 export default function HomePage() {
   const { state, setState, search, setSearch } = useContext(AgencyContext);
   const location = useLocation();
-  // const [search, setSearch] = useCustomSearchParams();
   const { agencies, isLoading, page } = state;
   const { city, company_size } = search;
-
-  const LIMIT = 18;
 
   const fetchData = useCallback(async () => {
     let params = {
@@ -35,11 +31,13 @@ export default function HomePage() {
     });
 
     setState((prevState) => {
+      console.log("prevState", prevState);
       return {
         ...prevState,
         agencies: [...prevState.agencies, ...response.data.items],
         isLoading: false,
         hasMore: response.data._meta.page < response.data._meta.total_pages,
+        selectedAgencyId: "",
       };
     });
   }, [page, city, company_size, setState]);
@@ -100,7 +98,7 @@ export default function HomePage() {
         <div className="main-card">
           {agencies?.map((agency) => {
             return (
-              <div key={agency.company_id}>
+              <div key={agency?.company_id}>
                 <AgencyCard agency={agency} />
               </div>
             );

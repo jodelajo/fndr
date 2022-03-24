@@ -6,25 +6,13 @@ import { APIUrl } from "../../config/config";
 import DataForm from "../DataForm/DataForm";
 
 export default function EditForm() {
-  const { selectedAgency, setState, state, fetchData } =
+  const { selectedAgency, setState, state, fetchData, setSelectedAgency } =
     useContext(AgencyContext);
   const { userToken, headers } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [test, settest] = useState();
 
   const updateData = async (data) => {
-    // console.log("data in editform", data.company_id);
-    // console.log("sel agency in update", selectedAgency);
-    // console.log("state in editform", state.agencies[0].company_id);
-
-    // const agency = state.agencies.find((agency) => {
-    //   return agency.company_id === selectedAgency.company_id;
-    // });
-    // console.log("agency in editform", agency);
-    // console.log("test", test);
-
-    // let data = {};
-
     if (!userToken) {
       return;
     }
@@ -34,9 +22,10 @@ export default function EditForm() {
         data,
         headers
       );
-      // setState(...state);
+      setSelectedAgency(data);
+      // setState(...state, data);
     } catch (e) {
-      if (e.request.status === 400) {
+      if (e.request.status === 401) {
         console.log(e.request.response);
         const message = JSON.parse(e.request.response).message._schema;
         setError(message);
@@ -48,6 +37,7 @@ export default function EditForm() {
       }
     }
   };
+  console.log("sel agency in editform", selectedAgency);
   // console.log("state!!", state);
   return (
     <div>
