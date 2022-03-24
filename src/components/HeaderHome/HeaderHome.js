@@ -2,9 +2,9 @@ import Navbar from "../Navbar/Navbar";
 import Filter from "../Filter/Filter";
 import Logo from "../Logo/Logo";
 import HelmetSwitch from "../HelmetSwitch/HelmetSwitch";
-import "./Header.css";
+import "./HeaderHome.css";
 
-export default function Header({
+export default function HeaderHome({
   updateQuery,
   city,
   setSearch,

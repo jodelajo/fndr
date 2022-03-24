@@ -10,7 +10,11 @@ export default function Filter({ updateQuery, city, company_size, setSearch }) {
         city={city}
         setSearch={setSearch}
       />
-      <SizeFilter updateQuery={updateQuery} company_size={company_size} />
+      <SizeFilter
+        updateQuery={updateQuery}
+        company_size={company_size}
+        className="compSize"
+      />
     </div>
   );
 }

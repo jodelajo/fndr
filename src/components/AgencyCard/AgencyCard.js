@@ -6,12 +6,13 @@ import "./AgencyCard.css";
 import AgencyCardInfo from "./AgencyCardInfo";
 
 export default function AgencyCard({ agency }) {
-  const { setSelectedAgency, pop, setPop } = useContext(AgencyContext);
+  const { pop, setPop, setState, state } = useContext(AgencyContext);
 
   const agencyHandler = () => {
-    setSelectedAgency(agency);
+    setState({ ...state, selectedAgencyId: agency.company_id });
     setPop(!pop);
   };
+
   return (
     <div className="main-agencies">
       {agency && (
@@ -21,13 +22,15 @@ export default function AgencyCard({ agency }) {
           }
           onClick={agencyHandler}
         >
-          <div className="company-logo">
-            <AgencyLogo agency={agency} />
-          </div>
+          {agency.logo_image_src && (
+            <div className="company-logo">
+              <AgencyLogo agency={agency} />
+            </div>
+          )}
           <AgencyCardInfo agency={agency} />
         </div>
       )}
-      {pop && <PopUp setSelectedAgency={setSelectedAgency} />}
+      {pop && <PopUp />}
     </div>
   );
 }

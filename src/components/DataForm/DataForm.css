@@ -1,0 +1,24 @@
+.edit-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.edit-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  row-gap: 6px;
+}
+.edit-form input,
+button {
+  height: 35px;
+  padding-left: 4px;
+}
+
+@media (min-width: 767px) {
+  .edit-form-wrapper {
+    margin-top: -20px;
+  }
+}

@@ -1,33 +1,13 @@
-import React, { useEffect, useState, useMemo } from "react";
-import { convertLocationObjectToArray } from "../../utils/dataTransformations";
+import React, { useState, useMemo, useContext } from "react";
 import "./LocationSearch.css";
-import { APIUrl } from "../../config/config";
 import debounce from "lodash.debounce";
 import ResetButton from "../ResetButton/ResetButton";
+import CityList from "../CityList/CityList";
+import { AgencyContext } from "../../context/AgencyContext";
 
 export default function LocationSearch({ updateQuery, setSearch, city }) {
-  const [locations, setLocations] = useState({});
-  const [error, setError] = useState(null);
+  const { cityList, error } = useContext(AgencyContext);
   const [inputValue, setInputValue] = useState(city ? `${city}` : "");
-
-  useEffect(() => {
-    fetch(`${APIUrl}/cities`)
-      .then((res) => {
-        if (!res.ok) {
-          throw Error("Data ophalen is mislukt");
-        }
-        return res.json();
-      })
-      .then((data) => {
-        setLocations(data);
-        setError(null);
-      })
-      .catch((err) => {
-        setError(err.message);
-      });
-  }, []);
-
-  const locationsArray = convertLocationObjectToArray(locations);
 
   const debouncedUpdateQuery = useMemo(
     () => debounce(updateQuery, 1200),
@@ -66,20 +46,7 @@ export default function LocationSearch({ updateQuery, setSearch, city }) {
           className="inputField"
           value={inputValue}
         />
-        {locations && (
-          <datalist id="places">
-            {locationsArray &&
-              locationsArray.map((loc) => {
-                const cityName = Object.values(loc)[0];
-                const agencyCount = Object.values(loc)[0];
-                return (
-                  <option key={cityName[0]} value={cityName[0]}>
-                    {cityName[0]} - {agencyCount[1]}
-                  </option>
-                );
-              })}
-          </datalist>
-        )}
+        {cityList && <CityList />}
         <ResetButton resetInputField={resetInputField} />
         {error && <div>{error}</div>}
       </form>

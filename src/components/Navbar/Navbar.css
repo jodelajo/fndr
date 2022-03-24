@@ -24,14 +24,14 @@
 }
 .welcome {
   font-weight: bold;
-  color: hotpink;
+  color: var(--colors-logo);
 }
 
 /* DESKTOP STYLES */
 @media (min-width: 767px) {
   .links {
     justify-content: flex-end;
-    margin-bottom: 0;
+    margin-bottom: 20px;
   }
   .active,
   .login {

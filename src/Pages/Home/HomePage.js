@@ -1,29 +1,23 @@
 import React from "react";
-import { useState, useEffect, useCallback } from "react";
+import { useEffect, useCallback, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
 import axios from "axios";
+import { AgencyContext } from "../../context/AgencyContext";
 import "../Home/HomePage.css";
 import AgencyCard from "../../components/AgencyCard/AgencyCard";
-import useCustomSearchParams from "../../hooks/useCustomSearchParams";
 import { isEndOfPage, renameCompSize } from "../../utils/dataTransformations";
 import { APIUrl } from "../../config/config";
-import Header from "../../components/Header/Header";
+import HeaderHome from "../../components/HeaderHome/HeaderHome";
 
 const LIMIT = 18;
 
 export default function HomePage() {
+  const { state, setState, search, setSearch } = useContext(AgencyContext);
   const location = useLocation();
-  const [search, setSearch] = useCustomSearchParams();
-  const [state, setState] = useState({
-    page: 1,
-    agencies: [],
-    isLoading: true,
-    hasMore: true,
-  });
-
-  const { page, agencies, isLoading } = state;
+  const { agencies, isLoading, page } = state;
   const { city, company_size } = search;
+
   const fetchData = useCallback(async () => {
     let params = {
       per_page: LIMIT,
@@ -37,14 +31,16 @@ export default function HomePage() {
     });
 
     setState((prevState) => {
+      console.log("prevState", prevState);
       return {
         ...prevState,
         agencies: [...prevState.agencies, ...response.data.items],
         isLoading: false,
         hasMore: response.data._meta.page < response.data._meta.total_pages,
+        selectedAgencyId: "",
       };
     });
-  }, [page, city, company_size]);
+  }, [page, city, company_size, setState]);
 
   const handleScroll = useCallback(
     (e) => {
@@ -58,7 +54,7 @@ export default function HomePage() {
         });
       }
     },
-    [isLoading, state.hasMore]
+    [isLoading, setState, state.hasMore]
   );
 
   useEffect(() => {
@@ -83,13 +79,13 @@ export default function HomePage() {
         [key]: value,
       });
     },
-    [state, setSearch, search]
+    [setState, state, setSearch, search]
   );
 
   return (
     <div className="general">
       <div className="header">
-        <Header
+        <HeaderHome
           updateQuery={updateQuery}
           city_name={city}
           setSearch={setSearch}
@@ -100,9 +96,9 @@ export default function HomePage() {
       </div>
       <div className="mainWrapper">
         <div className="main-card">
-          {agencies.map((agency) => {
+          {agencies?.map((agency) => {
             return (
-              <div key={agency.company_id}>
+              <div key={agency?.company_id}>
                 <AgencyCard agency={agency} />
               </div>
             );
@@ -113,7 +109,7 @@ export default function HomePage() {
             <Oval color="#00BFFF" height={60} width={60} ariaLabel="loading" />
           </div>
         )}
-        {agencies.length === 0 && !isLoading && (
+        {agencies?.length === 0 && !isLoading && (
           <div className="noResult">
             Sorry, <span className="logoSpan">FNDR</span> couldn't find a
             digital agency{" "}

@@ -1,0 +1,11 @@
+.add-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  row-gap: 6px;
+}
+.add-form input {
+  height: 35px;
+  padding-left: 4px;
+}
